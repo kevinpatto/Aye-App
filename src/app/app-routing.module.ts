@@ -1,9 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {GoblinDatingSimulatorComponent} from "./goblin-dating-simulator/goblin-dating-simulator.component";
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import {AyesAndBaesComponent} from "./ayes-and-baes/ayes-and-baes.component";
+import {PoopDiariesComponent} from "./poop-diaries/poop-diaries.component";
+import {BerglerComponent} from "./bergler/bergler.component";
 
 const routes: Routes = [
-  { path: 'Goblin-Dating-Simulator', component: GoblinDatingSimulatorComponent}
+  { path: 'Goblin-Dating-Simulator',
+    component: GoblinDatingSimulatorComponent
+  },
+  { path: 'Ayes-And-Baes',
+    component: AyesAndBaesComponent
+  },
+  { path: 'Poop-Diaries',
+    component: PoopDiariesComponent
+  },
+  { path: 'Bergler',
+    component: BerglerComponent
+  }
 ];
 
 @NgModule({

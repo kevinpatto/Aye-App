@@ -1,6 +1,42 @@
+<!--<button routerLink="/Goblin-Dating-Simulator">-->
+<!-- GOBLIN DATING SIMULATOR-->
+<!--</button>-->
 
-<button routerLink="/Goblin-Dating-Simulator">
- GOBLIN DATING SIMULATOR
-</button>
+<!--<router-outlet></router-outlet>-->
 
-<router-outlet></router-outlet>
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="example-toolbar">
+    <button mat-icon-button (click)="snav.toggle();"><mat-icon>menu</mat-icon></button>
+
+    <h1 class="example-app-name"><a routerLink="/"><img src="assets/logos/AyeApp-logo.PNG" height="60px" width="150px"></a></h1>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="example-sidenav-container"
+                         [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'over'"
+                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <mat-nav-list>
+        <br>
+        <a mat-list-item routerLink="/Goblin-Dating-Simulator" (click)="snav.toggle()"><img src="assets/walter.PNG" height="75px" width="80px"><b>Goblin Dating Sim</b></a>
+        <br><br>
+        <a mat-list-item routerLink="/Bergler"  (click)="snav.toggle()"><img src="assets/jesse.PNG" height="75px" width="80px"><b>Bergler</b></a>
+        <br><br>
+        <a mat-list-item routerLink="/Poop-Diaries"  (click)="snav.toggle()"><img src="assets/skyler.PNG" height="75px" width="80px"><b>Poop Diaries</b></a>
+        <br><br>
+        <a mat-list-item routerLink="/Ayes-And-Baes" (click)="snav.toggle()"><img src="assets/gus.PNG" height="75px" width="80px"><b>Aye's and Bae's</b></a>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+<!--      the--><router-outlet></router-outlet>
+
+<!--      <a mat-list-item routerLink="/Goblin-Dating-Simulator"> Home</a>-->
+<!--      <a mat-list-item routerLink="/Goblin-Dating-Simulator"> Goblin Dating Sim</a>-->
+
+      <!--      <p *ngFor="let content of fillerContent">{{content}}</p>-->
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  Ver 0.05.0
+</div>
+
+<!--<div *ngIf="!shouldRun">Please open on Stackblitz to see result</div>-->
