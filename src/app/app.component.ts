@@ -9,7 +9,6 @@ import {ChangeDetectorRef, OnDestroy} from '@angular/core';
 })
 export class AppComponent implements OnDestroy {
   mobileQuery: MediaQueryList;
-  public isMenuCollapsed = false;
 
   private readonly _mobileQueryListener: () => void;
 
