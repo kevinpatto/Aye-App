@@ -16,6 +16,8 @@ import { BerglerComponent } from './bergler/bergler.component';
 // import { PokemonTwilightComponent } from './pokemon-twilight/pokemon-twilight.component';
 import { HomeComponent } from './home/home.component';
 import { PokayemonComponent } from './pokayemon/pokayemon.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { PokayemonComponent } from './pokayemon/pokayemon.component';
     MatSidenavModule,
     MatListModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

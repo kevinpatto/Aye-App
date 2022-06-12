@@ -1,12 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { MainClient } from 'pokenode-ts';
+import { HttpHeaders } from '@angular/common/http';
+import * as http from "http";
+import {PokemonService} from "../pokemon.service";
+import {Pokemon} from "../pokemon";
+import {Observable} from "rxjs";
+
 // import {randomInt} from "crypto";
 // (async () => {
 //   const api = new MainClient();
 //
 //   await api.pokemon
-//     .getPokemonByName('luxray')
-//     .then((data) => console.log(data.sprites)) // will output "Luxray"
+//     .getPokemonByName('25')
+//     .then((data) => console.log(data.name)) // will output "Luxray"
 //     .catch((error) => console.error(error));
 // })();
 @Component({
@@ -15,6 +21,7 @@ import { MainClient } from 'pokenode-ts';
   styleUrls: ['./pokayemon.component.scss']
 })
 export class PokayemonComponent implements OnInit {
+
 
 
   public randomPokemonNumber = 0;
@@ -27,15 +34,17 @@ export class PokayemonComponent implements OnInit {
   public tmrwDate = new Date();
   public tmrwDateAsInt = 0;
 
+  public foundPokemonName =  'test';
 
   public pokemonSpriteURL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
 
-  constructor() { }
+  constructor(
+    private pokemonService: PokemonService
+  ) { }
 
   // TODO Make it not favor numbers between 400-600.
 
   ngOnInit(): void {
-
     // console.log(this.todayDate.getDate());
     this.todayDate.setHours(0,0,0,0);
     this.todayDateAsInt = Number(this.todayDate) * 100000000000000;
@@ -68,9 +77,21 @@ export class PokayemonComponent implements OnInit {
 
     this.pokemonSpriteURL = this.pokemonSpriteURL + this.randomPokemonNumber + ".png"
 
+
+  this.pokemonService.getPokemonFromNum(this.randomPokemonNumber).subscribe(data => {
+    this.foundPokemonName = data.name;
+  })
+    // this.getPokemonFromNum(this.randomPokemonNumber);
+    // console.log(this.foundPokemonName);
   }
 
-  set setRandomPokemonNumber(value: number) {
-    this.randomPokemonNumber = value;
-  };
+  // set setRandomPokemonNumber(value: number) {
+  //   this.randomPokemonNumber = value;
+  // };
+
+  // async getPokemonFromNum(num: number) {
+  //   this.foundPokemonName = this.pokemonService.getPokemonFromNum(num);
+  //   // return this.foundPokemonName;
+  // }
+
 }

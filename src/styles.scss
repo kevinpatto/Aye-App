@@ -2,3 +2,14 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+//@font-face {
+//  font-family: "Pokemon-Hollow";
+//  src: local("Pokemon1"), url("./assets/fonts/Pokemon Hollow.ttf") format("truetype");
+//}
+
+@font-face {
+  font-family: "Pokemon";
+  src: local("Pokemon2"), url("./assets/fonts/Pokemon Solid.ttf") format("truetype");
+}
