@@ -5,8 +5,8 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {AyesAndBaesComponent} from "./ayes-and-baes/ayes-and-baes.component";
 import {PoopDiariesComponent} from "./poop-diaries/poop-diaries.component";
 import {BerglerComponent} from "./bergler/bergler.component";
-import {PokemonTwilightComponent} from "./pokemon-twilight/pokemon-twilight.component";
 import {HomeComponent} from "./home/home.component";
+import {PokayemonComponent} from "./pokayemon/pokayemon.component";
 
 const routes: Routes = [
 
@@ -22,8 +22,8 @@ const routes: Routes = [
   { path: 'Bergler',
     component: BerglerComponent
   },
-  { path: 'Pokemon-Twilight',
-    component: PokemonTwilightComponent
+  { path: 'Pokayemon',
+    component: PokayemonComponent
   },
   { path: '',
     component: HomeComponent

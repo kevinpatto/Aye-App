@@ -13,8 +13,9 @@ import {MatButtonModule} from "@angular/material/button";
 import { AyesAndBaesComponent } from './ayes-and-baes/ayes-and-baes.component';
 import { PoopDiariesComponent } from './poop-diaries/poop-diaries.component';
 import { BerglerComponent } from './bergler/bergler.component';
-import { PokemonTwilightComponent } from './pokemon-twilight/pokemon-twilight.component';
+// import { PokemonTwilightComponent } from './pokemon-twilight/pokemon-twilight.component';
 import { HomeComponent } from './home/home.component';
+import { PokayemonComponent } from './pokayemon/pokayemon.component';
 
 @NgModule({
   declarations: [
@@ -23,8 +24,9 @@ import { HomeComponent } from './home/home.component';
     AyesAndBaesComponent,
     PoopDiariesComponent,
     BerglerComponent,
-    PokemonTwilightComponent,
-    HomeComponent
+    // PokemonTwilightComponent,
+    HomeComponent,
+    PokayemonComponent
   ],
   imports: [
     BrowserModule,
