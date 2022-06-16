@@ -50,9 +50,9 @@ export class PokayemonComponent implements OnInit {
     this.todayDateAsInt = Number(this.todayDate) * 100000000000000;
 
     // console.log("todaydateasint is " + this.todayDateAsInt);
-    // this.tmrwDate.setHours(0,0,0,0);
-    // this.tmrwDate.setDate(this.tmrwDate.getDate() + 1);
-    // this.tmrwDateAsInt = Number(this.tmrwDate) * 1000000000000000;
+    this.tmrwDate.setHours(0,0,0,0);
+    this.tmrwDate.setDate(this.tmrwDate.getDate() + 1);
+    this.tmrwDateAsInt = Number(this.tmrwDate) * 1000000000000000;
     // console.log("tMRWdateasint is " + this.tmrwDateAsInt);
 
     this.randomPokemonNumber = (this.todayDateAsInt);
@@ -64,16 +64,16 @@ export class PokayemonComponent implements OnInit {
       this.randomPokemonNumber = this.randomPokemonNumber / 2
     }
 
-    // while (this.randomPokemonNumber2 > 898) {
-    //   console.log(this.randomPokemonNumber2);
+    while (this.randomPokemonNumber2 > 898) {
+      console.log(this.randomPokemonNumber2);
       this.randomPokemonNumber2 = this.randomPokemonNumber2 / 2
-    // }
+    }
 
     this.randomPokemonNumber = Math.floor(this.randomPokemonNumber);
-    // this.randomPokemonNumber2 = Math.floor(this.randomPokemonNumber2);
+    this.randomPokemonNumber2 = Math.floor(this.randomPokemonNumber2);
 
-    // console.log(Math.floor(this.randomPokemonNumber));
-    // console.log(Math.floor(this.randomPokemonNumber2));
+    console.log(Math.floor(this.randomPokemonNumber));
+    console.log(Math.floor(this.randomPokemonNumber2));
 
     this.pokemonSpriteURL = this.pokemonSpriteURL + this.randomPokemonNumber + ".png"
 

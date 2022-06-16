@@ -17,6 +17,9 @@ import { BerglerComponent } from './bergler/bergler.component';
 import { HomeComponent } from './home/home.component';
 import { PokayemonComponent } from './pokayemon/pokayemon.component';
 import { HttpClientModule } from '@angular/common/http';
+import {MatCardModule} from "@angular/material/card";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
 
 
 @NgModule({
@@ -39,7 +42,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatListModule,
     MatIconModule,
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
