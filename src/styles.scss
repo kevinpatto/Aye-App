@@ -13,3 +13,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   font-family: "Pokemon";
   src: local("Pokemon2"), url("./assets/fonts/Pokemon Solid.ttf") format("truetype");
 }
+
+.mat-list-base .mat-list-item .mat-list-item-content, .mat-list-base .mat-list-option .mat-list-item-content {
+  padding-left: 0;
+  padding-right: 0;
+}
