@@ -7,9 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PoopDiariesComponent implements OnInit {
 
+  public likeCount = 0;
+  public dislikeCount = 0;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+
+
+  addLike() {
+    this.likeCount = this.likeCount + 1;
+  }
+
+  addDislike() {
+    this.dislikeCount = this.dislikeCount + 1;
   }
 
 }

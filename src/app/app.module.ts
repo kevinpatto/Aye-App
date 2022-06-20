@@ -20,6 +20,9 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
+import {StarRatingModule} from "angular-star-rating";
+import { PoopFormComponent } from './poop-form/poop-form.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 
 @NgModule({
@@ -31,7 +34,8 @@ import {MatInputModule} from "@angular/material/input";
     BerglerComponent,
     // PokemonTwilightComponent,
     HomeComponent,
-    PokayemonComponent
+    PokayemonComponent,
+    PoopFormComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +49,9 @@ import {MatInputModule} from "@angular/material/input";
     HttpClientModule,
     MatCardModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    StarRatingModule.forRoot(),
+    MatProgressSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

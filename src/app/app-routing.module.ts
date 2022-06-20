@@ -7,6 +7,7 @@ import {PoopDiariesComponent} from "./poop-diaries/poop-diaries.component";
 import {BerglerComponent} from "./bergler/bergler.component";
 import {HomeComponent} from "./home/home.component";
 import {PokayemonComponent} from "./pokayemon/pokayemon.component";
+import {PoopFormComponent} from "./poop-form/poop-form.component";
 
 const routes: Routes = [
 
@@ -24,6 +25,9 @@ const routes: Routes = [
   },
   { path: 'Pokayemon',
     component: PokayemonComponent
+  },
+  { path: 'Poop-Form',
+    component: PoopFormComponent
   },
   { path: '',
     component: HomeComponent

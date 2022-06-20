@@ -1,8 +1,3 @@
-<!--<button routerLink="/Goblin-Dating-Simulator">-->
-<!-- GOBLIN DATING SIMULATOR-->
-<!--</button>-->
-
-<!--<router-outlet></router-outlet>-->
 
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
   <mat-toolbar color="primary" class="example-toolbar">
@@ -17,7 +12,7 @@
                  [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <mat-nav-list>
         <br>
-        <a mat-list-item routerLink="/Poop-Diaries"  (click)="snav.toggle()"><img src="assets/skyler.PNG" height="75px" width="75px" style="margin-right: 5px;  border-radius: 50%;"><b>Poop Diaries</b></a>
+        <a mat-list-item routerLink="/Poop-Diaries"  (click)="snav.toggle()"><img src="assets/skyler.PNG" height="75px" width="75px" style="margin-right: 5px;  border-radius: 50%;"><b>Poop Diaries</b> <button mat-button mat-small style="background-color: #3366ff; margin-left: 15px; padding-bottom: 3px; min-width: 40px; font-size: 10px; line-height: normal; color: white"><b>NEW</b></button></a>
         <br><br>
         <a mat-list-item routerLink="/Pokayemon" (click)="snav.toggle()"><img src="assets/chuck.PNG" height="75px" width="75px" style="margin-right: 5px; border-radius: 50%;"><b>Pokayemon</b></a>
         <br><br>
@@ -37,10 +32,12 @@
 
       <!--      <p *ngFor="let content of fillerContent">{{content}}</p>-->
     </mat-sidenav-content>
+
   </mat-sidenav-container>
+
   <div class="footer">
     <span style="float: left;">𝐆𝐨𝐧𝐚𝐡 𝐒𝐨𝐟𝐭𝐰𝐚𝐫𝐞 </span>
-    <span style="float: right; font-weight: lighter">v0.09.2</span>
+    <span style="float: right; font-weight: lighter">v0.10.0</span>
   </div>
 </div>
 
