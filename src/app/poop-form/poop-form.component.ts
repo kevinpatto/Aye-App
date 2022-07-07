@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
+import {HttpClient, HttpRequest} from "@angular/common/http";
+
 
 @Component({
   selector: 'app-poop-form',
@@ -12,6 +14,7 @@ export class PoopFormComponent implements OnInit {
   buttonText = ''
   constructor(
     private router: Router,
+    private http: HttpClient
   ) {
     this.buttonText = 'Submit';
   }
@@ -21,16 +24,20 @@ export class PoopFormComponent implements OnInit {
 
 
   submit(): void {
-    this.loading = true;
-    this.buttonText = 'Submitting...';
-
-    setTimeout(() =>
-      { this.loading = false;
-        this.buttonText= "Submitted! Rerouting..."
-      }, 2000)
-    setTimeout(() =>
-    { this.router.navigate(['/Poop-Diaries'])
-    }, 2750)
+    const headers = { 'Authorization': 'Bearer my-token', 'Access-Control-Allow-Origin': '*' }
+    this.http.get<any>('http://15.222.93.249:3000/catalog/users', {headers}).subscribe(data => {
+    console.log(data);
+  });
+    // this.loading = true;
+    // this.buttonText = 'Submitting...';
+    //
+    // setTimeout(() =>
+    //   { this.loading = false;
+    //     this.buttonText= "Submitted! Rerouting..."
+    //   }, 2000)
+    // setTimeout(() =>
+    // { this.router.navigate(['/Poop-Diaries'])
+    // }, 2750)
   }
 
 
