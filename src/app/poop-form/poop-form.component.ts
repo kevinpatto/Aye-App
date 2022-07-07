@@ -25,7 +25,7 @@ export class PoopFormComponent implements OnInit {
 
   submit(): void {
     const headers = { 'Authorization': 'Bearer my-token', 'Access-Control-Allow-Origin': '*' }
-    this.http.get<any>('https://jonahtoch.com:3000/catalog/users/', {headers}).subscribe(data => {
+    this.http.get<any>('https://jonahtoch.com/catalog/users/', {headers}).subscribe(data => {
     console.log(data);
   });
     // this.loading = true;

@@ -29,9 +29,9 @@ const routes: Routes = [
   { path: 'Poop-Form',
     component: PoopFormComponent
   },
-  { path: '',
-    component: HomeComponent
-  },
+  // { path: '',
+  //   component: HomeComponent
+  // },
 ];
 
 @NgModule({
