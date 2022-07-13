@@ -1,33 +1,33 @@
 
-<!--<br>-->
+<br>
 
 
-<!--<br><br>-->
-<!--<div style="display: flex; justify-content: center">-->
-<!--  <p style="font-size: 52px">POOP<br><br><br> DIARIES</p>-->
-<!--</div>-->
-<!--<br><br><br>-->
+<br><br>
+<div style="display: flex; justify-content: center">
+  <p style="font-size: 52px">POOP<br><br><br> DIARIES</p>
+</div>
+<br><br><br>
 
-<!--<div style="display: flex; justify-content: center">-->
-<!--<img src="https://cdn.wimpykidwiki.com/b/bb/Did_you_poop.jpg" width="90%;" style="max-width: 1000px;">-->
-<!--</div>-->
+<div style="display: flex; justify-content: center">
+<img src="https://cdn.wimpykidwiki.com/b/bb/Did_you_poop.jpg" width="90%;" style="max-width: 1000px;">
+</div>
 
-<!--<br><br><br>-->
+<br><br><br>
 
-<!--<div style="display: flex; justify-content: center">-->
-
-
-
-<!--  <br><br><br>-->
-<!--  <button mat-raised-button routerLink="/Poop-Form"  style="font-family: Serif; background-color: #a58570; height: 110px; width: 300px;font-size: 26px; "><b>Submit your own poop</b></button>-->
+<div style="display: flex; justify-content: center">
 
 
-<!--</div>-->
-<!--<br><br><br>-->
+
+  <br><br><br>
+  <button mat-raised-button routerLink="/Poop-Form"  style="font-family: Serif; background-color: #a58570; height: 110px; width: 300px;font-size: 26px; "><b>Submit your own poop</b></button>
 
 
-<!--<hr>-->
-<!--<br><br><br><br>-->
+</div>
+<br><br><br>
+
+
+<hr>
+<br><br><br><br>
 
 <div style="display: flex; justify-content: center">
 
@@ -36,28 +36,25 @@
 
 <br><br><br>
 
-<ng-container *ngFor="let poops of poopArray">
- The poops are  {{poops}}
-</ng-container>
-
+<ng-container *ngFor="let poo of poops$ | async">
 
 <div style="display: flex; justify-content: center">
 <mat-card class="example-card">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>Jonah Toch</mat-card-title>
+    <mat-card-title>{{poo.name}}</mat-card-title>
     <mat-card-subtitle>PoopButt</mat-card-subtitle>
   </mat-card-header>
   <img mat-card-image src="https://i.ytimg.com/vi/fxE-FCxnRA0/maxresdefault.jpg" alt="Photo of a Shiba Inu">
   <mat-card-content>
     <div style="display: flex;justify-content: center; align-items: center;">
 
-    <star-rating [starType]="'svg'" [rating]="4" [size]="$any('large')" speed="slow" readOnly="true"></star-rating>
+    <star-rating [starType]="'svg'" [rating]="poo.rating" [size]="$any('large')" speed="slow" readOnly="true"></star-rating>
 </div>
     <div style="display: flex;justify-content: center; align-items: center;">
 <br>
       <p>
-"My poop was good."
+"{{poo.description}}"
     </p>
     </div>
   </mat-card-content>
@@ -98,4 +95,7 @@
   </mat-card-actions>
 </mat-card>
 </div>
+  <br><br>
+</ng-container>
+
 <br><br><br>

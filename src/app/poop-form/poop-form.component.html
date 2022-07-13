@@ -12,38 +12,35 @@
 
 <div>
 
-
-  <form style="width: 100%">
-    <star-rating [starType]="'svg'" [size]="$any('large')" speed="slow"></star-rating>
+  <form style="width: 100%"  (ngSubmit)="onSubmit()" [formGroup]="formData">
+<!--    <star-rating formControlName="rating"  id="rating" required [starType]="'svg'" [size]="$any('large')" speed="slow"></star-rating>-->
     <br><br>
     <mat-form-field style="width: 100%;">
       <mat-label>Your name</mat-label>
-      <input matInput>
+      <input matInput id="name" formControlName="name">
     </mat-form-field>
     <br>
     <mat-form-field style="width: 100%;">
       <mat-label>Description of how your poop went</mat-label>
-      <textarea matInput  rows="6" ></textarea>
+      <textarea matInput  rows="6" id="description" formControlName="description"></textarea>
     </mat-form-field>
-
-
 
     <!--      <mat-form-field style="width: 90%;">-->
     <!--        <mat-label>Leave a comment</mat-label>-->
     <!--        <button mat-raised-button (click)="addDislike()" style="font-family: Serif; background-color: #f88474;width: 30%"><b>DISLIKE    <span style="margin-left: 8px;"><u>[{{this.dislikeCount}}]</u></span></b></button>-->
 
     <!--      </mat-form-field>-->
+    <div style="display: flex;justify-content: right; align-items: center;">
+
+      <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+
+
+      <button mat-raised-button [class.spinner]="loading" [disabled]="loading" type="submit"   style="font-family: Serif; background-color: #3366ff;width: 80%; margin-right: 10%; font-size: 18px; color: white"><b>{{this.buttonText}}</b></button>
+    </div>
   </form>
 
 </div>
 <br>
-<div style="display: flex;justify-content: right; align-items: center;">
-
-  <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-
-
-  <button mat-raised-button [class.spinner]="loading" [disabled]="loading" (click)="submit()"   style="font-family: Serif; background-color: #3366ff;width: 80%; margin-right: 10%; font-size: 18px; color: white"><b>{{this.buttonText}}</b></button>
-</div>
 
   <br><br>
 </mat-card>

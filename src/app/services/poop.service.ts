@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Poop} from "../models/poop";
+import {catchError, Observable, of, tap, map} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -13,14 +14,47 @@ export class PoopService {
     private http: HttpClient,
   ) { }
 
-getPoops(): Poop[] {
-  const headers = {'Access-Control-Allow-Origin': '*'}
-  this.http.get<any>('https://jonahtoch.com/catalog/poop/list-all', {headers}).subscribe(
-    data => {
-      this.poopArray.push(data);
-    }
-  )
-  return this.poopArray;
+  /**
+   * Handle Http operation that failed.
+   * Let the app continue.
+   *
+   * @param operation - name of the operation that failed
+   * @param result - optional value to return as the observable result
+   */
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // TODO: better job of transforming error for user consumption
+      // this.log(`${operation} failed: ${error.message}`);
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
+
+
+getPoops(): Observable<Poop[]> {
+  const httpOptions = {
+    headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+  };
+  return this.http.get<Poop[]>('https://jonahtoch.com/catalog/poop/list-all', httpOptions)
+    .pipe(
+      catchError(this.handleError<Poop[]>('getPoops', []))
+    );
+}
+
+addPoops(name: string, description: string, rating: number): void {
+  const body = {name: name, description: description, rating: rating};
+  console.log(body);
+  const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+};
+  this.http.post<any>('https://jonahtoch.com/catalog/poop/create', body, httpOptions).subscribe(
+    value => console.log(value)
+  );
 }
 
 

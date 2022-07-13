@@ -15,8 +15,8 @@ export class PoopDiariesComponent implements OnInit {
   public dislikeCount = 0;
   // public obs: Observable<Poop> | undefined;
   // public observablePoops; TODO GET OBSERVABLEs working
+  public poops$!: Observable<Poop[]>;
 
-  public poopArray: Poop[] = [];
 
   constructor(
     private http: HttpClient,
@@ -24,14 +24,9 @@ export class PoopDiariesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.poopArray = this.poopService.getPoops();
+    this.poops$= this.poopService.getPoops();
   }
 
-  pullPoops() {
-    // this.poopService.getPoops();
-    // // console.log(this.poopService.poopArray);
-    // return this.poopService.poopArray;
-  }
 
   addLike() {
     this.likeCount = this.likeCount + 1;

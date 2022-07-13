@@ -23,6 +23,7 @@ import {MatInputModule} from "@angular/material/input";
 import {StarRatingModule} from "angular-star-rating";
 import { PoopFormComponent } from './poop-form/poop-form.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -52,6 +53,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     MatInputModule,
     StarRatingModule.forRoot(),
     MatProgressSpinnerModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

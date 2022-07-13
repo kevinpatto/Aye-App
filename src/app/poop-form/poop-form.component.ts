@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpClient, HttpRequest} from "@angular/common/http";
-
+import {FormControl, FormGroup} from "@angular/forms";
+import {Poop} from "../models/poop";
+import {FormBuilder} from "@angular/forms";
+import {PoopService} from "../services/poop.service";
 
 @Component({
   selector: 'app-poop-form',
@@ -12,32 +15,46 @@ export class PoopFormComponent implements OnInit {
 
   loading = false;
   buttonText = ''
+  submitted = false;
+
+  poopSub = new Poop('jonahtest', 'Ronah Bonah', 'kinda bad', 2)
+  formData = this.formBuilder.group({
+    name: '',
+    description: '',
+    rating: ''
+  })
+
   constructor(
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private formBuilder: FormBuilder,
+    private poopService: PoopService
   ) {
     this.buttonText = 'Submit';
   }
 
   ngOnInit(): void {
+
   }
 
 
-  submit(): void {
-    const headers = { 'Access-Control-Allow-Origin': '*' }
-    this.http.get<any>('https://jonahtoch.com/catalog/users/', {headers}).subscribe(data => {
-    console.log(data);
-  });
-    // this.loading = true;
-    // this.buttonText = 'Submitting...';
-    //
-    // setTimeout(() =>
-    //   { this.loading = false;
-    //     this.buttonText= "Submitted! Rerouting..."
-    //   }, 2000)
-    // setTimeout(() =>
-    // { this.router.navigate(['/Poop-Diaries'])
-    // }, 2750)
+
+
+  onSubmit(): void {
+    const name = this.formData.get('name')?.value;
+    const description = this.formData.get('description')?.value;
+    const rating = 5;
+    this.poopService.addPoops(name, description, rating);
+    this.loading = true;
+    this.buttonText = 'Submitting...';
+
+    setTimeout(() =>
+      { this.loading = false;
+        this.buttonText= "Submitted! Rerouting..."
+      }, 2000)
+    setTimeout(() =>
+    { this.router.navigate(['/Poop-Diaries'])
+    }, 2750)
   }
 
 
