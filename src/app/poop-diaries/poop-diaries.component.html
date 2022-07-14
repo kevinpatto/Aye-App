@@ -36,7 +36,8 @@
 
 <br><br><br>
 
-<ng-container *ngFor="let poo of poops$ | async">
+<ng-container *ngFor="let poo of poops$ | async;">
+<!--<ng-container *ngFor="poops$.length | async">-->
 
 <div style="display: flex; justify-content: center">
 <mat-card class="example-card">

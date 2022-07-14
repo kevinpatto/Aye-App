@@ -41,7 +41,9 @@ getPoops(): Observable<Poop[]> {
     headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
   };
   return this.http.get<Poop[]>('https://jonahtoch.com/catalog/poop/list-all', httpOptions)
-    .pipe(
+    .pipe(map(res => {
+      return res.reverse();
+    }),
       catchError(this.handleError<Poop[]>('getPoops', []))
     );
 }

@@ -15,7 +15,11 @@ export class PoopDiariesComponent implements OnInit {
   public dislikeCount = 0;
   // public obs: Observable<Poop> | undefined;
   // public observablePoops; TODO GET OBSERVABLEs working
-  public poops$!: Observable<Poop[]>;
+  public poops$!: Observable  <Poop[]>;
+  public poops2$!: Observable  <Poop[]>;
+
+
+  poopsLength: number = 0;
 
 
   constructor(
