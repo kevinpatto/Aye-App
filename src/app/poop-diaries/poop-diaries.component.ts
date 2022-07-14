@@ -16,11 +16,6 @@ export class PoopDiariesComponent implements OnInit {
   // public obs: Observable<Poop> | undefined;
   // public observablePoops; TODO GET OBSERVABLEs working
   public poops$!: Observable  <Poop[]>;
-  public poops2$!: Observable  <Poop[]>;
-
-
-  poopsLength: number = 0;
-
 
   constructor(
     private http: HttpClient,

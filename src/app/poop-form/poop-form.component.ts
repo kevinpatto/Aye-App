@@ -38,12 +38,10 @@ export class PoopFormComponent implements OnInit {
   }
 
 
-
-
   onSubmit(): void {
     const name = this.formData.get('name')?.value;
     const description = this.formData.get('description')?.value;
-    const rating = 5;
+    const rating = this.formData.get('rating')?.value;
     this.poopService.addPoops(name, description, rating);
     this.loading = true;
     this.buttonText = 'Submitting...';

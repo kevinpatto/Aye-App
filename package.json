@@ -1,6 +1,6 @@
 {
   "name": "aye",
-  "version": "0.0.0",
+  "version": "v0.11.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
 import {ChangeDetectorRef, OnDestroy} from '@angular/core';
+import {environment} from "../environments/environment.prod";
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,7 @@ import {ChangeDetectorRef, OnDestroy} from '@angular/core';
 })
 export class AppComponent implements OnDestroy {
   mobileQuery: MediaQueryList;
+  version: string = '';
 
   private readonly _mobileQueryListener: () => void;
 
@@ -16,6 +18,10 @@ export class AppComponent implements OnDestroy {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+  }
+
+  ngOnInit() {
+    this.version = environment.version;
   }
 
   ngOnDestroy(): void {
