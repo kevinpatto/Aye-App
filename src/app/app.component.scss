@@ -48,3 +48,13 @@ h1.example-app-name {
      `<body>` to be our scrolling element for mobile layouts. */
   flex: 1 0 auto;
 }
+
+.badge-button {
+  background-color: forestgreen;
+  margin-left: 15px;
+  padding-bottom: 3px;
+  min-width: 40px;
+  font-size: 10px;
+  line-height: normal;
+  color: white;
+}

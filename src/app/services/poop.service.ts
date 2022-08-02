@@ -48,8 +48,8 @@ getPoops(): Observable<Poop[]> {
     );
 }
 
-addPoops(name: string, description: string, rating: number): void {
-  const body = {name: name, description: description, rating: rating};
+addPoops(name: string, description: string, rating: number, date: Date): void {
+  const body = {name: name, description: description, rating: rating, date: date};
   console.log(body);
   const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})

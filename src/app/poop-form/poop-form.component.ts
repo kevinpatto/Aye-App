@@ -17,11 +17,11 @@ export class PoopFormComponent implements OnInit {
   buttonText = ''
   submitted = false;
 
-  poopSub = new Poop('jonahtest', 'Ronah Bonah', 'kinda bad', 2)
   formData = this.formBuilder.group({
     name: '',
     description: '',
-    rating: ''
+    rating: '',
+    time: ''
   })
 
   constructor(
@@ -42,7 +42,8 @@ export class PoopFormComponent implements OnInit {
     let name = this.formData.get('name')?.value;
     let description = this.formData.get('description')?.value;
     let rating = this.formData.get('rating')?.value;
-
+    let date = new Date();
+    console.log(date);
     if (name == '') {
       name = 'anonymoose'
     }
@@ -54,7 +55,8 @@ export class PoopFormComponent implements OnInit {
     if (rating == '') {
       rating = 0;
     }
-    this.poopService.addPoops(name, description, rating);
+
+    this.poopService.addPoops(name, description, rating, date);
     this.loading = true;
     this.buttonText = 'Submitting...';
 
