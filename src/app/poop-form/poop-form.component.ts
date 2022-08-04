@@ -78,7 +78,7 @@ export class PoopFormComponent implements OnInit {
       rating = 0;
     }
 
-    this.getLocation();
+    // this.getLocation();
     this.poopService.addPoops(name, description, rating, date);
     this.loading = true;
     this.buttonText = 'Submitting...';
