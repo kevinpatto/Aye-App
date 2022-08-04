@@ -2,26 +2,30 @@
 <div style="display: flex;justify-content: center; align-items: center;">
 
 <mat-card style="width: 95%;">
-  <br><br>
+  <br>
   <div  style="display: flex;justify-content: center; align-items: center;font-size: 36px;">
-    How was your poop?¿
+    How was your poop¿?💩
   </div>
     <br><br>
-  <br><br>
 
 
 <div>
 
   <form style="width: 100%"  (ngSubmit)="onSubmit()" [formGroup]="formData">
+<!--    <mat-label>Rating-->
+    <div style="display: flex;justify-content: center; align-items: center;">
+      <mat-label style="color: dimgray; margin-bottom: 2px;"><i>Your Rating</i></mat-label>
+    </div>
     <star-rating-control formControlName="rating"  id="rating" required [starType]="'svg'" [size]="$any('large')" speed="slow"></star-rating-control>
-    <br><br>
+<!--    </mat-label>-->
+      <br><br>
     <mat-form-field style="width: 100%;">
-      <mat-label>Your name</mat-label>
+      <mat-label>What's your name?</mat-label>
       <input matInput id="name" formControlName="name">
     </mat-form-field>
     <br>
     <mat-form-field style="width: 100%;">
-      <mat-label>Description of how your poop went</mat-label>
+      <mat-label>Tell us how your poop went.</mat-label>
       <textarea matInput  rows="6" id="description" formControlName="description"></textarea>
     </mat-form-field>
 
@@ -30,12 +34,21 @@
     <!--        <button mat-raised-button (click)="addDislike()" style="font-family: Serif; background-color: #f88474;width: 30%"><b>DISLIKE    <span style="margin-left: 8px;"><u>[{{this.dislikeCount}}]</u></span></b></button>-->
 
     <!--      </mat-form-field>-->
+
+<!--    <div style="display: flex;justify-content: center; align-items: center;">-->
+
+<!--      <button mat-raised-button type="submit"   style="font-family: Serif; background-color: forestgreen;width: 35%;  font-size: 18px; color: white"><b>📍 Add Your Location</b></button>-->
+
+<!--      <ng-container *ngFor="let loc of poopLocation$ | async;">-->
+<!--        {{poopLocation$}}-->
+<!--      </ng-container>-->
+<!--    </div>-->
+    <br><br><br>
     <div style="display: flex;justify-content: right; align-items: center;">
 
       <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
 
-
-      <button mat-raised-button [class.spinner]="loading" [disabled]="loading" type="submit"   style="font-family: Serif; background-color: #3366ff;width: 80%; margin-right: 10%; font-size: 18px; color: white"><b>{{this.buttonText}}</b></button>
+      <button mat-raised-button [class.spinner]="loading" [disabled]="loading" type="submit"   style="font-family: Serif; background-color: #3366ff;width: 80%; margin-right: 10%;  font-size: 19px; color: white"><b>{{this.buttonText}}</b></button>
     </div>
   </form>
 

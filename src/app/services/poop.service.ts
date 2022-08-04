@@ -42,6 +42,7 @@ getPoops(): Observable<Poop[]> {
   };
   return this.http.get<Poop[]>('https://jonahtoch.com/catalog/poop/list-all', httpOptions)
     .pipe(map(res => {
+      // console.log('here is res' + res);
       return res.reverse();
     }),
       catchError(this.handleError<Poop[]>('getPoops', []))

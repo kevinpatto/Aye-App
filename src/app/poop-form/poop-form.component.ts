@@ -5,6 +5,9 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {Poop} from "../models/poop";
 import {FormBuilder} from "@angular/forms";
 import {PoopService} from "../services/poop.service";
+import {LocationService} from "../services/location.service";
+import {Location} from "../models/location";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-poop-form',
@@ -17,6 +20,8 @@ export class PoopFormComponent implements OnInit {
   buttonText = ''
   submitted = false;
 
+  public poopLocation$!: Observable<Location>;
+
   formData = this.formBuilder.group({
     name: '',
     description: '',
@@ -28,15 +33,32 @@ export class PoopFormComponent implements OnInit {
     private router: Router,
     private http: HttpClient,
     private formBuilder: FormBuilder,
-    private poopService: PoopService
+    private poopService: PoopService,
+    private locationService: LocationService
   ) {
     this.buttonText = 'Submit';
   }
 
   ngOnInit(): void {
-
+  // this.getLocation();
   }
 
+  decodeLocation(longitude: number, latitude: number){
+    // let testStr = "";
+    // this.locationService.decodeLocation(longitude, latitude);
+    // console.log(testStr);
+  }
+  getLocation(): void{
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position)=>{
+        const longitude = position.coords.longitude;
+        const latitude = position.coords.latitude;
+        this.decodeLocation(longitude, latitude);
+      });
+    } else {
+      console.log("No support for geolocation");
+    }
+  }
 
   onSubmit(): void {
     let name = this.formData.get('name')?.value;
@@ -56,6 +78,7 @@ export class PoopFormComponent implements OnInit {
       rating = 0;
     }
 
+    this.getLocation();
     this.poopService.addPoops(name, description, rating, date);
     this.loading = true;
     this.buttonText = 'Submitting...';
