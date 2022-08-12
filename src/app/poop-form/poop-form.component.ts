@@ -84,18 +84,18 @@ export class PoopFormComponent implements OnInit {
       rating = 0;
     }
 
-    this.getLocation();
-    // this.poopService.addPoops(name, description, rating, date);
-    // this.loading = true;
-    // this.buttonText = 'Submitting...';
+    // this.getLocation();
+    this.poopService.addPoops(name, description, rating, date);
+    this.loading = true;
+    this.buttonText = 'Submitting...';
 
-    // setTimeout(() =>
-    //   { this.loading = false;
-    //     this.buttonText= "Submitted! Rerouting..."
-    //   }, 2000)
-    // setTimeout(() =>
-    // { this.router.navigate(['/Poop-Diaries'])
-    // }, 2750)
+    setTimeout(() =>
+      { this.loading = false;
+        this.buttonText= "Submitted! Rerouting..."
+      }, 2000)
+    setTimeout(() =>
+    { this.router.navigate(['/Poop-Diaries'])
+    }, 2750)
   }
 
 
