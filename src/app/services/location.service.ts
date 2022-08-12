@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {Location} from "../models/location";
-import {catchError, Observable, of, tap, map} from "rxjs";
+import {googleInterface} from "../models/google-interface";
+import {catchError, Observable, of, tap, map, throwError} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,7 @@ export class LocationService {
 
 
   // private returnLoc: Location;
-  // public locat: Location;
-
+  public googleLoc = <Location>{};
 
   constructor(
     private http: HttpClient
@@ -19,35 +19,31 @@ export class LocationService {
   // this.locat = Location;
   }
 
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   *
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
 
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
+  private handleError(err: HttpErrorResponse) {
 
-      // TODO: better job of transforming error for user consumption
-      // this.log(`${operation} failed: ${error.message}`);
+    let errorMessage = '';
+    if (err.error instanceof ErrorEvent) {
 
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
+      errorMessage = `An error occurred: ${err.error.message}`;
+    } else {
+
+      errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(errorMessage);
   }
   //
-  // decodeLocation(longitude: number, latitude: number) {
-  //   console.log('running it');
-  //  return this.http.get<any>(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyCFLVgPPPFV_Pk3U2DDgYJq606N8cNOZRA&language=en&result_type=street_address`)
-  //    .subscribe(data => {
-  //        this.locat.latitude = data.status,
-  //        console.log(this.locat);
-  //      }
-  //    )
-  // }
+  decodeLocation(longitude: number, latitude: number): any {
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyCFLVgPPPFV_Pk3U2DDgYJq606N8cNOZRA&language=en&result_type=street_address`;
+    console.log('running it with url + ' + url);
+    return this.http.get<any>(url).pipe(
+      map(data => {
+        console.log(data.status);
+        data.addrNum = "asdf";
+        return data;
+      })
+    );
+  }
 
 }

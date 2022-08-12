@@ -8,6 +8,7 @@ import {PoopService} from "../services/poop.service";
 import {LocationService} from "../services/location.service";
 import {Location} from "../models/location";
 import {Observable} from "rxjs";
+import {googleInterface} from "../models/google-interface";
 
 @Component({
   selector: 'app-poop-form',
@@ -20,7 +21,7 @@ export class PoopFormComponent implements OnInit {
   buttonText = ''
   submitted = false;
 
-  public poopLocation$!: Observable<Location>;
+  public poopLocation: googleInterface | undefined;
 
   formData = this.formBuilder.group({
     name: '',
@@ -45,8 +46,13 @@ export class PoopFormComponent implements OnInit {
 
   decodeLocation(longitude: number, latitude: number){
     // let testStr = "";
-    // this.locationService.decodeLocation(longitude, latitude);
+    this.poopLocation = this.locationService.decodeLocation(longitude, latitude).subscribe(
+      ((data: googleInterface) => {
+        console.log('i got the data back as ' + data.addrNum);
+      })
+    );
     // console.log(testStr);
+    console.log(this.poopLocation);
   }
   getLocation(): void{
     if (navigator.geolocation) {
@@ -65,7 +71,7 @@ export class PoopFormComponent implements OnInit {
     let description = this.formData.get('description')?.value;
     let rating = this.formData.get('rating')?.value;
     let date = new Date();
-    console.log(date);
+    // console.log(date);
     if (name == '') {
       name = 'anonymoose'
     }
@@ -78,18 +84,18 @@ export class PoopFormComponent implements OnInit {
       rating = 0;
     }
 
-    // this.getLocation();
-    this.poopService.addPoops(name, description, rating, date);
-    this.loading = true;
-    this.buttonText = 'Submitting...';
+    this.getLocation();
+    // this.poopService.addPoops(name, description, rating, date);
+    // this.loading = true;
+    // this.buttonText = 'Submitting...';
 
-    setTimeout(() =>
-      { this.loading = false;
-        this.buttonText= "Submitted! Rerouting..."
-      }, 2000)
-    setTimeout(() =>
-    { this.router.navigate(['/Poop-Diaries'])
-    }, 2750)
+    // setTimeout(() =>
+    //   { this.loading = false;
+    //     this.buttonText= "Submitted! Rerouting..."
+    //   }, 2000)
+    // setTimeout(() =>
+    // { this.router.navigate(['/Poop-Diaries'])
+    // }, 2750)
   }
 
 

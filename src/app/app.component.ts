@@ -13,6 +13,7 @@ export class AppComponent implements OnDestroy {
   version: string = '';
 
   private readonly _mobileQueryListener: () => void;
+  public innerWidth?: number;
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
@@ -21,6 +22,7 @@ export class AppComponent implements OnDestroy {
   }
 
   ngOnInit() {
+    this.innerWidth = window.innerWidth;
     this.version = environment.version;
   }
 
