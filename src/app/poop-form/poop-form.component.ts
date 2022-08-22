@@ -21,7 +21,7 @@ export class PoopFormComponent implements OnInit {
   buttonText = ''
   submitted = false;
 
-  public poopLocation: googleInterface | undefined;
+  public poopLocation!: googleInterface;
 
   formData = this.formBuilder.group({
     name: '',
@@ -41,20 +41,15 @@ export class PoopFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  // this.getLocation();
   }
 
   decodeLocation(longitude: number, latitude: number){
-    // let testStr = "";
-    this.poopLocation = this.locationService.decodeLocation(longitude, latitude).subscribe(
-      ((data: googleInterface) => {
-        console.log('i got the data back as ' + data.addrNum);
-      })
-    );
-    // console.log(testStr);
-    console.log(this.poopLocation);
+    this.locationService.decodeLocation(longitude, latitude).subscribe((res: googleInterface) => {
+      this.poopLocation = res;
+    });
   }
-  getLocation(): void{
+
+  getLocation(): void {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position)=>{
         const longitude = position.coords.longitude;
@@ -71,6 +66,7 @@ export class PoopFormComponent implements OnInit {
     let description = this.formData.get('description')?.value;
     let rating = this.formData.get('rating')?.value;
     let date = new Date();
+    let loc = null;
     // console.log(date);
     if (name == '') {
       name = 'anonymoose'
@@ -84,8 +80,12 @@ export class PoopFormComponent implements OnInit {
       rating = 0;
     }
 
-    // this.getLocation();
-    this.poopService.addPoops(name, description, rating, date);
+    if (this.poopLocation) {
+      loc = this.poopLocation.fullAddr;
+    }
+    console.log('found the loc as ' + loc);
+    console.log('about to send a poop with' + name + description + rating + date + loc);
+    this.poopService.addPoops(name, description, rating, date, loc!);
     this.loading = true;
     this.buttonText = 'Submitting...';
 

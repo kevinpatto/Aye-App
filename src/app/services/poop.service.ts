@@ -49,8 +49,8 @@ getPoops(): Observable<Poop[]> {
     );
 }
 
-addPoops(name: string, description: string, rating: number, date: Date): void {
-  const body = {name: name, description: description, rating: rating, date: date};
+addPoops(name: string, description: string, rating: number, date: Date, fullAddr: string): void {
+  const body = {name: name, description: description, rating: rating, date: date, fullAddr: fullAddr};
   console.log(body);
   const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})

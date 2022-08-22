@@ -46,27 +46,34 @@
 <!--    <mat-card-subtitle>PoopButt</mat-card-subtitle>-->
   </mat-card-header>
   <ng-container *ngIf="poo.name.length > 5; else shortname">
-  <img mat-card-image src="https://i.imgur.com/bpk1vUX.jpg" alt="Photo of monke" style="margin-top: 5px;">
+  <img mat-card-image src="https://i.imgur.com/bpk1vUX.jpg" alt="Photo of monke" style="margin-top: 5px; margin-bottom: 4px;">
   </ng-container>
   <ng-template #shortname>
     <ng-container *ngIf="poo.name.length === 5; else notfive">
-      <img mat-card-image src="https://i.imgflip.com/3kygy8.png" alt="Photo of monke" style="margin-top: 5px;">
+      <img mat-card-image src="https://i.imgflip.com/3kygy8.png" alt="Photo of monke" style="margin-top: 5px; margin-bottom: 4px;">
     </ng-container>
   </ng-template>
   <ng-template #notfive>
     <ng-container>
-      <img mat-card-image src="https://i.ytimg.com/vi/fxE-FCxnRA0/maxresdefault.jpg" alt="Photo of monke" style="margin-top: 5px;">
+      <img mat-card-image src="https://i.ytimg.com/vi/fxE-FCxnRA0/maxresdefault.jpg" alt="Photo of monke" style="margin-top: 5px; margin-bottom: 4px;">
     </ng-container>
   </ng-template>
 
 
     <mat-card-content>
-    <div style="display: flex; align-items: center; justify-content: end">
-       <ng-container *ngIf="poo.date">
-      <i> {{poo.date | date:'fullDate'}} at {{poo.date | date:'shortTime'}} </i>
-       </ng-container>
-    </div>
-    <div style="display: flex; align-items: center; justify-content: center">
+
+    <ng-container *ngIf="poo.fullAddr">
+      <div style="display: flex; align-items: center; justify-content: end">
+        <i><b>📍&ensp;&ensp;{{poo.fullAddr}}</b></i>
+      </div>
+    </ng-container>
+      <div style="display: flex; align-items: center; justify-content: end">
+        <ng-container *ngIf="poo.date">
+          <i> ⏰&ensp;&ensp;{{poo.date | date:'fullDate'}} at {{poo.date | date:'shortTime'}} </i>
+        </ng-container>
+      </div>
+
+      <div style="display: flex; align-items: center; justify-content: center; margin-top: 5px; margin-bottom: 5px;">
 
     <star-rating [starType]="'svg'" [rating]="poo.rating" [size]="$any('large')" speed="slow" readOnly="true"></star-rating>
 
@@ -74,13 +81,13 @@
 <!--      </div>-->
 </div>
 
-
-    <div style="display: flex;justify-content: center; align-items: center;">
+      <div style="display: flex;justify-content: center; align-items: center;">
 <br>
       <p>
 "{{poo.description}}"
     </p>
     </div>
+
   </mat-card-content>
 <!--  <hr style="border: 1px solid lightgray;">-->
 <!--  <mat-card-actions>-->

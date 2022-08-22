@@ -39,9 +39,8 @@ export class LocationService {
     console.log('running it with url + ' + url);
     return this.http.get<any>(url).pipe(
       map(data => {
-        console.log(data.status);
-        data.addrNum = "asdf";
-        return data;
+        this.googleLoc.fullAddr = data.results[0].formatted_address;
+        return this.googleLoc;
       })
     );
   }
