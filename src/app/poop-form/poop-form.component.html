@@ -11,12 +11,10 @@
 <div>
 
   <form style="width: 100%"  [formGroup]="formData">
-<!--    <mat-label>Rating-->
     <div style="display: flex;justify-content: center; align-items: center;">
       <mat-label style="color: dimgray; margin-bottom: 2px;"><i>Your Rating</i></mat-label>
     </div>
     <star-rating-control formControlName="rating"  id="rating" required [starType]="'svg'" [size]="$any('large')" speed="slow"></star-rating-control>
-<!--    </mat-label>-->
       <br><br>
     <mat-form-field style="width: 100%;">
       <mat-label>What's your name?</mat-label>

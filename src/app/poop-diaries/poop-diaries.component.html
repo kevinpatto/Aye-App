@@ -1,32 +1,32 @@
 
-<br>
+<!--<br>-->
 
 
-<br><br>
-<div style="display: flex; justify-content: center">
-  <p style="font-size: 52px">POOP<br><br><br> DIARIES</p>
-</div>
-<br><br><br>
+<!--<br><br>-->
+<!--<div style="display: flex; justify-content: center">-->
+<!--  <p style="font-size: 52px">POOP<br><br><br> DIARIES</p>-->
+<!--</div>-->
+<!--<br><br><br>-->
 
-<div style="display: flex; justify-content: center">
-<img src="https://cdn.wimpykidwiki.com/b/bb/Did_you_poop.jpg" width="90%;" style="max-width: 1000px;">
-</div>
+<!--<div style="display: flex; justify-content: center">-->
+<!--<img src="https://cdn.wimpykidwiki.com/b/bb/Did_you_poop.jpg" width="90%;" style="max-width: 1000px;">-->
+<!--</div>-->
 
-<br><br><br>
+<!--<br><br><br>-->
 
-<div style="display: flex; justify-content: center">
-
-
-
-  <br><br><br>
-  <button mat-raised-button routerLink="/Poop-Form"  style="font-family: Serif; background-color: #a58570; height: 110px; width: 300px;font-size: 26px; "><b>Submit your own poop</b></button>
+<!--<div style="display: flex; justify-content: center">-->
 
 
-</div>
-<br><br><br>
+
+<!--  <br><br><br>-->
+<!--  <button mat-raised-button routerLink="/Poop-Form"  style="font-family: Serif; background-color: #a58570; height: 110px; width: 300px;font-size: 26px; "><b>Submit your own poop</b></button>-->
 
 
-<hr style="width: 80%;">
+<!--</div>-->
+<!--<br><br><br>-->
+
+
+<!--<hr style="width: 80%;">-->
 <br><br><br><br>
 
 <div style="display: flex; justify-content: center">
@@ -38,7 +38,7 @@
 
 <ng-container *ngFor="let poo of poops$ | async;">
 
-<div style="display: flex; justify-content: center">
+<div style="display: flex; justify-content: center; margin-left: 2.5%; margin-right: 2.5%;">
 <mat-card class="example-card">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
@@ -77,8 +77,6 @@
 
     <star-rating [starType]="'svg'" [rating]="poo.rating" [size]="$any('large')" speed="slow" readOnly="true"></star-rating>
 
-<!--      <div style="margin-left: auto; order: 2;">-->
-<!--      </div>-->
 </div>
 
       <div style="display: flex;justify-content: center; align-items: center;">
@@ -88,13 +86,13 @@
     </p>
     </div>
 
+<!--        <hr style="border: 1px solid lightgray;">-->
+          <div style="display: flex;justify-content: center; align-items: center;">
+            <button mat-raised-button (click)="addLike(); toggleActivateState()" style="font-family: serif; background-color: #98d4bc;width: 45%; margin-right: 5%;"><b>👌&ensp;&ensp;LIKE - <span>{{convertToRoman(this.likeCount)}}</span></b></button>
+          <button mat-raised-button (click)="addDislike()" style="font-family: serif; background-color: #f88474;width: 45%;margin-left: 5%;"><b>🤢&ensp;&ensp;DISLIKE - <span>{{convertToRoman(this.dislikeCount)}}</span></b></button>
+          </div>
   </mat-card-content>
-<!--  <hr style="border: 1px solid lightgray;">-->
-<!--  <mat-card-actions>-->
-<!--    <div style="display: flex;justify-content: center; align-items: center;">-->
-<!--      <button mat-raised-button (click)="addLike()" style="font-family: Serif; background-color: #98d4bc;width: 30%;"><b>LIKE    <span style="margin-left: 8px;"><u>[{{this.likeCount}}]</u></span></b></button>-->
-<!--    <button mat-raised-button (click)="addDislike()" style="font-family: Serif; background-color: #f88474;width: 30%"><b>DISLIKE    <span style="margin-left: 8px;"><u>[{{this.dislikeCount}}]</u></span></b></button>-->
-<!--    </div>-->
+
 <!--    <br><br>-->
 <!--    <div style="display: flex;justify-content: center; align-items: center;">-->
 <!--      <form style="width: 80%">-->
