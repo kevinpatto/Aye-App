@@ -51,15 +51,19 @@ getPoops(): Observable<Poop[]> {
     );
 }
 
-addPoops(name: string, description: string, rating: number, date: Date, fullAddr: string): void {
+addPoops(name: string, description: string, rating: number, date: Date, fullAddr?: string,
+         lng?: string, lat?: string, street?: string, city?: string, longState?: string,
+         country?: string, zipcode?: string): void {
   const url = `${environment.mainApiUrl}/poop/create`;
-  const body = {name: name, description: description, rating: rating, date: date, fullAddr: fullAddr};
-  console.log(body);
+  const body = {name: name, description: description, rating: rating, date: date, fullAddr: fullAddr, longitude: lng,
+    latitude: lat, street: street, city: city, longState: longState, country: country, zipcode: zipcode
+  };
+  console.log('sending request with this data ' + body);
   const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-};
+    };
   this.http.post<any>(url, body, httpOptions).subscribe(
-    value => console.log(value)
+    value => console.log('returned this data ' + value)
   );
 }
 

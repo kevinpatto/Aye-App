@@ -68,6 +68,7 @@ export class PoopFormComponent implements OnInit {
     let rating = this.formData.get('rating')?.value;
     let date = new Date();
     let loc = null;
+
     // console.log(date);
     if (name == '') {
       name = 'anonymoose'
@@ -82,11 +83,12 @@ export class PoopFormComponent implements OnInit {
     }
 
     if (this.poopLocation) {
-      loc = this.poopLocation.fullAddr;
+      this.poopService.addPoops(name, description, rating, date, this.poopLocation.fullAddr, this.poopLocation.longitude,
+        this.poopLocation.latitude, this.poopLocation.street, this.poopLocation.city, this.poopLocation.longState,
+        this.poopLocation.country, this.poopLocation.zipcode);
+    } else {
+      this.poopService.addPoops(name, description, rating, date);
     }
-    console.log('found the loc as ' + loc);
-    console.log('about to send a poop with' + name + description + rating + date + loc);
-    this.poopService.addPoops(name, description, rating, date, loc!);
     this.loading = true;
     this.buttonText = 'Submitting...';
 
