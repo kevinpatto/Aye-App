@@ -9,16 +9,11 @@ import {catchError, Observable, of, tap, map, throwError} from "rxjs";
 })
 export class LocationService {
 
-
-  // private returnLoc: Location;
   public googleLoc = <Location>{};
 
   constructor(
     private http: HttpClient
-  ) {
-  // this.locat = Location;
-  }
-
+  ) {}
 
   private handleError(err: HttpErrorResponse) {
 
@@ -33,16 +28,22 @@ export class LocationService {
     console.error(errorMessage);
     return throwError(errorMessage);
   }
-  //
+
   decodeLocation(longitude: number, latitude: number): any {
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyCFLVgPPPFV_Pk3U2DDgYJq606N8cNOZRA&language=en&result_type=street_address`;
-    console.log('running it with url + ' + url);
     return this.http.get<any>(url).pipe(
       map(data => {
+        console.log(data);
         this.googleLoc.fullAddr = data.results[0].formatted_address;
+        this.googleLoc.longitude = data.results[0].geometry.location.lng;
+        this.googleLoc.latitude  = data.results[0].geometry.location.lat;
+        this.googleLoc.street = data.results[0].address_components[1].short_name;
+        this.googleLoc.city = data.results[0].address_components[3].long_name;
+        this.googleLoc.longState = data.results[0].address_components[5].long_name;
+        this.googleLoc.country = data.results[0].address_components[6].long_name;
+        this.googleLoc.zipcode = data.results[0].address_components[7].long_name;
         return this.googleLoc;
       })
     );
   }
-
 }

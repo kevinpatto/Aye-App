@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Poop} from "../models/poop";
 import {catchError, Observable, of, tap, map} from "rxjs";
+import {environment} from "../../environments/environment.prod";
 
 @Injectable({
   providedIn: 'root'
@@ -37,10 +38,11 @@ export class PoopService {
 
 
 getPoops(): Observable<Poop[]> {
-  const httpOptions = {
+    const url = `${environment.mainApiUrl}/poop/list-all`;
+    const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
   };
-  return this.http.get<Poop[]>('https://jonahtoch.com/api/v1/poop/list-all', httpOptions)
+  return this.http.get<Poop[]>(url, httpOptions)
     .pipe(map(res => {
       // console.log('here is res' + res);
       return res.reverse();
@@ -50,12 +52,13 @@ getPoops(): Observable<Poop[]> {
 }
 
 addPoops(name: string, description: string, rating: number, date: Date, fullAddr: string): void {
+  const url = `${environment.mainApiUrl}/poop/create`;
   const body = {name: name, description: description, rating: rating, date: date, fullAddr: fullAddr};
   console.log(body);
   const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
 };
-  this.http.post<any>('https://jonahtoch.com/api/v1/poop/create', body, httpOptions).subscribe(
+  this.http.post<any>(url, body, httpOptions).subscribe(
     value => console.log(value)
   );
 }

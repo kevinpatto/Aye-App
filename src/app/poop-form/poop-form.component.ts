@@ -46,6 +46,7 @@ export class PoopFormComponent implements OnInit {
   decodeLocation(longitude: number, latitude: number){
     this.locationService.decodeLocation(longitude, latitude).subscribe((res: googleInterface) => {
       this.poopLocation = res;
+      console.log(this.poopLocation);
     });
   }
 
