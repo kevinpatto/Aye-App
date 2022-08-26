@@ -40,7 +40,7 @@ getPoops(): Observable<Poop[]> {
   const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
   };
-  return this.http.get<Poop[]>('https://jonahtoch.com/catalog/poop/list-all', httpOptions)
+  return this.http.get<Poop[]>('https://jonahtoch.com/api/v1/poop/list-all', httpOptions)
     .pipe(map(res => {
       // console.log('here is res' + res);
       return res.reverse();
@@ -55,7 +55,7 @@ addPoops(name: string, description: string, rating: number, date: Date, fullAddr
   const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
 };
-  this.http.post<any>('https://jonahtoch.com/catalog/poop/create', body, httpOptions).subscribe(
+  this.http.post<any>('https://jonahtoch.com/api/v1/poop/create', body, httpOptions).subscribe(
     value => console.log(value)
   );
 }
