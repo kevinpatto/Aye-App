@@ -67,5 +67,13 @@ addPoops(name: string, description: string, rating: number, date: Date, fullAddr
   );
 }
 
+  checkOnline() {
+    const url = `${environment.mainApiUrl}/poop/list-all`;
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    return this.http.get(url, httpOptions).pipe(
+      catchError(this.handleError<boolean>('isOnline', false))  )
+  }
 
 }

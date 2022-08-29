@@ -24,6 +24,7 @@ import {StarRatingModule} from "angular-star-rating";
 import { PoopFormComponent } from './poop-form/poop-form.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { MaintenanceComponent } from './maintenance/maintenance.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     // PokemonTwilightComponent,
     HomeComponent,
     PokayemonComponent,
-    PoopFormComponent
+    PoopFormComponent,
+    MaintenanceComponent
   ],
   imports: [
     BrowserModule,

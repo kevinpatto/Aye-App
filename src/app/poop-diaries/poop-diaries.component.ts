@@ -30,7 +30,6 @@ export class PoopDiariesComponent implements OnInit {
 
   ngOnInit(): void {
     this.poops$= this.poopService.getPoops();
-    console.log(this.convertToRoman(2));
   }
 
 

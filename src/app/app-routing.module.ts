@@ -8,6 +8,7 @@ import {BerglerComponent} from "./bergler/bergler.component";
 import {HomeComponent} from "./home/home.component";
 import {PokayemonComponent} from "./pokayemon/pokayemon.component";
 import {PoopFormComponent} from "./poop-form/poop-form.component";
+import {MaintenanceComponent} from "./maintenance/maintenance.component";
 
 const routes: Routes = [
 
@@ -28,6 +29,12 @@ const routes: Routes = [
   },
   { path: 'Poop-Form',
     component: PoopFormComponent
+  },
+  { path: 'maintenance',
+    component: MaintenanceComponent
+  },
+  { path: '**',
+    component: HomeComponent
   },
   { path: '',
     component: HomeComponent
