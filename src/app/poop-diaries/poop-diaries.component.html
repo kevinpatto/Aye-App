@@ -36,6 +36,13 @@
 </div>
 
 <br>
+<div style="display: flex; justify-content: center">
+
+  <p style="font-size: 24px">(right now you need to refresh the page to see likes/dislikes updated)</p>
+
+</div>
+
+<br>
 <!--<div style="display: flex; justify-content: center">-->
 
 <!--  <p style="font-size: 24px">The like and dislike button will work sometime soon!🙂</p>-->
@@ -94,12 +101,11 @@
 "{{poo.description}}"
     </p>
     </div>
-
-<!--        <hr style="border: 1px solid lightgray;">-->
-<!--          <div style="display: flex;justify-content: center; align-items: center;">-->
-<!--            <button mat-raised-button (click)="addLike(); toggleActivateState()" style="font-family: serif; background-color: #98d4bc;width: 45%; margin-right: 5%;"><b>👌&ensp;&ensp;LIKE - <span>{{convertToRoman(this.likeCount)}}</span></b></button>-->
-<!--          <button mat-raised-button (click)="addDislike()" style="font-family: serif; background-color: #f88474;width: 45%;margin-left: 5%;"><b>🤢&ensp;&ensp;DISLIKE - <span>{{convertToRoman(this.dislikeCount)}}</span></b></button>-->
-<!--          </div>-->
+        <hr style="border: 1px solid lightgray;">
+          <div style="display: flex;justify-content: center; align-items: center;">
+            <button mat-raised-button (click)="addLike(poo._id, poo.likes); toggleActivateState()" style="font-family: serif; background-color: #98d4bc;width: 45%; margin-right: 5%;"><b>👌&ensp;&ensp;LIKE - <span>{{convertToRoman(poo.likes)}}</span></b></button>
+          <button mat-raised-button (click)="addDislike(poo._id, poo.dislikes)" style="font-family: serif; background-color: #f88474;width: 45%;margin-left: 5%;"><b>🤢&ensp;&ensp;DISLIKE - <span>{{convertToRoman(poo.dislikes)}}</span></b></button>
+          </div>
   </mat-card-content>
 
 <!--    <br><br>-->

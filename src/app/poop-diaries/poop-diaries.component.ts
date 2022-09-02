@@ -29,16 +29,18 @@ export class PoopDiariesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.poops$= this.poopService.getPoops();
+    this.poops$ = this.poopService.getPoops();
   }
 
 
-  addLike() {
-    this.likeCount = this.likeCount + 1;
+  addLike(id: string, likes: number) {
+    console.log(id);
+    this.poopService.addRating(id,  1, 0)
   }
 
-  addDislike() {
-    this.dislikeCount = this.dislikeCount + 1;
+  addDislike(id: string, dislikes: number) {
+    console.log(id);
+    this.poopService.addRating(id, 0,  1)
   }
 
   convertToRoman(num: number) {

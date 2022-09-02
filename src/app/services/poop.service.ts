@@ -44,7 +44,7 @@ getPoops(): Observable<Poop[]> {
   };
   return this.http.get<Poop[]>(url, httpOptions)
     .pipe(map(res => {
-      // console.log('here is res' + res);
+      // console.log('here is res');
       return res.reverse();
     }),
       catchError(this.handleError<Poop[]>('getPoops', []))
@@ -66,6 +66,21 @@ addPoops(name: string, description: string, rating: number, date: Date, fullAddr
     value => console.log('returned this data ' + value)
   );
 }
+
+  addRating(_id: string, likes: number, dislikes: number): void {
+    const url = `${environment.mainApiUrl}/poop/add-rating`;
+    const body = {_id: _id, likes: likes, dislikes: dislikes};
+    console.log('sending request with this data ' + body);
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    this.http.post<any>(url, body, httpOptions).subscribe(
+      value => console.log('returned this data ' + value)
+    );
+  }
+
+
+
 
   checkOnline() {
     const url = `${environment.mainApiUrl}/poop/list-all`;
