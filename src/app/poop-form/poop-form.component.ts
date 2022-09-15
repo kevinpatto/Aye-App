@@ -97,7 +97,7 @@ export class PoopFormComponent implements OnInit {
         this.buttonText= "Submitted! Rerouting..."
       }, 2000)
     setTimeout(() =>
-    { this.router.navigate(['/Poop-Diaries'])
+    { this.router.navigate(['/Poop-Diaries#pastpoops'])
     }, 2750)
   }
 

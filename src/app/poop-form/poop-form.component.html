@@ -36,14 +36,20 @@
     <br>
 
     <ng-container *ngIf="poopLocation">
-      <div style="display: flex;justify-content: center; align-items: center;">
-      Your toilet sent back your location as<br>
-      </div>
-      <div style="display: flex;justify-content: center; align-items: center;">
-        <i><b><span style="color: #3366ff"> {{this.poopLocation.fullAddr}} </span></b></i>
-      </div>
+      <ng-container *ngIf="poopLocation.city; else noLocFound">
+        <div style="display: flex;justify-content: center; align-items: center;">
+          Your toilet sent back your location as<br>
+        </div>
+        <div style="display: flex;justify-content: center; align-items: center;">
+          <i><b><span style="color: #3366ff"> {{this.poopLocation.fullAddr}} </span></b></i>
+        </div>
+      </ng-container>
+      <ng-template #noLocFound>
+        <div style="display: flex;justify-content: center; align-items: center;">
+          No location found! You must be pooping out in the woods.<br>
+        </div>
+      </ng-template>
     </ng-container>
-
     <br><br>
     <div style="display: flex;justify-content: right; align-items: center;">
 

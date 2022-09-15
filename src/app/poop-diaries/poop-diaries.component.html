@@ -9,7 +9,7 @@
 <br><br><br>
 
 <div style="display: flex; justify-content: center">
-<img src="https://cdn.wimpykidwiki.com/b/bb/Did_you_poop.jpg" width="90%;" style="max-width: 1000px;">
+<img src="https://www.russianforfree.com/resources/art_comics/garfield/garfield_a020en_19g78.jpg" width="90%;" style="max-width: 1000px;">
 </div>
 
 <br><br><br>
@@ -23,24 +23,17 @@
 
 
 </div>
-<br><br><br>
 
 
-<hr style="width: 80%;">
+<!--<hr style="width: 80%;">-->
 <br><br><br><br>
 
-<div style="display: flex; justify-content: center">
+<div style="display: flex; justify-content: center" id="pastpoops">
 
 <p style="font-size: 44px">Past poops...</p>
 
 </div>
 
-<br>
-<div style="display: flex; justify-content: center">
-
-  <p style="font-size: 24px">(right now you need to refresh the page to see likes/dislikes updated)</p>
-
-</div>
 
 <br>
 <!--<div style="display: flex; justify-content: center">-->
@@ -101,10 +94,10 @@
 "{{poo.description}}"
     </p>
     </div>
-        <hr style="border: 1px solid lightgray;">
+<!--        <hr style="border: 1px solid lightgray;">-->
           <div style="display: flex;justify-content: center; align-items: center;">
-            <button mat-raised-button (click)="addLike(poo._id, poo.likes); toggleActivateState()" style="font-family: serif; background-color: #98d4bc;width: 45%; margin-right: 5%;"><b>👌&ensp;&ensp;LIKE - <span>{{convertToRoman(poo.likes)}}</span></b></button>
-          <button mat-raised-button (click)="addDislike(poo._id, poo.dislikes)" style="font-family: serif; background-color: #f88474;width: 45%;margin-left: 5%;"><b>🤢&ensp;&ensp;DISLIKE - <span>{{convertToRoman(poo.dislikes)}}</span></b></button>
+            <button mat-raised-button (click)="addLike(poo._id, poo.likes);poo.likes = poo.likes + 1;" style="font-family: serif; background-color: #98d4bc;width: 45%; margin-right: 5%;"><b>👌&ensp;&ensp;LIKE - <span>{{convertToRoman(poo.likes)}}</span></b></button>
+          <button mat-raised-button (click)="addDislike(poo._id, poo.dislikes); poo.dislikes = poo.dislikes + 1;" style="font-family: serif; background-color: #f88474;width: 45%;margin-left: 5%;"><b>🤢&ensp;&ensp;DISLIKE - <span>{{convertToRoman(poo.dislikes)}}</span></b></button>
           </div>
   </mat-card-content>
 

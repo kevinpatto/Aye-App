@@ -17,12 +17,6 @@ export class PoopDiariesComponent implements OnInit {
   // public observablePoops; TODO GET OBSERVABLEs working
   public poops$!: Observable  <Poop[]>;
 
-  isActive = false;
-
-  toggleActivateState() {
-    this.isActive = !this.isActive;
-  }
-
   constructor(
     private http: HttpClient,
     private poopService: PoopService
