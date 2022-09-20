@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Poop} from "../models/poop";
 import {catchError, Observable, of, tap, map} from "rxjs";
@@ -13,7 +13,8 @@ export class PoopService {
 
   constructor(
     private http: HttpClient,
-  ) { }
+  ) {
+  }
 
   /**
    * Handle Http operation that failed.
@@ -37,35 +38,36 @@ export class PoopService {
   }
 
 
-getPoops(): Observable<Poop[]> {
+  getPoops(): Observable<Poop[]> {
     const url = `${environment.mainApiUrl}/poop/list-all`;
     const httpOptions = {
-    headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-  };
-  return this.http.get<Poop[]>(url, httpOptions)
-    .pipe(map(res => {
-      // console.log('here is res');
-      return res.reverse();
-    }),
-      catchError(this.handleError<Poop[]>('getPoops', []))
-    );
-}
-
-addPoops(name: string, description: string, rating: number, date: Date, fullAddr?: string,
-         lng?: string, lat?: string, street?: string, city?: string, longState?: string,
-         country?: string, zipcode?: string): void {
-  const url = `${environment.mainApiUrl}/poop/create`;
-  const body = {name: name, description: description, rating: rating, date: date, fullAddr: fullAddr, longitude: lng,
-    latitude: lat, street: street, city: city, longState: longState, country: country, zipcode: zipcode
-  };
-  console.log('sending request with this data ' + body);
-  const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
-  this.http.post<any>(url, body, httpOptions).subscribe(
-    value => console.log('returned this data ' + value)
-  );
-}
+    return this.http.get<Poop[]>(url, httpOptions)
+      .pipe(map(res => {
+          // console.log('here is res');
+          return res.reverse();
+        }),
+        catchError(this.handleError<Poop[]>('getPoops', []))
+      );
+  }
+
+  addPoops(name: string, description: string, rating: number, date: Date, fullAddr?: string,
+           lng?: string, lat?: string, street?: string, city?: string, longState?: string,
+           country?: string, zipcode?: string): void {
+    const url = `${environment.mainApiUrl}/poop/create`;
+    const body = {
+      name: name, description: description, rating: rating, date: date, fullAddr: fullAddr, longitude: lng,
+      latitude: lat, street: street, city: city, longState: longState, country: country, zipcode: zipcode
+    };
+    console.log('sending request with this data ' + body);
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    this.http.post<any>(url, body, httpOptions).subscribe(
+      value => console.log('returned this data ' + value)
+    );
+  }
 
   addRating(_id: string, likes: number, dislikes: number): void {
     const url = `${environment.mainApiUrl}/poop/add-rating`;
@@ -79,7 +81,17 @@ addPoops(name: string, description: string, rating: number, date: Date, fullAddr
     );
   }
 
-
+  addComment(_id: string, user: string, text: string, date: Date): void {
+    const url = `${environment.mainApiUrl}/poop/add-comment`;
+    const body = {_id: _id, user: user, text: text, date: date};
+    console.log('sending request with this data ' + body.text + "/" + body._id + "/" + body.user + "/" + body.date);
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    this.http.post<any>(url, body, httpOptions).subscribe(
+      value => console.log('returned this data ' + value)
+    );
+  }
 
 
   checkOnline() {
@@ -88,7 +100,7 @@ addPoops(name: string, description: string, rating: number, date: Date, fullAddr
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
     return this.http.get(url, httpOptions).pipe(
-      catchError(this.handleError<boolean>('isOnline', false))  )
+      catchError(this.handleError<boolean>('isOnline', false)))
   }
 
 }

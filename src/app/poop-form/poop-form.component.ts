@@ -71,7 +71,7 @@ export class PoopFormComponent implements OnInit {
 
     // console.log(date);
     if (name == '') {
-      name = 'anonymoose'
+      name = 'Guest'
     }
 
     if (description == '') {

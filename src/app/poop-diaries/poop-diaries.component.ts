@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Poop} from "../models/poop";
 import {Observable} from "rxjs";
 import {PoopService} from "../services/poop.service";
+import {FormBuilder} from "@angular/forms";
 
 @Component({
   selector: 'app-poop-diaries',
@@ -16,16 +17,38 @@ export class PoopDiariesComponent implements OnInit {
   // public obs: Observable<Poop> | undefined;
   // public observablePoops; TODO GET OBSERVABLEs working
   public poops$!: Observable  <Poop[]>;
+  formData = this.formBuilder.group({
+    name: '',
+    comment: '',
+  })
+
 
   constructor(
     private http: HttpClient,
-    private poopService: PoopService
+    private poopService: PoopService,
+    private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit(): void {
     this.poops$ = this.poopService.getPoops();
   }
 
+  addCommentLike() {
+    this.likeCount += 1;
+  }
+
+  addCommentDislike() {
+    this.dislikeCount += 1;
+  }
+
+  submitComment(id: string) {
+    const currDate = new Date();
+    const user = this.formData.get('name')?.value;
+    const comment = this.formData.get('comment')?.value
+    this.poopService.addComment(id,  user, comment, currDate)
+    this.formData.get('comment')?.setValue(null);
+    this.poops$ = this.poopService.getPoops();
+  }
 
   addLike(id: string, likes: number) {
     console.log(id);
