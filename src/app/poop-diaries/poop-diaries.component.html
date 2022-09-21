@@ -32,11 +32,11 @@
 
 
 <!--<br>-->
-<div style="display: flex; justify-content: center">
+<!--<div style="display: flex; justify-content: center">-->
 
-  <p style="font-size: 24px; margin: 20px;">As of now it's gonna refresh the page so the comments can refresh after posting. I'll have a better solution soon🙂</p>
+<!--  <p style="font-size: 24px; margin: 20px;">As of now it's gonna refresh the page so the comments can refresh after posting. I'll have a better solution soon🙂</p>-->
 
-</div>
+<!--</div>-->
 
 
 <br><br><br>
@@ -106,22 +106,23 @@
             - <span>{{convertToRoman(poo.dislikes)}}</span></b></button>
         </div>
 
-          <ng-container *ngIf="poo.comments.length > 0">
-            <br>
-            <hr style="border: 1px solid lightgray;">
-            <div style="display: flex;justify-content: left; align-items: center;">
-                    <ng-container *ngIf="poo.comments.length === 1; else moreThanOneCmnt">
+        <ng-container *ngIf="poo.comments.length > 0">
+          <br>
+          <hr style="border: 1px solid lightgray;">
+          <div style="display: flex;justify-content: left; align-items: center;">
+            <ng-container *ngIf="poo.comments.length === 1; else moreThanOneCmnt">
               <b>{{poo.comments.length}} Comment</b>
             </ng-container>
             <ng-template #moreThanOneCmnt>
               <b>{{poo.comments.length}} Comments</b>
             </ng-template>
-            </div>
-          </ng-container>
+          </div>
+        </ng-container>
 
         <ng-container *ngIf="poo.comments.length > 0;">
           <ng-container *ngFor="let p of poo.comments">
             <ng-container *ngIf="p.user">
+              <!--              <ng-container *ngIf="this.refresh === true">-->
               <br>
               <div style="display: flex;justify-content: left; align-items: center;">
                 <span style="font-size: 16px; font-weight: 450;">{{p.user}} </span>&ensp; <span
@@ -132,22 +133,20 @@
                 <span style="font-size: 14px; font-weight: 425;">{{p.text}} </span>
               </div>
               <div style="display: flex;justify-content: left; align-items: center; margin-top: 3px;">
-                <button mat-button (click)="addCommentLike()" style="border: none; background-color: white">
+                <button mat-button (click)="addCommentLike();" style="border: none; background-color: white">
                   <span style="font-size: 13px; font-weight: 450;"
-                        title="Like this comment">🗿 - {{this.likeCount}}  </span>
+                        title="Like this comment">🗿 <span style="margin-left: 4px;">{{this.likeCount}}</span>  </span>
                 </button>
                 <button mat-button (click)="addCommentDislike()" style="border: none; background-color: white">
             <span style="font-size: 13px; font-weight: 450; margin-left: 10px;"
-                  title="dislike this comment">😧 - {{this.dislikeCount}} </span>
+                  title="dislike this comment">😧 <span style="margin-left: 4px;">{{this.dislikeCount}}</span> </span>
                 </button>
               </div>
+              <!--            </ng-container>-->
             </ng-container>
           </ng-container>
         </ng-container>
-
-
         <br style="margin-top: 2px;">
-
         <hr style="border: 1px solid lightgray;">
         <div style="display: flex;justify-content: left; align-items: center;">
           <b>Leave a comment</b>
@@ -167,8 +166,9 @@
             </mat-form-field>
           </div>
           <div style="display: flex;justify-content: right; align-items: center;">
-            <button mat-raised-button title="Submit comment" (click)="submitComment(poo._id)"
-                    style="font-family: serif; background-color: powderblue; width: 45%;"><b>💬&ensp;&ensp;Submit
+            <button mat-raised-button title="Submit comment"
+                    (click)="submitComment(poo._id); poo.comments.push({date: addCommentDate, dislikes: 0, likes: 0, text: addCommentText, _id: '', user: addCommentName});"
+                    style="font-family: serif; background-color: powderblue; width: 60%;"><b>💬&ensp;&ensp;Submit
               Comment
             </b></button>
           </div>

@@ -17,17 +17,22 @@ export class PoopDiariesComponent implements OnInit {
   // public obs: Observable<Poop> | undefined;
   // public observablePoops; TODO GET OBSERVABLEs working
   public poops$!: Observable  <Poop[]>;
+  public addCommentDate: Date;
+  public addCommentName = '';
+  public addCommentText = '';
+
   formData = this.formBuilder.group({
     name: '',
     comment: '',
   })
 
-
   constructor(
     private http: HttpClient,
     private poopService: PoopService,
     private formBuilder: FormBuilder,
-  ) { }
+  ) {
+    this.addCommentDate = new Date();
+  }
 
   ngOnInit(): void {
     this.poops$ = this.poopService.getPoops();
@@ -43,11 +48,16 @@ export class PoopDiariesComponent implements OnInit {
 
   submitComment(id: string) {
     const currDate = new Date();
-    const user = this.formData.get('name')?.value;
-    const comment = this.formData.get('comment')?.value
-    this.poopService.addComment(id,  user, comment, currDate)
+    let user = this.formData.get('name')?.value;
+    const comment = this.formData.get('comment')?.value;
+    if (user === '') {
+      user = 'Guest';
+    }
+    this.addCommentDate = currDate;
+    this.addCommentName = user;
+    this.addCommentText = comment;
+    this.poopService.addComment(id,  user, comment, currDate);
     this.formData.get('comment')?.setValue(null);
-    this.poops$ = this.poopService.getPoops();
   }
 
   addLike(id: string, likes: number) {
