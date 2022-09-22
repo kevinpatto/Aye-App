@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Poop} from "../models/poop";
 import {Observable} from "rxjs";
@@ -16,7 +16,7 @@ export class PoopDiariesComponent implements OnInit {
   public dislikeCount = 0;
   // public obs: Observable<Poop> | undefined;
   // public observablePoops; TODO GET OBSERVABLEs working
-  public poops$!: Observable  <Poop[]>;
+  public poops$!: Observable<Poop[]>;
   public addCommentDate: Date;
   public addCommentName = '';
   public addCommentText = '';
@@ -56,18 +56,59 @@ export class PoopDiariesComponent implements OnInit {
     this.addCommentDate = currDate;
     this.addCommentName = user;
     this.addCommentText = comment;
-    this.poopService.addComment(id,  user, comment, currDate);
+    this.poopService.addComment(id, user, comment, currDate);
     this.formData.get('comment')?.setValue(null);
   }
 
   addLike(id: string, likes: number) {
     console.log(id);
-    this.poopService.addRating(id,  1, 0)
+    this.poopService.addRating(id, 1, 0)
   }
 
   addDislike(id: string, dislikes: number) {
     console.log(id);
-    this.poopService.addRating(id, 0,  1)
+    this.poopService.addRating(id, 0, 1)
+  }
+
+  convertToDaysAgo(d: any) {
+    const todayDate = new Date();
+
+    if (d !== undefined) {
+      let theDate1 = new Date(todayDate.toISOString())
+      let theDate2 = new Date(d);
+      var seconds = Math.floor((theDate1.getTime() - theDate2.getTime()) / 1000);
+
+      var interval = seconds / 31536000;
+
+      if (interval > 1) {
+        if (Math.floor(interval) <= 1) return Math.floor(interval) + " year";
+        return Math.floor(interval) + " years";
+      }
+      interval = seconds / 2592000;
+      if (interval > 1) {
+        if (Math.floor(interval) <= 1) return Math.floor(interval) + " month";
+        return Math.floor(interval) + " months";
+      }
+      interval = seconds / 86400;
+      if (interval > 1) {
+        console.log(interval);
+        if (Math.floor(interval) <= 1) return Math.floor(interval) + " day";
+        return Math.floor(interval) + " days"
+      }
+      interval = seconds / 3600;
+      if (interval > 1) {
+        if (Math.floor(interval) <= 1) return Math.floor(interval) + " hour";
+        return Math.floor(interval) + " hours";
+      }
+      interval = seconds / 60;
+      if (interval > 1) {
+        if (Math.floor(interval) <= 1) return Math.floor(interval) + " minute";
+        return Math.floor(interval) + " minutes";
+      }
+      if (Math.floor(interval) <= 1) return Math.floor(seconds) + " second";
+      return Math.floor(seconds) + " seconds";
+    }
+    return d;
   }
 
   convertToRoman(num: number) {

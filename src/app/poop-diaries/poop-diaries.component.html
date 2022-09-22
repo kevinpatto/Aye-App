@@ -1,34 +1,35 @@
-<br><br><br>
-<div style="display: flex; justify-content: center">
-  <p style="font-size: 52px">POOP<br><br><br> DIARIES</p>
-</div>
-<br><br><br>
+<!--<br><br>-->
+<!--<div style="display: flex; justify-content: center">-->
+<!--  <p style="font-size: 52px">POOP<br><br><br> DIARIES</p>-->
+<!--</div>-->
+<!--<br><br><br>-->
 
-<div style="display: flex; justify-content: center">
-  <img src="https://www.russianforfree.com/resources/art_comics/garfield/garfield_a020en_19g78.jpg" width="90%;"
-       style="max-width: 1000px;">
-</div>
+<!--<div style="display: flex; justify-content: center">-->
 
-<br><br><br>
+<!--  <p style="font-size: 24px; margin: 20px;">Your little personal toilet diary🙂</p>-->
 
-<div style="display: flex; justify-content: center">
+<!--</div>-->
 
+<!--<br><br><br>-->
 
-  <br><br><br>
-  <button mat-raised-button routerLink="/Poop-Form"
-          style="font-family: Serif; background-color: #a58570; height: 110px; width: 300px;font-size: 26px; "><b>Submit
-    your own poop</b></button>
+<!--<div style="display: flex; justify-content: center">-->
 
 
-</div>
+<!--  <br><br><br>-->
+<!--  <button mat-raised-button routerLink="/Poop-Form"-->
+<!--          style="font-family: Serif; background-color: #a58570; height: 110px; width: 300px;font-size: 26px; "><b>Submit-->
+<!--    your own poop</b></button>-->
 
-<br><br><br><br>
 
-<div style="display: flex; justify-content: center" id="pastpoops">
+<!--</div>-->
 
-  <p style="font-size: 44px">Past poops...</p>
+<!--<br><br><br><br>-->
 
-</div>
+<!--<div style="display: flex; justify-content: center" id="pastpoops">-->
+
+<!--  <p style="font-size: 44px"><i>Past poops...</i></p>-->
+
+<!--</div>-->
 
 
 <!--<br>-->
@@ -126,12 +127,12 @@
               <br>
               <div style="display: flex;justify-content: left; align-items: center;">
                 <span style="font-size: 16px; font-weight: 450;">{{p.user}} </span>&ensp; <span
-                style="font-size: 14px; font-weight: lighter; margin-left: 5px;">- <i> {{p.date | date:'shortDate'}}
-                at {{p.date | date:'shortTime'}} </i></span>
+                style="font-size: 14px; font-weight: lighter; margin-left: 5px;">   <i> {{convertToDaysAgo(p.date)}} ago</i></span>
               </div>
               <div style="display: flex;justify-content: left; align-items: center; margin-top: 4px;">
                 <span style="font-size: 14px; font-weight: 425;">{{p.text}} </span>
               </div>
+              <ng-container *ngIf="p.likes >= 0;">
               <div style="display: flex;justify-content: left; align-items: center; margin-top: 3px;">
                 <button mat-button (click)="addCommentLike();" style="border: none; background-color: white">
                   <span style="font-size: 13px; font-weight: 450;"
@@ -142,6 +143,7 @@
                   title="dislike this comment">😧 <span style="margin-left: 4px;">{{this.dislikeCount}}</span> </span>
                 </button>
               </div>
+              </ng-container>
               <!--            </ng-container>-->
             </ng-container>
           </ng-container>
@@ -167,7 +169,7 @@
           </div>
           <div style="display: flex;justify-content: right; align-items: center;">
             <button mat-raised-button title="Submit comment"
-                    (click)="submitComment(poo._id); poo.comments.push({date: addCommentDate, dislikes: 0, likes: 0, text: addCommentText, _id: '', user: addCommentName});"
+                    (click)="submitComment(poo._id); poo.comments.push({date: addCommentDate, dislikes: -1, likes: -1, text: addCommentText, _id: '', user: addCommentName});"
                     style="font-family: serif; background-color: powderblue; width: 60%;"><b>💬&ensp;&ensp;Submit
               Comment
             </b></button>
@@ -179,4 +181,4 @@
   <br><br>
 </ng-container>
 
-<br><br><br>
+<br>
