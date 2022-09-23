@@ -1,33 +1,37 @@
-<br><br>
+<br>
 <div style="display: flex; justify-content: center">
-  <p style="font-size: 52px">POOP<br><br><br> DIARIES</p>
+<!--  <p style="font-size: 52px"><i>POOP<br><br><br> DIARIES</i></p>-->
+  <img style="width: 80%; max-width: 600px;"  src="https://see.fontimg.com/api/renderfont4/vppD/eyJyIjoiZnMiLCJoIjo2NSwidyI6MTAwMCwiZnMiOjY1LCJmZ2MiOiIjMDAwMDAwIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/UG9vcCBEaWFyaWVz/turds.png">
 </div>
-<br><br><br>
+<br>
 
 <div style="display: flex; justify-content: center">
 
-  <p style="font-size: 24px; margin: 20px;">Your little personal toilet diary🙂</p>
+  <p style="font-size: 22px; margin: 20px;">Your own little personal toilet diary🙂</p>
 
 </div>
 
-<br><br><br>
+<br>
 
-<div style="display: flex; justify-content: center">
+<div style="display: flex; justify-content: center; overflow: hidden">
 
 
   <br><br><br>
-  <button mat-raised-button routerLink="/Poop-Form"
-          style="font-family: Serif; background-color: #a58570; height: 110px; width: 300px;font-size: 26px; "><b>Submit
-    your own poop</b></button>
+    <button mat-raised-button routerLink="/Poop-Form"
+            style="font-family: Serif; background-color: #a58570; height: 88px; width: 65%; max-width: 400px; font-size: 23px;    "><b>✍️<br> Submit Entry<br></b></button>
+<!--  <button mat-raised-button routerLink="/Poop-Form"-->
+<!--          style="font-family: Serif; background-color: #a58570; height: 88px; width: 45%; max-width: 220px; font-size: 23px;    "><b>✍️<br> Submit Entry<br></b></button>-->
+<!--  <button mat-raised-button routerLink="/Poop-Form"-->
+<!--          style="font-family: Serif; background-color: #39ac39; height: 88px; width: 45%; margin-left: 3%;max-width: 220px; font-size: 23px; "><b>🏆<br>Leaderboards</b></button>-->
 
 
 </div>
 
-<br><br><br><br>
+<br><br>
 
 <div style="display: flex; justify-content: center" id="pastpoops">
 
-  <p style="font-size: 44px"><i>Past poops...</i></p>
+  <p style="font-size: 36px"><i>Past diary entries...</i></p>
 
 </div>
 
@@ -40,7 +44,7 @@
 <!--</div>-->
 
 
-<br><br><br>
+<br><br>
 
 <ng-container *ngFor="let poo of poops$ | async;">
 
@@ -132,18 +136,18 @@
               <div style="display: flex;justify-content: left; align-items: center; margin-top: 4px;">
                 <span style="font-size: 14px; font-weight: 425;">{{p.text}} </span>
               </div>
-              <ng-container *ngIf="p.likes >= 0;">
-              <div style="display: flex;justify-content: left; align-items: center; margin-top: 3px;">
-                <button mat-button (click)="addCommentLike();" style="border: none; background-color: white">
-                  <span style="font-size: 13px; font-weight: 450;"
-                        title="Like this comment">🗿 <span style="margin-left: 4px;">{{this.likeCount}}</span>  </span>
-                </button>
-                <button mat-button (click)="addCommentDislike()" style="border: none; background-color: white">
-            <span style="font-size: 13px; font-weight: 450; margin-left: 10px;"
-                  title="dislike this comment">😧 <span style="margin-left: 4px;">{{this.dislikeCount}}</span> </span>
-                </button>
-              </div>
-              </ng-container>
+<!--              <ng-container *ngIf="p.likes >= 0;">-->
+<!--              <div style="display: flex;justify-content: left; align-items: center; margin-top: 3px;">-->
+<!--                <button mat-button (click)="addCommentLike();" style="border: none; background-color: white">-->
+<!--                  <span style="font-size: 13px; font-weight: 450;"-->
+<!--                        title="Like this comment">🗿 <span style="margin-left: 4px;">{{this.likeCount}}</span>  </span>-->
+<!--                </button>-->
+<!--                <button mat-button (click)="addCommentDislike()" style="border: none; background-color: white">-->
+<!--            <span style="font-size: 13px; font-weight: 450; margin-left: 10px;"-->
+<!--                  title="dislike this comment">😧 <span style="margin-left: 4px;">{{this.dislikeCount}}</span> </span>-->
+<!--                </button>-->
+<!--              </div>-->
+<!--              </ng-container>-->
               <!--            </ng-container>-->
             </ng-container>
           </ng-container>

@@ -91,7 +91,6 @@ export class PoopDiariesComponent implements OnInit {
       }
       interval = seconds / 86400;
       if (interval > 1) {
-        console.log(interval);
         if (Math.floor(interval) <= 1) return Math.floor(interval) + " day";
         return Math.floor(interval) + " days"
       }
