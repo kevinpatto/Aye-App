@@ -38,12 +38,8 @@ export class PoopDiariesComponent implements OnInit {
     this.poops$ = this.poopService.getPoops();
   }
 
-  addCommentLike() {
-    this.likeCount += 1;
-  }
-
-  addCommentDislike() {
-    this.dislikeCount += 1;
+  addCommentRating(id: string, likes: number, dislikes: number) {
+    this.poopService.addCommentRating(id, likes, dislikes);
   }
 
   submitComment(id: string) {

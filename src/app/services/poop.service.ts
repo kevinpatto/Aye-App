@@ -81,6 +81,18 @@ export class PoopService {
     );
   }
 
+  addCommentRating(_id: string, likes: number, dislikes: number): void {
+    const url = `${environment.mainApiUrl}/poop/add-comment-rating`;
+    const body = {_id: _id, likes: likes, dislikes: dislikes};
+    console.log('sending request with this data ' + body);
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    this.http.post<any>(url, body, httpOptions).subscribe(
+      value => console.log('returned this data ' + value)
+    );
+  }
+
   addComment(_id: string, user: string, text: string, date: Date): void {
     const url = `${environment.mainApiUrl}/poop/add-comment`;
     const body = {_id: _id, user: user, text: text, date: date};
