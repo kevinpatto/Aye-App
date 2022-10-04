@@ -100,7 +100,6 @@ export class PoopDiariesComponent implements OnInit {
         if (Math.floor(interval) <= 1) return Math.floor(interval) + " minute";
         return Math.floor(interval) + " minutes";
       }
-      if (Math.floor(interval) <= 1) return Math.floor(seconds) + " second";
       return Math.floor(seconds) + " seconds";
     }
     return d;
