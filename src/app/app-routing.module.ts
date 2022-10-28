@@ -12,22 +12,22 @@ import {MaintenanceComponent} from "./maintenance/maintenance.component";
 
 const routes: Routes = [
 
-  { path: 'Goblin-Dating-Simulator',
+  { path: 'goblin-dating-simulator',
     component: GoblinDatingSimulatorComponent
   },
-  { path: 'Ayes-And-Baes',
+  { path: 'ayes-and-baes',
     component: AyesAndBaesComponent
   },
-  { path: 'Poop-Diaries',
+  { path: 'poop-diaries',
     component: PoopDiariesComponent
   },
-  { path: 'Bergler',
+  { path: 'bergler',
     component: BerglerComponent
   },
-  { path: 'Pokayemon',
+  { path: 'pokayemon',
     component: PokayemonComponent
   },
-  { path: 'Poop-Form',
+  { path: 'poop-form',
     component: PoopFormComponent
   },
   { path: 'maintenance',

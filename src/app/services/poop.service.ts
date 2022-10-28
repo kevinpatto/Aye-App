@@ -105,6 +105,18 @@ export class PoopService {
     );
   }
 
+  addCommentReply(poop_id: string, comment_id: string, user: string, text: string, date: Date): void {
+    const url = `${environment.mainApiUrl}/poop/add-comment-reply`;
+    const body = {poop_id, comment_id, user, text, date};
+    console.log('sending request with this data ' + body);
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    this.http.post<any>(url, body, httpOptions).subscribe(
+      value => console.log('returned this data ' + value)
+    );
+  }
+
 
   checkOnline() {
     const url = `${environment.mainApiUrl}/poop/list-all`;

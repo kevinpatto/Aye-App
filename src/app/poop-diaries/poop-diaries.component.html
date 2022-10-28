@@ -18,7 +18,7 @@
 
 
   <br><br><br>
-  <button mat-raised-button routerLink="/Poop-Form"
+  <button mat-raised-button routerLink="/poop-form"
           style="font-family: Serif; background-color: #a58570; height: 88px; width: 65%; max-width: 400px; font-size: 23px;    ">
     <b>✍️<br> Submit Entry<br></b></button>
   <!--  <button mat-raised-button routerLink="/Poop-Form"-->
@@ -98,11 +98,11 @@
           <button mat-raised-button title="Like this post"
                   (click)="addLike(poo._id, poo.likes);poo.likes = poo.likes + 1;"
                   style="font-family: serif; background-color: #98d4bc;width: 45%; margin-right: 5%;"><b>👌&ensp;&ensp;LIKE
-            - <span>{{convertToRoman(poo.likes)}}</span></b></button>
+            - <span>{{poo.likes}}</span></b></button>
           <button mat-raised-button title="Dislike this post"
                   (click)="addDislike(poo._id, poo.dislikes); poo.dislikes = poo.dislikes + 1;"
                   style="font-family: serif; background-color: #f88474;width: 45%;margin-left: 5%;"><b>🤢&ensp;&ensp;DISLIKE
-            - <span>{{convertToRoman(poo.dislikes)}}</span></b></button>
+            - <span>{{poo.dislikes}}</span></b></button>
         </div>
 
         <ng-container *ngIf="poo.comments.length > 0">
@@ -143,38 +143,102 @@
             <span style="font-size: 13px; font-weight: 450; margin-left: 10px;"
                   title="dislike this comment">😧 <span style="margin-left: 4px;">{{p.dislikes}}</span> </span>
                   </button>
+                  <button mat-button (click)="p.replyClicked = true"
+                          style="border: none; background-color: white">
+            <span style="font-size: 13px; font-weight: 450; margin-left: 5px;"
+                  title="reply!">↩ <span style="margin-left: 4px;">Reply</span> </span>
+                  </button>
                 </div>
+                <ng-container *ngIf="p.replyClicked">
+                  <form [formGroup]="replyFormData">
+                    <div style="display: flex;justify-content: left; align-items: center;">
+                      <mat-form-field style="width: 30%;">
+                        <mat-label>Your name</mat-label>
+                        <input matInput formControlName="replyName" id="replyName">
+                      </mat-form-field>
+                    </div>
+                    <div style="display: flex;justify-content: left; align-items: center;">
+                      <mat-form-field style="width: 80%;">
+                        <mat-label>Your comment</mat-label>
+                        <textarea matInput rows="1" style="resize: none;overflow: hidden" id="replyComment"
+                                  formControlName="replyComment">
+            </textarea>
+                      </mat-form-field>
+                    </div>
+                    <div style="display: flex;justify-content: right; align-items: center;">
+                      <button mat-raised-button title="Submit Reply"
+                              (click)="addCommentReply(poo._id, p._id);
+                                  p.replies.push({date: addReplyCommentDate, dislikes: -1, likes: -1, text: addReplyCommentText, _id: '', user: addReplyCommentName})"
+                              style="font-family: serif; background-color: mediumpurple; width: 60%;"><b>👽️&ensp;&ensp;Submit
+                        Reply
+                      </b></button>
+                    </div>
+                  </form>
+                </ng-container>
+                <ng-container *ngFor="let r of p.replies">
+
+                  <ng-container *ngIf="r.user">
+                    <span style="font-size: 16px; color: #3366ff;line-height: .5;margin-left: 10px;">↪</span>
+                    <div
+                      style="display: flex;justify-content: left; align-items: center; margin-left: 35px; margin-top: 0;">
+                      <span style="font-size: 16px; font-weight: 450;">{{r.user}} </span>&ensp; <span
+                      style="font-size: 14px; font-weight: lighter; margin-left: 5px;">   <i> {{convertToDaysAgo(r.date)}}
+                      ago</i></span>
+                    </div>
+                    <div
+                      style="display: flex;justify-content: left; align-items: center; margin-top: 4px; margin-left: 35px;">
+                      <span style="font-size: 14px; font-weight: 425;">{{r.text}} </span>
+                    </div>
+<!--                    <ng-container *ngIf="r.likes >= 0;">-->
+<!--                      <div-->
+<!--                        style="display: flex;justify-content: left; align-items: center; margin-top: 3px; margin-left: 35px;">-->
+<!--                        <button mat-button (click)="addCommentRating(r._id, 1, 0);r.likes = r.likes + 1;"-->
+<!--                                style="border: none; background-color: white">-->
+<!--                  <span style="font-size: 13px; font-weight: 450;"-->
+<!--                        title="Like this comment">😊 <span style="margin-left: 4px;">{{r.likes}}</span>  </span>-->
+<!--                        </button>-->
+<!--                        <button mat-button (click)="addCommentRating(r._id, 0, 1);r.dislikes = r.dislikes + 1;"-->
+<!--                                style="border: none; background-color: white">-->
+<!--            <span style="font-size: 13px; font-weight: 450; margin-left: 10px;"-->
+<!--                  title="dislike this comment">😧 <span style="margin-left: 4px;">{{r.dislikes}}</span> </span>-->
+<!--                        </button>-->
+<!--                      </div>-->
+<!--                    </ng-container>-->
+
+                  </ng-container>
+                </ng-container>
               </ng-container>
             </ng-container>
           </ng-container>
         </ng-container>
         <br style="margin-top: 2px;">
-        <hr style="border: 1px solid lightgray;">
-        <div style="display: flex;justify-content: left; align-items: center;">
-          <b>Leave a comment</b>
-        </div>
-        <form [formGroup]="formData">
+          <hr style="border: 1px solid lightgray;">
           <div style="display: flex;justify-content: left; align-items: center;">
-            <mat-form-field style="width: 30%;">
-              <mat-label>Your name</mat-label>
-              <input matInput formControlName="name" id="name">
-            </mat-form-field>
+            <b>Leave a comment</b>
           </div>
-          <div style="display: flex;justify-content: left; align-items: center;">
-            <mat-form-field style="width: 80%;">
-              <mat-label>Your comment</mat-label>
-              <textarea matInput rows="1" style="resize: none;overflow: hidden" id="comment" formControlName="comment">
+          <form [formGroup]="formData">
+            <div style="display: flex;justify-content: left; align-items: center;">
+              <mat-form-field style="width: 30%;">
+                <mat-label>Your name</mat-label>
+                <input matInput formControlName="name" id="name">
+              </mat-form-field>
+            </div>
+            <div style="display: flex;justify-content: left; align-items: center;">
+              <mat-form-field style="width: 80%;">
+                <mat-label>Your comment</mat-label>
+                <textarea matInput rows="1" style="resize: none;overflow: hidden" id="comment"
+                          formControlName="comment">
             </textarea>
-            </mat-form-field>
-          </div>
-          <div style="display: flex;justify-content: right; align-items: center;">
-            <button mat-raised-button title="Submit comment"
-                    (click)="submitComment(poo._id); poo.comments.push({date: addCommentDate, dislikes: -1, likes: -1, text: addCommentText, _id: '', user: addCommentName});"
-                    style="font-family: serif; background-color: powderblue; width: 60%;"><b>💬&ensp;&ensp;Submit
-              Comment
-            </b></button>
-          </div>
-        </form>
+              </mat-form-field>
+            </div>
+            <div style="display: flex;justify-content: right; align-items: center;">
+              <button mat-raised-button title="Submit comment"
+                      (click)="submitComment(poo._id); poo.comments.push({date: addCommentDate, dislikes: -1, likes: -1, text: addCommentText, _id: '', user: addCommentName, replies: []});"
+                      style="font-family: serif; background-color: powderblue; width: 60%;"><b>💬&ensp;&ensp;Submit
+                Comment
+              </b></button>
+            </div>
+          </form>
       </mat-card-content>
     </mat-card>
   </div>

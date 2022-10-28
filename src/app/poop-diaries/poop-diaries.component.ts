@@ -14,17 +14,24 @@ export class PoopDiariesComponent implements OnInit {
 
   public likeCount = 0;
   public dislikeCount = 0;
-  // public obs: Observable<Poop> | undefined;
-  // public observablePoops; TODO GET OBSERVABLEs working
   public poops$!: Observable<Poop[]>;
   public addCommentDate: Date;
   public addCommentName = '';
   public addCommentText = '';
+  public addReplyCommentDate: Date;
+  public addReplyCommentName = '';
+  public addReplyCommentText = '';
 
   formData = this.formBuilder.group({
     name: '',
     comment: '',
   })
+
+  replyFormData = this.formBuilder.group({
+    replyName: '',
+    replyComment: '',
+  })
+
 
   constructor(
     private http: HttpClient,
@@ -32,6 +39,7 @@ export class PoopDiariesComponent implements OnInit {
     private formBuilder: FormBuilder,
   ) {
     this.addCommentDate = new Date();
+    this.addReplyCommentDate = new Date();
   }
 
   ngOnInit(): void {
@@ -40,6 +48,20 @@ export class PoopDiariesComponent implements OnInit {
 
   addCommentRating(id: string, likes: number, dislikes: number) {
     this.poopService.addCommentRating(id, likes, dislikes);
+  }
+
+  addCommentReply(poop_id: string, comment_id: string) {
+    const currDate = new Date();
+    let user = this.replyFormData.get('replyName')?.value;
+    const comment = this.replyFormData.get('replyComment')?.value;
+    if (user === '') {
+      user = 'Guest';
+    }
+    this.addReplyCommentDate = currDate;
+    this.addReplyCommentName = user;
+    this.addReplyCommentText = comment;
+    this.poopService.addCommentReply(poop_id, comment_id, user, comment, currDate);
+    this.replyFormData.get('replyComment')?.setValue(null);
   }
 
   submitComment(id: string) {

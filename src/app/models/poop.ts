@@ -27,6 +27,7 @@ export class Poop {
       date: comments.date,
       likes: comments.likes,
       dislikes: comments.dislikes,
+      replies: comments.replies
     }]
   }
 
@@ -40,5 +41,15 @@ export interface CommentJ {
   date: Date;
   likes: number;
   dislikes: number;
+  replyClicked?: boolean;
+  replies: Replies[];
 }
 
+export interface Replies {
+  _id: string;
+  user: string;
+  text: string;
+  date: Date;
+  likes: number;
+  dislikes: number;
+}
