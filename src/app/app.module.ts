@@ -25,6 +25,7 @@ import { PoopFormComponent } from './poop-form/poop-form.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { MaintenanceComponent } from './maintenance/maintenance.component';
+import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { MaintenanceComponent } from './maintenance/maintenance.component';
     HomeComponent,
     PokayemonComponent,
     PoopFormComponent,
-    MaintenanceComponent
+    MaintenanceComponent,
+    LeaderboardsComponent
   ],
   imports: [
     BrowserModule,

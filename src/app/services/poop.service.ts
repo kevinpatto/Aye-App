@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Poop} from "../models/poop";
-import {catchError, Observable, of, tap, map} from "rxjs";
+import {catchError, Observable, of, tap, map, BehaviorSubject} from "rxjs";
 import {environment} from "../../environments/environment.prod";
 
 @Injectable({
@@ -9,20 +9,14 @@ import {environment} from "../../environments/environment.prod";
 })
 export class PoopService {
 
-  public poopArray: Poop[] = [];
+  private poopList_: BehaviorSubject<any> = new BehaviorSubject(null);
+  poopListObs$: Observable<any> = this.poopList_.asObservable();
 
   constructor(
     private http: HttpClient,
   ) {
   }
 
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   *
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
@@ -45,7 +39,7 @@ export class PoopService {
     };
     return this.http.get<Poop[]>(url, httpOptions)
       .pipe(map(res => {
-          // console.log('here is res');
+          this.poopList_.next(res.reverse());
           return res.reverse();
         }),
         catchError(this.handleError<Poop[]>('getPoops', []))
@@ -65,7 +59,7 @@ export class PoopService {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
     this.http.post<any>(url, body, httpOptions).subscribe(
-      value => console.log('returned this data ' + value)
+      // value => console.log('returned this data ' + value)
     );
   }
 

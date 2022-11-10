@@ -9,6 +9,7 @@ import {HomeComponent} from "./home/home.component";
 import {PokayemonComponent} from "./pokayemon/pokayemon.component";
 import {PoopFormComponent} from "./poop-form/poop-form.component";
 import {MaintenanceComponent} from "./maintenance/maintenance.component";
+import {LeaderboardsComponent} from "./leaderboards/leaderboards.component";
 
 const routes: Routes = [
 
@@ -32,6 +33,9 @@ const routes: Routes = [
   },
   { path: 'maintenance',
     component: MaintenanceComponent
+  },
+  { path: 'leaderboards',
+    component: LeaderboardsComponent
   },
   { path: '**',
     component: HomeComponent
