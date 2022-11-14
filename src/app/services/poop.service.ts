@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Poop} from "../models/poop";
-import {catchError, Observable, of, tap, map, BehaviorSubject} from "rxjs";
+import {catchError, Observable, of, tap, map, BehaviorSubject, count, Subject} from "rxjs";
 import {environment} from "../../environments/environment.prod";
 
 @Injectable({
@@ -17,21 +17,6 @@ export class PoopService {
   ) {
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      // this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
-
-
   getPoops(): Observable<Poop[]> {
     const url = `${environment.mainApiUrl}/poop/list-all`;
     const httpOptions = {
@@ -39,6 +24,7 @@ export class PoopService {
     };
     return this.http.get<Poop[]>(url, httpOptions)
       .pipe(map(res => {
+          console.log('gathering poop list...');
           this.poopList_.next(res.reverse());
           return res.reverse();
         }),
@@ -111,7 +97,6 @@ export class PoopService {
     );
   }
 
-
   checkOnline() {
     const url = `${environment.mainApiUrl}/poop/list-all`;
     const httpOptions = {
@@ -120,5 +105,20 @@ export class PoopService {
     return this.http.get(url, httpOptions).pipe(
       catchError(this.handleError<boolean>('isOnline', false)))
   }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // TODO: better job of transforming error for user consumption
+      // this.log(`${operation} failed: ${error.message}`);
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
+
 
 }

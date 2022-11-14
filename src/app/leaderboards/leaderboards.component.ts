@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable, of} from "rxjs";
+import {map, Observable, of, pipe} from "rxjs";
 import {Poop} from "../models/poop";
 import {HttpClient} from "@angular/common/http";
 import {PoopService} from "../services/poop.service";
@@ -11,28 +11,32 @@ import {PoopService} from "../services/poop.service";
 })
 export class LeaderboardsComponent implements OnInit {
   public listOfPoops$: Observable<any> = new Observable<any>();
-  total = 'test';
-  jonahCount = 0;
+  public dataMap?: Map<string, number>;
 
   constructor(
     private http: HttpClient,
     private poopService: PoopService,
   ) {
+    this.dataMap = new Map<string, number>();
   }
 
   ngOnInit(): void {
     this.poopService.getPoops().subscribe();
-    this.poopService.poopListObs$.subscribe(
-      res => {
-        if (res) {
-          for (var i of res) {
-            if (i.name.toUpperCase() === "JONAH")
-              this.jonahCount += 1;
-          }
+    this.poopService.poopListObs$.pipe(
+      map((x) => {
+        if (x) {
+          x.forEach((y: Poop) => {
+            if (!this.dataMap?.has(y.name.toUpperCase())) {
+              this.dataMap?.set(y.name.toUpperCase(), 1)
+            } else {
+              // @ts-ignore
+              this.dataMap?.set(y.name.toUpperCase(), this.dataMap?.get(y.name) + 1);
+            }
+          })
+          // console.log(this.dataMap.);
         }
-      }
-    )
-
+      }))
+      .subscribe()
   }
 
 

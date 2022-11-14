@@ -28,15 +28,17 @@
           </thead>
           <!--        <tbody ng-repeat="camper in campers | orderBy: sortColumn : reverseSort">-->
           <tbody>
-          {{this.jonahCount}}
-<!--          <ng-container *ngFor="let poo of listOfPoops$ | async;">-->
-<!--          <tr class="camper">-->
-<!--            <td>{{poo._id}}</td>-->
-<!--            <td class="number">4</td>-->
-<!--            <td class="number">4</td>-->
-<!--            <td class="number">2</td>-->
-<!--          </tr>-->
-<!--          </ng-container>-->
+          <!--          {{this.dataMap.values()}}-->
+          <ng-container *ngIf="dataMap">
+            <ng-container *ngFor="let d of dataMap.keys();">
+              <tr class="camper">
+                <td>{{d[0] + d.slice(1).toLowerCase()}}</td>
+                <td class="number">4</td>
+                <td class="number">4</td>
+                <td class="number">2</td>
+              </tr>
+            </ng-container>
+          </ng-container>
           </tbody>
         </table>
       </div>
