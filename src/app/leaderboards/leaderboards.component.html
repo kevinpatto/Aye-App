@@ -1,6 +1,13 @@
 <div style="display: flex; justify-content: center">
   <mat-card style="width: 90%;">
 
+
+    <div style="display: flex; justify-content: center" >
+
+      <p style="font-size: 22px; margin: 10px; margin-top: 0"><i>These values are going to change as the algorithm is tweaked over the next few days...</i></p>
+
+    </div>
+
     <div class="row">
       <div class="col-md-12 col-xs-12">
         <div class="tableHeader">Poop Diaries
@@ -17,9 +24,9 @@
         <table class="table-bordered">
           <thead>
           <tr class="camper">
-            <th>User</th>
-            <th>Unique Cities</th>
-            <th>Unique States</th>
+            <th class="number">User</th>
+<!--            <th>Unique Cities</th>-->
+<!--            <th>Unique States</th>-->
             <th class="number">
               Aye Score
               <div></div>
@@ -33,9 +40,14 @@
             <ng-container *ngFor="let d of dataMap.keys();">
               <tr class="camper">
                 <td>{{d[0] + d.slice(1).toLowerCase()}}</td>
-                <td class="number">4</td>
-                <td class="number">4</td>
-                <td class="number">2</td>
+<!--                <td class="number">0</td>-->
+<!--                <td class="number">0</td>-->
+                <ng-container *ngIf="(this.dataMap!.get(d))!.ayeScore!; else noAyeScore;">
+                  <td class="number">{{(this.dataMap!.get(d))!.ayeScore!}}</td>
+                </ng-container>
+                <ng-template #noAyeScore>
+                  <td class="number">0</td>
+                </ng-template>
               </tr>
             </ng-container>
           </ng-container>
