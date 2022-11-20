@@ -1,6 +1,6 @@
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
-  <mat-toolbar color="primary" class="example-toolbar">
-    <button mat-icon-button (click)="snav.toggle();">
+  <mat-toolbar color="primary" class="example-toolbar" role="toolbar">
+    <button mat-icon-button (click)="snav.toggle();"  aria-label="sidebar" role="button">
       <mat-icon>menu</mat-icon>
     </button>
 
