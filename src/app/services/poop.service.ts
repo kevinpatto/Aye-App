@@ -25,7 +25,8 @@ export class PoopService {
     return this.http.get<Poop[]>(url, httpOptions)
       .pipe(map(res => {
           console.log('gathering poop list...');
-          this.poopList_.next(res.reverse());
+          res.reverse();
+          this.poopList_.next(res);
           return res;
         }),
         catchError(this.handleError<Poop[]>('getPoops', []))

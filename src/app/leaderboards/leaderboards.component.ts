@@ -22,7 +22,6 @@ export class LeaderboardsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.poopService.getPoops().subscribe();
     this.poopService.poopListObs$.pipe(
       map((x) => {
         if (x) {
@@ -81,7 +80,9 @@ export class LeaderboardsComponent implements OnInit {
               }
             }
             ayePoints += descripValue + addrValue + commentVal + likeVal - dislikeVal;
-            if (ayePoints > 1300) {ayePoints = 1300}
+            if (ayePoints > 1300) {
+              ayePoints = 1300
+            }
             if (!this.dataMap.has(y.name.toUpperCase())) {
               this.dataMap.set(y.name.toUpperCase(), {
                 cities: [],
@@ -98,6 +99,8 @@ export class LeaderboardsComponent implements OnInit {
               }
             }
           })
+        } else {
+          this.poopService.getPoops().subscribe();
         }
       })).subscribe()
   }
