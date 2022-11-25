@@ -1,6 +1,6 @@
 export interface AyeScore {
-  cities: [];
-  states: [];
+  cities: string[];
+  states: string[];
   uniqCities: number,
   uniqStates: number,
   ayeScore: number

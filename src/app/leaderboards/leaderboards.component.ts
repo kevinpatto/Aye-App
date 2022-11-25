@@ -85,10 +85,14 @@ export class LeaderboardsComponent implements OnInit {
             if (ayePoints > 1300) {
               ayePoints = 1300
             }
+            //
+            // Now count the unique cities for each person
+
+            //
             if (!this.dataMap.has(y.name.toUpperCase())) {
               this.dataMap.set(y.name.toUpperCase(), {
-                cities: [],
-                states: [],
+                cities: [y.city],
+                states: [y.longState],
                 uniqCities: 0,
                 uniqStates: 0,
                 ayeScore: ayePoints,
@@ -97,6 +101,12 @@ export class LeaderboardsComponent implements OnInit {
               var ayeMap = this.dataMap.get(y.name.toUpperCase());
               if (ayeMap) {
                 ayeMap.ayeScore += ayePoints;
+                if (y.city && !ayeMap.cities.includes(y.city)) {
+                  ayeMap.cities.push(y.city);
+                }
+                if (y.longState && !ayeMap.states.includes(y.longState)) {
+                  ayeMap.states.push(y.longState);
+                }
                 this.dataMap.set(y.name.toUpperCase(), ayeMap!);
               }
             }

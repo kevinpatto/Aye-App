@@ -5,19 +5,22 @@ export class Poop {
   public rating: number;
   public date: Date;
   public fullAddr: string;
+  public city: string;
+  public longState: string;
   public likes: number;
   public dislikes: number;
   public comments: CommentJ[];
 
 
-
-  constructor(_id: string, name: string, description: string, rating: number, date: Date, fullAddr: string, likes: number, dislikes: number, comments: CommentJ) {
+  constructor(_id: string, name: string, description: string, rating: number, date: Date, fullAddr: string, city: string, longState: string, likes: number, dislikes: number, comments: CommentJ) {
     this._id = _id;
     this.name = name;
     this.description = description;
     this.rating = rating;
     this.date = date;
     this.fullAddr = fullAddr;
+    this.city = city;
+    this.longState = longState;
     this.likes = likes;
     this.dislikes = dislikes;
     this.comments = [{
