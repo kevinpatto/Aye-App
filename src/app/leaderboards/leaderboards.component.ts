@@ -13,12 +13,14 @@ import {AyeScore} from "../interfaces/aye-score";
 export class LeaderboardsComponent implements OnInit {
   public listOfPoops$: Observable<any> = new Observable<any>();
   public dataMap: Map<string, AyeScore>;
+  public sortedMap: [string, AyeScore][];
 
   constructor(
     private http: HttpClient,
     private poopService: PoopService,
   ) {
     this.dataMap = new Map<string, AyeScore>();
+    this.sortedMap = [];
   }
 
   ngOnInit(): void {
@@ -99,6 +101,9 @@ export class LeaderboardsComponent implements OnInit {
               }
             }
           })
+          this.sortedMap = [...this.dataMap.entries()].sort((a: any, b: any) =>
+            b[1].ayeScore - a[1].ayeScore,
+          );
         } else {
           this.poopService.getPoops().subscribe();
         }
