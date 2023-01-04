@@ -13,21 +13,21 @@ import {LeaderboardsComponent} from "./leaderboards/leaderboards.component";
 
 const routes: Routes = [
 
-  { path: 'goblin-dating-simulator',
-    component: GoblinDatingSimulatorComponent
-  },
-  { path: 'ayes-and-baes',
-    component: AyesAndBaesComponent
-  },
+  // { path: 'goblin-dating-simulator',
+  //   component: GoblinDatingSimulatorComponent
+  // },
+  // { path: 'ayes-and-baes',
+  //   component: AyesAndBaesComponent
+  // },
   { path: 'poop-diaries',
-    component: PoopDiariesComponent
+    component: PoopDiariesComponent,
   },
-  { path: 'bergler',
-    component: BerglerComponent
-  },
-  { path: 'pokayemon',
-    component: PokayemonComponent
-  },
+  // { path: 'bergler',
+  //   component: BerglerComponent
+  // },
+  // { path: 'pokayemon',
+  //   component: PokayemonComponent
+  // },
   { path: 'poop-form',
     component: PoopFormComponent
   },

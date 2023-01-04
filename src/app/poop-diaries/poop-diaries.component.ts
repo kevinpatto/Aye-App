@@ -78,12 +78,12 @@ export class PoopDiariesComponent implements OnInit {
     this.formData.get('comment')?.setValue(null);
   }
 
-  addLike(id: string, likes: number) {
+  addLike(id: string) {
     console.log(id);
     this.poopService.addRating(id, 1, 0)
   }
 
-  addDislike(id: string, dislikes: number) {
+  addDislike(id: string) {
     console.log(id);
     this.poopService.addRating(id, 0, 1)
   }
@@ -94,9 +94,9 @@ export class PoopDiariesComponent implements OnInit {
     if (d !== undefined) {
       let theDate1 = new Date(todayDate.toISOString())
       let theDate2 = new Date(d);
-      var seconds = Math.floor((theDate1.getTime() - theDate2.getTime()) / 1000);
+      let seconds = Math.floor((theDate1.getTime() - theDate2.getTime()) / 1000);
 
-      var interval = seconds / 31536000;
+      let interval = seconds / 31536000;
 
       if (interval > 1) {
         if (Math.floor(interval) <= 1) return Math.floor(interval) + " year";
@@ -129,7 +129,7 @@ export class PoopDiariesComponent implements OnInit {
 
   convertToRoman(num: number) {
     if (num === 0) return "0";
-    var roman: any = {
+    let roman: any = {
       M: 1000,
       CM: 900,
       D: 500,
@@ -144,10 +144,10 @@ export class PoopDiariesComponent implements OnInit {
       IV: 4,
       I: 1
     };
-    var str = '';
+    let str = '';
 
-    for (var i of Object.keys(roman)) {
-      var q = Math.floor(num / roman[i]);
+    for (let i of Object.keys(roman)) {
+      let q = Math.floor(num / roman[i]);
       num -= q * roman[i];
       str += i.repeat(q);
     }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpClient, HttpRequest} from "@angular/common/http";
 import {FormControl, FormGroup} from "@angular/forms";
@@ -43,7 +43,7 @@ export class PoopFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  decodeLocation(longitude: number, latitude: number){
+  decodeLocation(longitude: number, latitude: number) {
     this.locationService.decodeLocation(longitude, latitude).subscribe((res: googleInterface) => {
       this.poopLocation = res;
       console.log(this.poopLocation);
@@ -52,7 +52,7 @@ export class PoopFormComponent implements OnInit {
 
   getLocation(): void {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position)=>{
+      navigator.geolocation.getCurrentPosition((position) => {
         const longitude = position.coords.longitude;
         const latitude = position.coords.latitude;
         this.decodeLocation(longitude, latitude);
@@ -67,7 +67,6 @@ export class PoopFormComponent implements OnInit {
     let description = this.formData.get('description')?.value;
     let rating = this.formData.get('rating')?.value;
     let date = new Date();
-    let loc = null;
 
     // console.log(date);
     if (name == '') {
@@ -92,12 +91,12 @@ export class PoopFormComponent implements OnInit {
     this.loading = true;
     this.buttonText = 'Submitting...';
 
-    setTimeout(() =>
-      { this.loading = false;
-        this.buttonText= "Submitted! Rerouting..."
-      }, 2000)
-    setTimeout(() =>
-    { this.router.navigate(['/poop-diaries#pastpoops'])
+    setTimeout(() => {
+      this.loading = false;
+      this.buttonText = "Submitted! Rerouting..."
+    }, 2000)
+    setTimeout(() => {
+      this.router.navigate(['/poop-diaries'], {fragment: 'past-poops'}).then();
     }, 2750)
   }
 
