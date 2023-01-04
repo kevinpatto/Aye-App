@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Poop} from "../models/poop";
 import {Observable} from "rxjs";
 import {PoopService} from "../services/poop.service";
-import {FormBuilder} from "@angular/forms";
+import {UntypedFormBuilder} from "@angular/forms";
 
 @Component({
   selector: 'app-poop-diaries',
@@ -36,7 +36,7 @@ export class PoopDiariesComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private poopService: PoopService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
   ) {
     this.addCommentDate = new Date();
     this.addReplyCommentDate = new Date();

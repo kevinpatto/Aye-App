@@ -3,7 +3,7 @@ import {Router} from "@angular/router";
 import {HttpClient, HttpRequest} from "@angular/common/http";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Poop} from "../models/poop";
-import {FormBuilder} from "@angular/forms";
+import {UntypedFormBuilder} from "@angular/forms";
 import {PoopService} from "../services/poop.service";
 import {LocationService} from "../services/location.service";
 import {Location} from "../models/location";
@@ -33,7 +33,7 @@ export class PoopFormComponent implements OnInit {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private poopService: PoopService,
     private locationService: LocationService
   ) {
