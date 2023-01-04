@@ -21,6 +21,7 @@ const routes: Routes = [
   // },
   { path: 'poop-diaries',
     component: PoopDiariesComponent,
+    title: 'Aye - Poop Diaries'
   },
   // { path: 'bergler',
   //   component: BerglerComponent
@@ -29,19 +30,24 @@ const routes: Routes = [
   //   component: PokayemonComponent
   // },
   { path: 'poop-form',
-    component: PoopFormComponent
+    component: PoopFormComponent,
+    title: 'Aye - Poop Form',
   },
   { path: 'maintenance',
-    component: MaintenanceComponent
+    component: MaintenanceComponent,
+    title: 'Aye - Maintenance',
   },
   { path: 'leaderboards',
-    component: LeaderboardsComponent
+    component: LeaderboardsComponent,
+    title: 'Aye - Leaderboards'
   },
   { path: '**',
-    component: HomeComponent
+    component: HomeComponent,
+    title: 'Aye - Welcome',
   },
   { path: '',
-    component: HomeComponent
+    component: HomeComponent,
+    title: 'Aye - Welcome',
   },
 ];
 

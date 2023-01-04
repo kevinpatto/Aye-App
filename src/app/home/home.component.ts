@@ -19,8 +19,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.poopService.checkOnline().subscribe( res => {
       if (!res) {
-        console.log('The web server is down!')
-        this.router.navigate(['/maintenance'])
+        console.log('The web server is down!');
+        this.router.navigate(['/maintenance']).then();
       }
     });
   }

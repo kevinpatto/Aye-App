@@ -9,6 +9,7 @@ import {LocationService} from "../services/location.service";
 import {Location} from "../models/location";
 import {Observable} from "rxjs";
 import {googleInterface} from "../models/google-interface";
+import {keyframes} from "@angular/animations";
 
 @Component({
   selector: 'app-poop-form',
@@ -81,23 +82,23 @@ export class PoopFormComponent implements OnInit {
       rating = 0;
     }
 
-    if (this.poopLocation) {
-      this.poopService.addPoops(name, description, rating, date, this.poopLocation.fullAddr, this.poopLocation.longitude,
-        this.poopLocation.latitude, this.poopLocation.street, this.poopLocation.city, this.poopLocation.longState,
-        this.poopLocation.country, this.poopLocation.zipcode);
-    } else {
-      this.poopService.addPoops(name, description, rating, date);
-    }
+    // if (this.poopLocation) {
+    //   this.poopService.addPoops(name, description, rating, date, this.poopLocation.fullAddr, this.poopLocation.longitude,
+    //     this.poopLocation.latitude, this.poopLocation.street, this.poopLocation.city, this.poopLocation.longState,
+    //     this.poopLocation.country, this.poopLocation.zipcode);
+    // } else {
+    //   this.poopService.addPoops(name, description, rating, date);
+    // }
     this.loading = true;
     this.buttonText = 'Submitting...';
 
-    setTimeout(() => {
-      this.loading = false;
-      this.buttonText = "Submitted! Rerouting..."
-    }, 2000)
-    setTimeout(() => {
-      this.router.navigate(['/poop-diaries'], {fragment: 'past-poops'}).then();
-    }, 2750)
+    // setTimeout(() => {
+    //   this.loading = false;
+    //   this.buttonText = "Submitted! Rerouting..."
+    // }, 2000)
+    // setTimeout(() => {
+    //   this.router.navigate(['/poop-diaries'], {fragment: 'past-poops'}).then();
+    // }, 2750)
   }
 
 

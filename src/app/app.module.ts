@@ -7,22 +7,21 @@ import { GoblinDatingSimulatorComponent } from './goblin-dating-simulator/goblin
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatSidenavModule} from "@angular/material/sidenav";
-import {MatLegacyListModule as MatListModule} from "@angular/material/legacy-list";
+import {MatListModule} from "@angular/material/list";
 import {MatIconModule} from "@angular/material/icon";
-import {MatLegacyButtonModule as MatButtonModule} from "@angular/material/legacy-button";
+import {MatButtonModule} from "@angular/material/button";
 import { AyesAndBaesComponent } from './ayes-and-baes/ayes-and-baes.component';
 import { PoopDiariesComponent } from './poop-diaries/poop-diaries.component';
 import { BerglerComponent } from './bergler/bergler.component';
-// import { PokemonTwilightComponent } from './pokemon-twilight/pokemon-twilight.component';
 import { HomeComponent } from './home/home.component';
 import { PokayemonComponent } from './pokayemon/pokayemon.component';
 import { HttpClientModule } from '@angular/common/http';
-import {MatLegacyCardModule as MatCardModule} from "@angular/material/legacy-card";
-import {MatLegacyFormFieldModule as MatFormFieldModule} from "@angular/material/legacy-form-field";
-import {MatLegacyInputModule as MatInputModule} from "@angular/material/legacy-input";
+import {MatCardModule} from "@angular/material/card";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
 import {StarRatingModule} from "angular-star-rating";
 import { PoopFormComponent } from './poop-form/poop-form.component';
-import {MatLegacyProgressSpinnerModule as MatProgressSpinnerModule} from "@angular/material/legacy-progress-spinner";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { MaintenanceComponent } from './maintenance/maintenance.component';
 import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
@@ -35,7 +34,6 @@ import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
     AyesAndBaesComponent,
     PoopDiariesComponent,
     BerglerComponent,
-    // PokemonTwilightComponent,
     HomeComponent,
     PokayemonComponent,
     PoopFormComponent,
