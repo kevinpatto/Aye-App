@@ -2,31 +2,50 @@
   background-color: #F7C331;
   font-size: 22px;
   text-align: center;
-  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   text-shadow: 1px 1px 1px white;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
 }
+
 table {
   width: 100%;
 }
+
 th,
 td {
-  padding: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
+
+.golden {
+  background-color: gold;
+}
+
+.silver {
+  background-color: silver;
+}
+
+.bronze {
+  background-color: #cf5a1a;
+}
+
 .camper {
   background-color: white;
-  padding: 5px;
-  border: 1px solid lightgrey;
+  justify-content: center;
+  //padding: 5px;
+  //border: 1px solid lightgrey;
 }
+
 .name {
   width: 60px;
   border: 1px solid green;
   border-radius: 3px;
 }
+
 .number {
   text-align: center;
 }
+
 .arrow-up {
   width: 0;
   height: 0;
@@ -35,6 +54,7 @@ td {
   border-bottom: 10px solid black;
   display: inline-block;
 }
+
 .arrow-down {
   width: 0;
   height: 0;
@@ -43,6 +63,7 @@ td {
   border-bottom: 10px solid black;
   display: inline-block;
 }
+
 .tableFooter {
   background-color: #F7C331;
   font-size: 22px;

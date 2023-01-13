@@ -120,5 +120,19 @@ export class LeaderboardsComponent implements OnInit {
       })).subscribe()
   }
 
+  getBorder(n: number) {
+    if (n === 0) {
+      return 'golden';
+    }
+    if (n === 1) {
+      return 'silver';
+    }
+    if (n === 2) {
+      return 'bronze';
+    }
+    return 'camper';
+
+  }
+
 
 }
