@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Poop} from "../models/poop";
-import {Observable} from "rxjs";
+import {isEmpty, Observable} from "rxjs";
 import {PoopService} from "../services/poop.service";
 import {UntypedFormBuilder} from "@angular/forms";
 
@@ -45,6 +45,14 @@ export class PoopDiariesComponent implements OnInit {
   ngOnInit(): void {
     this.poops$ = this.poopService.getPoops();
   }
+
+  // isEmpty() {
+  //   return this.poops$.subscribe(x => {
+  //     console.log(x);
+  //   })
+  //   this.poops$.
+  // }
+
 
   addCommentRating(id: string, likes: number, dislikes: number) {
     this.poopService.addCommentRating(id, likes, dislikes);

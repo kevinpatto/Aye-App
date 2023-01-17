@@ -1,23 +1,18 @@
 <div style="display: flex;justify-content: center; align-items: center;">
 
-  <mat-card appearance="outlined" style="width: 95%;">
-    <br><br>
-    <br>
-    <div style="display: flex;justify-content: center; align-items: center;font-size: 36px;">
-      <br><br>
+  <mat-card appearance="outlined" style="width: 95%;margin-top: 5px;">
+    <div style="display: flex;justify-content: center; align-items: center;font-size: 36px;margin-top: 25px;">
       <i>Let us know.</i>
     </div>
-    <br><br>
-
     <div>
 
       <form style="width: 100%" [formGroup]="formData">
-        <div style="display: flex;justify-content: center; align-items: center;">
+        <div style="display: flex;justify-content: center; align-items: center;margin-top: 50px;">
           <mat-label style="color: dimgray; margin-bottom: 2px;"><i>Your Rating</i></mat-label>
         </div>
         <star-rating-control formControlName="rating" id="rating" required [starType]="'svg'" [size]="$any('large')"
                              speed="slow"></star-rating-control>
-        <br><br>
+        <br>
         <mat-form-field style="width: 100%;">
           <mat-label>What's your name?</mat-label>
           <input matInput id="name" formControlName="name">
@@ -47,19 +42,46 @@
               <i><b><span style="color: #3366ff"> {{this.poopLocation.fullAddr}} </span></b></i>
             </div>
           </ng-container>
+
           <ng-template #noLocFound>
             <div style="display: flex;justify-content: center; align-items: center;">
               No location found! You must be pooping out in the woods.<br>
             </div>
           </ng-template>
         </ng-container>
+
+        <ng-container *ngIf="!locationPermission">
+          <div
+            style="display: flex;justify-content: center; align-items: center; padding-left: 25px; padding-right: 25px;">
+            Your device has location permissions <span style="margin-left: 3px;"><b><u>off.</u></b></span>
+          </div>
+          <br>
+          <div
+            style="display: flex;justify-content: center; align-items: center; padding-left: 25px; padding-right: 25px;">
+            Make sure this browser + webpage have access to your location and try again.
+          </div>
+        </ng-container>
+
+
+        <ng-container *ngIf="unknownError">
+          <div
+            style="display: flex;justify-content: center; align-items: center; padding-left: 25px; padding-right: 25px;">
+            Your phone didn't return a location!
+          </div>
+          <br>
+          <div
+            style="display: flex;justify-content: center; align-items: center; padding-left: 25px; padding-right: 25px;">
+            Move a couple miles to your left and try again.
+          </div>
+        </ng-container>
+
         <br>
         <div style="display: flex;justify-content: right; align-items: center;">
 
           <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
 
           <button mat-raised-button [class.spinner]="loading" [disabled]="loading" type="submit" (click)="onSubmit()"
-                  style="font-family: serif; background-color: #3366ff;width: 80%; margin-right: 10%;  font-size: 19px; color: white">
+                  style="font-family: serif; background-color: #3366ff;width: 80%; margin-right: 10%;  font-size: 19px; color: white; margin-bottom: 20px;">
             <b>{{this.buttonText}}</b></button>
         </div>
       </form>

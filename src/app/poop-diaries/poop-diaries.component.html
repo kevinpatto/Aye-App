@@ -13,7 +13,6 @@
 
 </div>
 
-<!--<br>-->
 
 <div style="display: flex; justify-content: center; overflow: hidden">
 
@@ -21,10 +20,10 @@
   <br><br><br>
   <button mat-raised-button routerLink="/poop-form"
           style="font-family: serif; background-color: #a58570; height: 88px; width: 45%; max-width: 220px; font-size: 23px;    ">
-    <b>✍️<br> Submit Entry<br></b></button>
+    <b>✍️<br><br> Submit Entry<br></b></button>
   <button mat-raised-button routerLink="/leaderboards"
           style="font-family: serif; background-color: #39ac39; height: 88px; width: 45%; margin-left: 3%;max-width: 220px; font-size: 23px; ">
-    <b>🏆<br>Leaderboards</b></button>
+    <b>🏆<br><br>Leaderboards</b></button>
 
 
 </div>
@@ -39,7 +38,14 @@
 
 
 <br><br>
-<ng-container *ngFor="let poo of poops$ | async;">
+
+
+<!--{{isEmpty()}}-->
+<!--<ng-container *ngIf="isEmpty()">-->
+<!--  ASDFASDFASDFASDFASDFASDFASDFASDF-->
+<!--</ng-container>-->
+
+<ng-container *ngFor="let poo of poops$ | async; let i = index">
 
   <div style="display: flex; justify-content: center; margin-left: 2.5%; margin-right: 2.5%;">
     <mat-card appearance="outlined" class="example-card" style="width: 100%;">
@@ -151,7 +157,7 @@
                 <ng-container *ngIf="p.replyClicked">
                   <form [formGroup]="replyFormData">
                     <div style="display: flex;justify-content: left; align-items: center;">
-                      <mat-form-field style="width: 30%;">
+                      <mat-form-field style="width: 50%;">
                         <mat-label>Your name</mat-label>
                         <input matInput formControlName="replyName" id="replyName">
                       </mat-form-field>
@@ -217,7 +223,7 @@
         </div>
         <form [formGroup]="formData">
           <div style="display: flex;justify-content: left; align-items: center;">
-            <mat-form-field style="width: 30%;">
+            <mat-form-field style="width: 50%;">
               <mat-label>Your name</mat-label>
               <input matInput formControlName="name" id="name">
             </mat-form-field>

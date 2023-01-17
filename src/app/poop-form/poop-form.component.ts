@@ -21,6 +21,8 @@ export class PoopFormComponent implements OnInit {
   loading = false;
   buttonText = ''
   submitted = false;
+  locationPermission = true;
+  unknownError = false;
 
   public poopLocation!: googleInterface;
 
@@ -45,22 +47,32 @@ export class PoopFormComponent implements OnInit {
   }
 
   decodeLocation(longitude: number, latitude: number) {
+    console.log(longitude, latitude);
     this.locationService.decodeLocation(longitude, latitude).subscribe((res: googleInterface) => {
-      this.poopLocation = res;
-      console.log(this.poopLocation);
-    });
+        this.poopLocation = res;
+        this.unknownError = false;
+        console.log(this.poopLocation);
+      },
+      (err: any) => {
+        this.unknownError = true;
+        console.log(err);
+      });
   }
 
   getLocation(): void {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
+    navigator.geolocation.getCurrentPosition((position) => {
+        console.log('test 1');
+        this.locationPermission = true;
         const longitude = position.coords.longitude;
         const latitude = position.coords.latitude;
         this.decodeLocation(longitude, latitude);
+      },
+      (error) => {
+        if (error.code == error.PERMISSION_DENIED) {
+          console.log('test 2');
+        }
+        this.locationPermission = false;
       });
-    } else {
-      console.log("No support for geolocation");
-    }
   }
 
   onSubmit(): void {
@@ -82,23 +94,23 @@ export class PoopFormComponent implements OnInit {
       rating = 0;
     }
 
-    // if (this.poopLocation) {
-    //   this.poopService.addPoops(name, description, rating, date, this.poopLocation.fullAddr, this.poopLocation.longitude,
-    //     this.poopLocation.latitude, this.poopLocation.street, this.poopLocation.city, this.poopLocation.longState,
-    //     this.poopLocation.country, this.poopLocation.zipcode);
-    // } else {
-    //   this.poopService.addPoops(name, description, rating, date);
-    // }
+    if (this.poopLocation) {
+      this.poopService.addPoops(name, description, rating, date, this.poopLocation.fullAddr, this.poopLocation.longitude,
+        this.poopLocation.latitude, this.poopLocation.street, this.poopLocation.city, this.poopLocation.longState,
+        this.poopLocation.country, this.poopLocation.zipcode);
+    } else {
+      this.poopService.addPoops(name, description, rating, date);
+    }
     this.loading = true;
     this.buttonText = 'Submitting...';
 
-    // setTimeout(() => {
-    //   this.loading = false;
-    //   this.buttonText = "Submitted! Rerouting..."
-    // }, 2000)
-    // setTimeout(() => {
-    //   this.router.navigate(['/poop-diaries'], {fragment: 'past-poops'}).then();
-    // }, 2750)
+    setTimeout(() => {
+      this.loading = false;
+      this.buttonText = "Submitted! Rerouting..."
+    }, 1000)
+    setTimeout(() => {
+      this.router.navigate(['/poop-diaries'], {fragment: 'past-poops'}).then();
+    }, 1750)
   }
 
 
