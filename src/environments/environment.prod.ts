@@ -1,6 +1,6 @@
 
 export const environment = {
   production: true,
-  version: 'v0.17.10',
+  version: 'v0.17.11',
   mainApiUrl: 'https://jonahtoch.com/api/v1'
 };
