@@ -25,6 +25,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { MaintenanceComponent } from './maintenance/maintenance.component';
 import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
+import {CdkFixedSizeVirtualScroll, CdkVirtualScrollViewport, ScrollingModule} from "@angular/cdk/scrolling";
 
 
 @NgModule({
@@ -57,6 +58,9 @@ import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
     MatProgressSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
+    CdkVirtualScrollViewport,
+    CdkFixedSizeVirtualScroll,
+    ScrollingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

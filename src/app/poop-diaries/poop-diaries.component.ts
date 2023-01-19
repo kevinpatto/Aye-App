@@ -4,6 +4,8 @@ import {Poop} from "../models/poop";
 import {isEmpty, Observable} from "rxjs";
 import {PoopService} from "../services/poop.service";
 import {UntypedFormBuilder} from "@angular/forms";
+import {ScrollingModule} from '@angular/cdk/scrolling';
+
 
 @Component({
   selector: 'app-poop-diaries',

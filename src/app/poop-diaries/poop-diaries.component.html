@@ -44,8 +44,10 @@
 <!--<ng-container *ngIf="isEmpty()">-->
 <!--  ASDFASDFASDFASDFASDFASDFASDFASDF-->
 <!--</ng-container>-->
+<cdk-virtual-scroll-viewport itemSize="11" style="height:80vh">
 
-<ng-container *ngFor="let poo of poops$ | async; let i = index">
+
+<ng-container *cdkVirtualFor="let poo of poops$ | async; let i = index">
 
   <div style="display: flex; justify-content: center; margin-left: 2.5%; margin-right: 2.5%;">
     <mat-card appearance="outlined" class="example-card" style="width: 100%;">
@@ -251,5 +253,5 @@
   </div>
   <br><br>
 </ng-container>
-
+</cdk-virtual-scroll-viewport>
 <br>
