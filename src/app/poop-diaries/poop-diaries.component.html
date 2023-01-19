@@ -102,12 +102,14 @@
         <div style="display: flex;justify-content: center; align-items: center;">
           <button mat-raised-button title="Like this post"
                   (click)="addLike(poo._id);poo.likes = poo.likes + 1;"
-                  style="font-family: serif; background-color: #98d4bc;width: 45%; margin-right: 5%;"><b>👌&ensp;&ensp;LIKE
-            - <span>{{poo.likes}}</span></b></button>
+                  style="font-family: serif; background-color: #98d4bc;width: 49%; margin-right: 2%;font-size: 14px; height: 43px;padding: 0;">
+            <b>👌&ensp;&ensp;LIKE
+              - <span>{{poo.likes}}</span></b></button>
           <button mat-raised-button title="Dislike this post"
                   (click)="addDislike(poo._id); poo.dislikes = poo.dislikes + 1;"
-                  style="font-family: serif; background-color: #f88474;width: 45%;margin-left: 5%;"><b>🤢&ensp;&ensp;DISLIKE
-            - <span>{{poo.dislikes}}</span></b></button>
+                  style="font-family: serif; background-color: #f88474;width: 49%; margin-left: 2%;font-size: 14px;height: 43px;padding: 0;">
+            <b>🤢&ensp;&ensp;DISLIKE
+              - <span>{{poo.dislikes}}</span></b></button>
         </div>
 
         <ng-container *ngIf="poo.comments.length > 0">

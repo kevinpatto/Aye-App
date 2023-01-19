@@ -36,15 +36,15 @@ export class LeaderboardsComponent implements OnInit {
             // pts per dislike is -8, max for dislikes is 300
             // max score is 1300 and with full dislikes it is 1000.
             //
-            var ayePoints = 0;
-            var descripValue = y.description.length;
+            let ayePoints = 0;
+            let descripValue = y.description.length;
             if (descripValue) {
               if (descripValue > 300) {
                 descripValue = 300;
               }
             }
-            var addr = y.fullAddr;
-            var addrValue = 0;
+            let addr = y.fullAddr;
+            let addrValue = 0;
             if (addrValue) {
               if (addr) {
                 addrValue = 100;
@@ -53,14 +53,14 @@ export class LeaderboardsComponent implements OnInit {
                 addrValue = 250;
               }
             }
-            var commentVal = (y.comments.length * 50);
+            let commentVal = (y.comments.length * 50);
             if (commentVal) {
               if (commentVal > 250) {
                 commentVal = 250;
               }
             }
-            var fixedLikes = y.likes;
-            var likeVal = 0;
+            let fixedLikes = y.likes;
+            let likeVal = 0;
             if (fixedLikes) {
               if (fixedLikes === 0) {
                 fixedLikes = 1;
@@ -70,8 +70,8 @@ export class LeaderboardsComponent implements OnInit {
                 likeVal = 500
               }
             }
-            var fixedDislikes = y.dislikes;
-            var dislikeVal = 0;
+            let fixedDislikes = y.dislikes;
+            let dislikeVal = 0;
             if (fixedDislikes) {
               if (fixedDislikes === 0) {
                 fixedDislikes = 1
@@ -85,26 +85,27 @@ export class LeaderboardsComponent implements OnInit {
             if (ayePoints > 1300) {
               ayePoints = 1300
             }
-            //
-            // Now count the unique cities for each person
 
-            //
             if (!this.dataMap.has(y.name.toUpperCase())) {
+              // TODO FIGURE OUT HOW TO NOT ADD UNDEFINED TO ARRAY.
               this.dataMap.set(y.name.toUpperCase(), {
-                cities: [y.city],
-                states: [y.longState],
+                cities: [],
+                states: [],
                 uniqCities: 0,
                 uniqStates: 0,
                 ayeScore: ayePoints,
               });
             } else {
-              var ayeMap = this.dataMap.get(y.name.toUpperCase());
+              let ayeMap = this.dataMap.get(y.name.toUpperCase());
               if (ayeMap) {
                 ayeMap.ayeScore += ayePoints;
                 if (y.city && !ayeMap.cities.includes(y.city)) {
                   ayeMap.cities.push(y.city);
                 }
                 if (y.longState && !ayeMap.states.includes(y.longState)) {
+                  // if (y.name.toUpperCase() === "KEVIN") {
+                  //   console.log(ayeMap.states);
+                  // }
                   ayeMap.states.push(y.longState);
                 }
                 this.dataMap.set(y.name.toUpperCase(), ayeMap!);
