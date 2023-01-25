@@ -61,7 +61,6 @@ export class PoopFormComponent implements OnInit {
 
   getLocation(): void {
     navigator.geolocation.getCurrentPosition((position) => {
-        console.log('test 1');
         this.locationPermission = true;
         const longitude = position.coords.longitude;
         const latitude = position.coords.latitude;
@@ -69,7 +68,6 @@ export class PoopFormComponent implements OnInit {
       },
       (error) => {
         if (error.code == error.PERMISSION_DENIED) {
-          console.log('test 2');
         }
         this.locationPermission = false;
       });
