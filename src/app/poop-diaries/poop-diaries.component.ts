@@ -52,12 +52,16 @@ export class PoopDiariesComponent implements OnInit {
   }
 
 
- loadContent() {
-   setTimeout(() => {
-     this.isContentLoaded = true;
-   }, 0)
-    return "";
- }
+ // loadContent() {
+ //    if (this.isContentLoaded) {
+ //      return "";
+ //    }
+ //   setTimeout(() => {
+ //     this.isContentLoaded = true;
+ //   }, 0)
+ //   console.log('test')
+ //    return "";
+ // }
 
 
   addCommentRating(id: string, likes: number, dislikes: number) {
