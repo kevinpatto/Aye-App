@@ -12,6 +12,9 @@ export class PoopService {
   private poopList_: BehaviorSubject<any> = new BehaviorSubject(null);
   poopListObs$: Observable<any> = this.poopList_.asObservable();
 
+  private poopLoaded_: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  poopLoaded$: Observable<boolean> = this.poopLoaded_.asObservable();
+
   constructor(
     private http: HttpClient,
   ) {
@@ -27,6 +30,7 @@ export class PoopService {
           console.log('gathering poop list...');
           res.reverse();
           this.poopList_.next(res);
+          this.poopLoaded_.next(true);
           return res;
         }),
         catchError(this.handleError<Poop[]>('getPoops', []))

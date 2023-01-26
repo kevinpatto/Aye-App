@@ -9,7 +9,7 @@
 
 <div style="display: flex; justify-content: center">
 
-  <p style="font-size: 22px; margin: 20px;">Your own little personal toilet diary🙂</p>
+  <p style="font-size: 22px; margin: 20px;line-height: 150%;">Your own little personal toilet diary🙂</p>
 
 </div>
 
@@ -44,13 +44,13 @@
 
 <!--<ng-container  *cdkVirtualFor="let poo of poops$ | async; let i = index">-->
 
-<!--<ng-container *ngIf="!isContentLoaded">-->
-<!--  <div style="display: flex; justify-content: center">-->
+<ng-container *ngIf="!this.contentLoaded">
+  <div style="display: flex; justify-content: center">
 
-<!--  <mat-spinner></mat-spinner>-->
-<!--  </div>-->
+  <mat-spinner></mat-spinner>
+  </div>
 
-<!--</ng-container>-->
+</ng-container>
 
 
 <ng-container  *ngFor="let poo of poops$ | async; let i = index;">

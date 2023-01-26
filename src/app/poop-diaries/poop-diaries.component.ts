@@ -1,7 +1,7 @@
 import {AfterContentInit, AfterViewInit, Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Poop} from "../models/poop";
-import {isEmpty, Observable} from "rxjs";
+import {isEmpty, Observable, Subscription} from "rxjs";
 import {PoopService} from "../services/poop.service";
 import {UntypedFormBuilder} from "@angular/forms";
 import {ScrollingModule} from '@angular/cdk/scrolling';
@@ -14,7 +14,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 })
 export class PoopDiariesComponent implements OnInit {
 
-  public isContentLoaded: boolean;
+  public isLoadedContentSubscription: Subscription;
+  public contentLoaded = false;
   public likeCount = 0;
   public dislikeCount = 0;
   public poops$!: Observable<Poop[]>;
@@ -43,26 +44,16 @@ export class PoopDiariesComponent implements OnInit {
   ) {
     this.addCommentDate = new Date();
     this.addReplyCommentDate = new Date();
-    this.isContentLoaded = false;
-
+    this.isLoadedContentSubscription = this.poopService.poopLoaded$.subscribe((v) => {
+      console.log(v);
+      this.contentLoaded = v;
+    });
   }
 
   ngOnInit(): void {
+    this.contentLoaded = false;
     this.poops$ = this.poopService.getPoops();
   }
-
-
- // loadContent() {
- //    if (this.isContentLoaded) {
- //      return "";
- //    }
- //   setTimeout(() => {
- //     this.isContentLoaded = true;
- //   }, 0)
- //   console.log('test')
- //    return "";
- // }
-
 
   addCommentRating(id: string, likes: number, dislikes: number) {
     this.poopService.addCommentRating(id, likes, dislikes);
