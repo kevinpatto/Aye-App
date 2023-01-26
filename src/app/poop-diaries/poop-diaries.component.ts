@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Poop} from "../models/poop";
 import {isEmpty, Observable} from "rxjs";
@@ -14,6 +14,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 })
 export class PoopDiariesComponent implements OnInit {
 
+  public isContentLoaded: boolean;
   public likeCount = 0;
   public dislikeCount = 0;
   public poops$!: Observable<Poop[]>;
@@ -42,18 +43,21 @@ export class PoopDiariesComponent implements OnInit {
   ) {
     this.addCommentDate = new Date();
     this.addReplyCommentDate = new Date();
+    this.isContentLoaded = false;
+
   }
 
   ngOnInit(): void {
     this.poops$ = this.poopService.getPoops();
   }
 
-  // isEmpty() {
-  //   return this.poops$.subscribe(x => {
-  //     console.log(x);
-  //   })
-  //   this.poops$.
-  // }
+
+ loadContent() {
+   setTimeout(() => {
+     this.isContentLoaded = true;
+   }, 0)
+    return "";
+ }
 
 
   addCommentRating(id: string, likes: number, dislikes: number) {

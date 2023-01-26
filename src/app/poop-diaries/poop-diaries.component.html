@@ -43,7 +43,18 @@
 <!--<cdk-virtual-scroll-viewport itemSize="1" scrollWindow>-->
 
 <!--<ng-container  *cdkVirtualFor="let poo of poops$ | async; let i = index">-->
-<ng-container  *ngFor="let poo of poops$ | async; let i = index">
+
+<ng-container *ngIf="!isContentLoaded">
+  <div style="display: flex; justify-content: center">
+
+  <mat-spinner></mat-spinner>
+  </div>
+
+</ng-container>
+
+
+<ng-container  *ngFor="let poo of poops$ | async; let i = index;">
+{{loadContent()}}
   <div style="display: flex; justify-content: center; margin-left: 2.5%; margin-right: 2.5%;">
     <mat-card appearance="outlined" class="example-card" style="width: 100%;">
       <mat-card-header>
