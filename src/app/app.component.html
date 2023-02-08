@@ -1,6 +1,6 @@
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
   <mat-toolbar color="primary" class="example-toolbar" role="toolbar">
-    <button mat-icon-button (click)="snav.toggle();"  aria-label="sidebar" role="button">
+    <button mat-icon-button (click)="snav.toggle();" aria-label="sidebar" role="button">
       <mat-icon>menu</mat-icon>
     </button>
 
@@ -10,7 +10,7 @@
                                                           height="58.5" width="171"
                                                           style="margin-top: 15px; margin-right: 15px">
         <img
-        src="assets/logos/ayeapp.png" height="45" width="180" style="margin-bottom: 3px;" alt="Aye App Logo"></a></h1>
+          src="assets/logos/ayeapp.png" height="45" width="180" style="margin-bottom: 3px;" alt="Aye App Logo"></a></h1>
     </ng-container>
 
     <ng-template #smallscreen>
@@ -18,8 +18,18 @@
                                                           width="180" style="margin-top: 24px;"></a></h1>
     </ng-template>
 
+    <span class="example-spacer"></span>
+    <button mat-icon-button (click)="snav.toggle();" aria-label="profile" role="button">
+      <mat-icon>child_care</mat-icon>
+    </button>
+    <button mat-icon-button (click)="snav.toggle();" aria-label="profile" role="button">
+      <mat-icon>logout</mat-icon>
+    </button>
 
   </mat-toolbar>
+
+
+
 
   <mat-sidenav-container class="example-sidenav-container"
                          [style.marginTop.px]="mobileQuery.matches ? 56 : 0">

@@ -26,6 +26,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { MaintenanceComponent } from './maintenance/maintenance.component';
 import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
 import {CdkFixedSizeVirtualScroll, CdkVirtualScrollViewport, ScrollingModule} from "@angular/cdk/scrolling";
+import {AuthModule} from "@auth0/auth0-angular";
+import { AuthbuttonComponent } from './authbutton/authbutton.component';
+import {environment} from "../environments/environment.prod";
 
 
 @NgModule({
@@ -39,7 +42,8 @@ import {CdkFixedSizeVirtualScroll, CdkVirtualScrollViewport, ScrollingModule} fr
     PokayemonComponent,
     PoopFormComponent,
     MaintenanceComponent,
-    LeaderboardsComponent
+    LeaderboardsComponent,
+    AuthbuttonComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +64,14 @@ import {CdkFixedSizeVirtualScroll, CdkVirtualScrollViewport, ScrollingModule} fr
     ReactiveFormsModule,
     CdkVirtualScrollViewport,
     CdkFixedSizeVirtualScroll,
-    ScrollingModule
+    ScrollingModule,
+    AuthModule.forRoot({
+      domain: environment.auth0Domain,
+      clientId: environment.auth0ClientId,
+      authorizationParams: {
+        redirect_uri: window.location.origin
+      }
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
