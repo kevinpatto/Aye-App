@@ -18,17 +18,18 @@
                                                           width="180" style="margin-top: 24px;"></a></h1>
     </ng-template>
 
-    <span class="example-spacer"></span>
-    <button mat-icon-button (click)="snav.toggle();" aria-label="profile" role="button">
-      <mat-icon>child_care</mat-icon>
-    </button>
-    <button mat-icon-button (click)="snav.toggle();" aria-label="profile" role="button">
-      <mat-icon>logout</mat-icon>
-    </button>
+    <ng-container *ngIf="auth.isAuthenticated$ | async;">
+      <span class="example-spacer"></span>
+      <button mat-icon-button aria-label="profile" role="button" routerLink="/profile">
+        <mat-icon>child_care</mat-icon>
+      </button>
+      <button mat-icon-button (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })"
+              aria-label="profile" role="button">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </ng-container>
 
   </mat-toolbar>
-
-
 
 
   <mat-sidenav-container class="example-sidenav-container"

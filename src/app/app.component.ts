@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
 import {ChangeDetectorRef, OnDestroy} from '@angular/core';
 import {environment} from "../environments/environment.prod";
+import {DOCUMENT} from "@angular/common";
+import {AuthService} from "@auth0/auth0-angular";
 
 @Component({
   selector: 'app-root',
@@ -15,10 +17,13 @@ export class AppComponent implements OnDestroy {
   private readonly _mobileQueryListener: () => void;
   public innerWidth?: number;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+
+  constructor(@Inject(DOCUMENT) public document: Document, public auth: AuthService,
+              changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+
   }
 
   ngOnInit() {
@@ -29,5 +34,7 @@ export class AppComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
+
+
 
 }

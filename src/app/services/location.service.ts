@@ -33,7 +33,6 @@ export class LocationService {
 
   decodeLocation(longitude: number, latitude: number): any {
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${environment.googleApiKey}&language=en`;
-    // const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyCFLVgPPPFV_Pk3U2DDgYJq606N8cNOZRA&language=en&result_type=street_address`;
 
     return this.http.get<any>(url).pipe(
       map(data => {

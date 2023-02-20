@@ -10,6 +10,7 @@ import {PokayemonComponent} from "./pokayemon/pokayemon.component";
 import {PoopFormComponent} from "./poop-form/poop-form.component";
 import {MaintenanceComponent} from "./maintenance/maintenance.component";
 import {LeaderboardsComponent} from "./leaderboards/leaderboards.component";
+import {ProfileComponent} from "./profile/profile.component";
 
 const routes: Routes = [
 
@@ -40,6 +41,10 @@ const routes: Routes = [
   { path: 'leaderboards',
     component: LeaderboardsComponent,
     title: 'Aye - Leaderboards'
+  },
+  { path: 'profile',
+    component: ProfileComponent,
+    title: 'Aye - Profile'
   },
   { path: '**',
     component: HomeComponent,

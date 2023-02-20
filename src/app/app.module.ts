@@ -29,6 +29,9 @@ import {CdkFixedSizeVirtualScroll, CdkVirtualScrollViewport, ScrollingModule} fr
 import {AuthModule} from "@auth0/auth0-angular";
 import { AuthbuttonComponent } from './authbutton/authbutton.component';
 import {environment} from "../environments/environment.prod";
+import { ProfileComponent } from './profile/profile.component';
+import { TrophyDialogComponent } from './dialogs/trophy-dialog/trophy-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 
 @NgModule({
@@ -43,36 +46,39 @@ import {environment} from "../environments/environment.prod";
     PoopFormComponent,
     MaintenanceComponent,
     LeaderboardsComponent,
-    AuthbuttonComponent
+    AuthbuttonComponent,
+    ProfileComponent,
+    TrophyDialogComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
-    MatButtonModule,
-    HttpClientModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    StarRatingModule.forRoot(),
-    MatProgressSpinnerModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CdkVirtualScrollViewport,
-    CdkFixedSizeVirtualScroll,
-    ScrollingModule,
-    AuthModule.forRoot({
-      domain: environment.auth0Domain,
-      clientId: environment.auth0ClientId,
-      authorizationParams: {
-        redirect_uri: window.location.origin
-      }
-    }),
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatListModule,
+        MatIconModule,
+        MatButtonModule,
+        HttpClientModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
+        StarRatingModule.forRoot(),
+        MatProgressSpinnerModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CdkVirtualScrollViewport,
+        CdkFixedSizeVirtualScroll,
+        ScrollingModule,
+        AuthModule.forRoot({
+            domain: environment.auth0Domain,
+            clientId: environment.auth0ClientId,
+            authorizationParams: {
+                redirect_uri: window.location.origin
+            }
+        }),
+        MatDialogModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
