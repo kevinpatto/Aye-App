@@ -57,13 +57,9 @@
 
           <span style="margin-left: 5px;" (click)="openTrophyDialog()">
 
-      🏆
-          </span>
-         <span style="margin-left: 5px;">
-      🏆
-          </span>
-         <span style="margin-left: 5px;">
-      🏆
+       <img
+         src="/assets/trophies/monkeytrophy.png"
+         alt="monkey trophy"/>
           </span>
     </span>
 
@@ -71,8 +67,24 @@
     <mat-divider></mat-divider>
 
     <mat-card-actions>
-      <button mat-stroked-button>Share</button>
-      <button mat-stroked-button style="margin-left: 10px;">Report</button>
+
+      <a target="_blank"
+         aria-label="Copy link to the event to clipboard" tabindex=0 matTooltip="Copied to clipboard!"
+         #tooltip="matTooltip"
+         matTooltipPosition="below"
+         (mouseenter)="$event.stopImmediatePropagation()"
+         (mouseleave)="$event.stopImmediatePropagation()"
+         (click)="tooltip.show()"
+         [cdkCopyToClipboard]="testText">
+        <button mat-stroked-button
+                #tooltip="matTooltip"
+                matTooltip="Tap to copy to your clipboard"
+                aria-label="Show tooltip on the button at the end of this section">Share
+        </button>
+      </a>
+
+<!--      <button mat-stroked-button style="margin-left: 10px;">Report</button>-->
+
     </mat-card-actions>
     <mat-card-subtitle style="margin-left: 8px; margin-top: 5px;">Joined on 02/19/23</mat-card-subtitle>
   </mat-card>

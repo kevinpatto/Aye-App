@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {TrophyDialogComponent} from "../dialogs/trophy-dialog/trophy-dialog.component";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'app-profile',
@@ -8,9 +9,15 @@ import {TrophyDialogComponent} from "../dialogs/trophy-dialog/trophy-dialog.comp
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
-  constructor(public dialog: MatDialog) {}
+  testText = "http://localhost:4200/profile";
+
+  constructor(public dialog: MatDialog) {
+  }
+
 
   openTrophyDialog() {
     this.dialog.open(TrophyDialogComponent);
   }
+
+
 }

@@ -32,6 +32,8 @@ import {environment} from "../environments/environment.prod";
 import { ProfileComponent } from './profile/profile.component';
 import { TrophyDialogComponent } from './dialogs/trophy-dialog/trophy-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import {ClipboardModule} from "@angular/cdk/clipboard";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 
 @NgModule({
@@ -50,35 +52,37 @@ import {MatDialogModule} from "@angular/material/dialog";
     ProfileComponent,
     TrophyDialogComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        MatListModule,
-        MatIconModule,
-        MatButtonModule,
-        HttpClientModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatInputModule,
-        StarRatingModule.forRoot(),
-        MatProgressSpinnerModule,
-        FormsModule,
-        ReactiveFormsModule,
-        CdkVirtualScrollViewport,
-        CdkFixedSizeVirtualScroll,
-        ScrollingModule,
-        AuthModule.forRoot({
-            domain: environment.auth0Domain,
-            clientId: environment.auth0ClientId,
-            authorizationParams: {
-                redirect_uri: window.location.origin
-            }
-        }),
-        MatDialogModule,
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule,
+    HttpClientModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    StarRatingModule.forRoot(),
+    MatProgressSpinnerModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CdkVirtualScrollViewport,
+    CdkFixedSizeVirtualScroll,
+    ScrollingModule,
+    AuthModule.forRoot({
+      domain: environment.auth0Domain,
+      clientId: environment.auth0ClientId,
+      authorizationParams: {
+        redirect_uri: window.location.origin
+      }
+    }),
+    MatDialogModule,
+    ClipboardModule,
+    MatTooltipModule,
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
