@@ -1,0 +1,70 @@
+<div style="display: flex; justify-content: center">
+  <mat-card appearance="outlined" style="width: 95%; max-width: 700px">
+    <div class="row">
+      <div class="col-md-12 col-xs-12">
+        <div class="tableHeader">
+          Poop Diaries
+          <br />
+          <span style="margin-top: 155px"> Leaderboard </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 col-xs-12">
+        <table class="table-bordered">
+          <thead>
+            <tr class="camper">
+              <th class="number">User</th>
+              <th>Unique Cities</th>
+              <th>Unique States</th>
+              <th class="number">
+                Aye Score
+                <div></div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngIf="this.sortedMap">
+              <ng-container *ngFor="let d of this.sortedMap; let i = index">
+                <tr>
+                  <div [class]="getBorder(i)" style="display: flex">
+                    <ng-container *ngIf="i === 0">
+                      <span style="font-size: 44px; float: left"> 🥇 </span>
+                      <td style="font-weight: 500; padding-left: 0">
+                        <i>{{ d[0][0] + d[0].slice(1).toLowerCase() }}</i>
+                      </td>
+                    </ng-container>
+                    <ng-container *ngIf="i === 1">
+                      <span style="font-size: 44px; float: left"> 🥈 </span>
+                      <td style="font-weight: 500">
+                        <i>{{ d[0][0] + d[0].slice(1).toLowerCase() }}</i>
+                      </td>
+                    </ng-container>
+                    <ng-container *ngIf="i === 2">
+                      <span style="font-size: 44px"> 🥉 </span>
+                      <td style="font-weight: 500">
+                        <i>{{ d[0][0] + d[0].slice(1).toLowerCase() }}</i>
+                      </td>
+                    </ng-container>
+                    <ng-container *ngIf="i > 2">
+                      <td style="font-weight: 500">
+                        <i>{{ d[0][0] + d[0].slice(1).toLowerCase() }}</i>
+                      </td>
+                    </ng-container>
+                  </div>
+                  <td class="number">{{ d[1].cities.length }}</td>
+                  <td class="number">{{ d[1].states.length }}</td>
+                  <td class="number" style="color: #3366ff; font-weight: 500">
+                    {{ d[1].ayeScore }}
+                  </td>
+                </tr>
+              </ng-container>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <br />
+  </mat-card>
+</div>
