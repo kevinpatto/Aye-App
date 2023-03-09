@@ -21,11 +21,26 @@
 
 <app-authbutton></app-authbutton>
 <br>
+
 <div style="display: flex; justify-content: center">
+  <button mat-stroked-button (click)="updateProfilePicture('test', 'test2')"
+          #tooltip="matTooltip"
+          matTooltip="Tap to copy to your clipboard"
+          aria-label="Show tooltip on the button at the end of this section">Update Profile
+
+  </button>
+</div>
+<br>
+<br><br>
+
+<div style="display: flex; justify-content: center">
+
   <button mat-raised-button
           style="font-family: serif; background-color: slateblue; width: 75%; font-size: 16px; color: white; padding: 20px; max-width: 650px;"
           routerLink="/poop-diaries">
     <b>Launch Poop Diaries🚀</b></button>
+
+
 </div>
 
 <br><br>

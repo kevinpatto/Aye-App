@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {PoopService} from "../services/poop.service";
 import {Observable, switchMap} from "rxjs";
 import {Poop} from "../models/poop";
+import {ProfileService} from "../services/profile.service";
 
 @Component({
   selector: 'app-home',
@@ -13,15 +14,21 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private poopService: PoopService
+    private poopService: PoopService,
+    private profileService: ProfileService,
   ) { }
 
   ngOnInit(): void {
-    this.poopService.checkOnline().subscribe( res => {
-      if (!res) {
-        console.log('The web server is down!');
-        this.router.navigate(['/maintenance']).then();
-      }
-    });
+    // this.poopService.checkOnline().subscribe( res => {
+    //   if (!res) {
+    //     console.log('The web server is down!');
+    //     this.router.navigate(['/maintenance']).then();
+    //   }
+    // });
   }
+
+  updateProfilePicture(userId: string | undefined, authToken: string | undefined) {
+    this.profileService.updateProfilePicture(userId, authToken);
+  }
+
 }

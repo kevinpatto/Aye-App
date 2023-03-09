@@ -75,6 +75,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     AuthModule.forRoot({
       domain: environment.auth0Domain,
       clientId: environment.auth0ClientId,
+      cacheLocation: 'localstorage',
       authorizationParams: {
         redirect_uri: window.location.origin
       }

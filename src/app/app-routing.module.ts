@@ -46,6 +46,10 @@ const routes: Routes = [
     component: ProfileComponent,
     title: 'Aye - Profile'
   },
+  { path: 'authorize',
+    component: ProfileComponent,
+    title: 'Aye - Profile'
+  },
   { path: '**',
     component: HomeComponent,
     title: 'Aye - Welcome',

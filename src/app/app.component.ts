@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, enableProdMode, Inject} from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
 import {ChangeDetectorRef, OnDestroy} from '@angular/core';
 import {environment} from "../environments/environment.prod";
@@ -23,7 +23,6 @@ export class AppComponent implements OnDestroy {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
-
   }
 
   ngOnInit() {
@@ -34,7 +33,6 @@ export class AppComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
-
 
 
 }

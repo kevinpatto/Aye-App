@@ -19,14 +19,32 @@
     </ng-template>
 
     <ng-container *ngIf="auth.isAuthenticated$ | async;">
-      <span class="example-spacer"></span>
-      <button mat-icon-button aria-label="profile" role="button" routerLink="/profile">
-        <mat-icon>child_care</mat-icon>
-      </button>
-      <button mat-icon-button (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })"
-              aria-label="profile" role="button">
-        <mat-icon>logout</mat-icon>
-      </button>
+
+<!--      <ng-container *ngIf="auth.idTokenClaims$ | async as token">-->
+<!--        {{token.sub_jwk}}-->
+<!--        {{token.__raw}}-->
+<!--      </ng-container>-->
+
+
+      <ng-container *ngIf="auth.user$ | async as user">
+
+        <span class="example-spacer"></span>
+        <!--        {{user.nickname}}-->
+        <!--        {{auth.idTokenClaims$}}-->
+        <!--        {{user.preferred_username}}-->
+<!--        <a [routerLink]="['/profile/' + user.profile]">-->
+          <button mat-icon-button aria-label="profile" role="button"
+                  matTooltip="Your profile" routerLink="/profile/{{user.preferred_username}}">
+            <mat-icon>child_care</mat-icon>
+          </button>
+<!--        </a>-->
+        <button mat-icon-button (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })"
+                matTooltip="Log out"
+                aria-label="profile"
+                role="button">
+          <mat-icon>logout</mat-icon>
+        </button>
+      </ng-container>
     </ng-container>
 
   </mat-toolbar>
