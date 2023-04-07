@@ -18,18 +18,22 @@
 <br>
 
 
-
-<!--<app-authbutton></app-authbutton>-->
+<app-authbutton></app-authbutton>
 <br>
 
-<div style="display: flex; justify-content: center">
-  <button mat-stroked-button (click)="updateProfilePicture('test', 'test2')"
-          #tooltip="matTooltip"
-          matTooltip="Tap to copy to your clipboard"
-          aria-label="Show tooltip on the button at the end of this section">Update Profile
 
-  </button>
-</div>
+<ng-container *ngIf="auth.user$ | async as user;">
+  <ng-container *ngIf="auth.idTokenClaims$ | async as token;">
+    <div style="display: flex; justify-content: center">
+      <button mat-stroked-button (click)="updateProfilePicture(user.sub, token.__raw)"
+              #tooltip="matTooltip"
+              matTooltip="Tap to copy to your clipboard"
+              aria-label="Show tooltip on the button at the end of this section">Update Profile
+
+      </button>
+    </div>
+  </ng-container>
+</ng-container>
 <br>
 <br><br>
 
