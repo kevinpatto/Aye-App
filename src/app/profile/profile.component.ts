@@ -32,11 +32,11 @@ export class ProfileComponent {
     this.fullProfileUrl = window.location.href;
   }
 
-  changeUsername(value: any) {
-    console.log(value.originalTarget.value);
-    this.metadata!.user_metadata!.ayeUsername = value.originalTarget.value;
+  changeUsername(event: any) {
+    // console.log(event.originalTarget.value);
+    // console.log(event.target.value);
+    this.metadata!.user_metadata!.ayeUsername = event.target.value;
     this.profileChangesMade = true;
-    // this.metadata?.user_metadata.ayeUsername =
   }
 
 
@@ -50,11 +50,14 @@ export class ProfileComponent {
     return this.profileService.getProfile(userId, authToken).subscribe();
   }
 
-  updateProfilePicture(userId: string | undefined, authToken: string | undefined,  ayeUsername: string | undefined) {
-    this.profileService.updateProfilePicture(userId, authToken, ayeUsername);
-    this.profileChangesMade = false;
-    this.inEditMode = false;
-
+  updateProfilePicture(userId: string | undefined, authToken: string | undefined, ayeUsername: string | undefined) {
+    if (!ayeUsername) {
+      return;
+    } else {
+      this.profileService.updateProfilePicture(userId, authToken, ayeUsername);
+      this.profileChangesMade = false;
+      this.inEditMode = false;
+    }
   }
 
 
@@ -67,7 +70,7 @@ export class ProfileComponent {
           )
         ),
         tap((meta: any) => {
-             console.log(meta);
+            console.log(meta);
             (this.metadata = meta);
             console.log(this.metadata);
           }

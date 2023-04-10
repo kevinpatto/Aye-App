@@ -1,26 +1,45 @@
 <ng-container *ngIf="metadata; else loading">
   <div style="display: flex; justify-content: center;margin:0;padding: 0;">
-    <mat-card style="max-width: 850px;margin:0;padding: 0;">
-      <mat-card-header>
-        <div style="justify-content: center; display: flex; margin-right: 30px;">
-          <mat-card-title>
-
-
+    <mat-card style="max-width: 850px;margin:0;padding: 0;width: 100%;">
+      <mat-card-header style="width: 100%; padding: 0; margin-top: 8px;">
+        <div style="justify-content: center; display: flex; width: 100%;">
+          <mat-card-title style="width: 80%; max-width: 350px;justify-content: center; display: flex;">
             <ng-container *ngIf="inEditMode;">
-            <mat-form-field style="width: 100%;">
-              <mat-label>Username</mat-label>
-              <input matInput id="Username" [value]="metadata.user_metadata.ayeUsername" (change)="changeUsername($event)">
-            </mat-form-field>
+              <mat-form-field style="width: 100%;">
+                <mat-label>Username</mat-label>
+                <input matInput [ngModel]="metadata.user_metadata.ayeUsername"
+                       (input)="changeUsername($event)">
+
+                <button *ngIf="metadata.user_metadata.ayeUsername" matSuffix mat-icon-button aria-label="Clear"
+                        (click)="this.inEditMode = !this.inEditMode;">
+                  <mat-icon>close</mat-icon>
+                </button>
+
+              </mat-form-field>
+              <!--              <mat-error>test</mat-error>-->
             </ng-container>
 
             <ng-container *ngIf="!inEditMode;">
-            <i><b>@{{metadata.user_metadata.ayeUsername}}</b></i>
-            <mat-icon style="margin-left: 5px; height: 20px;color: #3366ff" (click)="this.inEditMode = !this.inEditMode;">edit_square</mat-icon>
+              <i><b style="font-size: 30px;overflow-wrap: anywhere">@{{metadata.user_metadata.ayeUsername}}
+
+
+                <span style="margin-left: 8px; border: 2px solid black;padding: 5px; border-radius: 10px;
+                background-color: rebeccapurple; font-size: 18px"
+                      (click)="this.inEditMode = !this.inEditMode;">✏️</span></b></i>
+
             </ng-container>
 
           </mat-card-title>
         </div>
+        <br>
       </mat-card-header>
+      <!--      <button mat-stroked-button-->
+      <!--              (click)="this.inEditMode = !this.inEditMode"-->
+      <!--              style=" width: 65%;"-->
+      <!--              #tooltip="matTooltip"-->
+      <!--              matTooltip="Tap to save your changes"-->
+      <!--              aria-label="Show tooltip on the button at the end of this section">Edit Profile-->
+      <!--      </button>-->
       <mat-card-header style="margin-bottom: 5px;">
 
 
@@ -28,12 +47,15 @@
           <div style="justify-content: center; display: flex; margin-top: 3px;">
             <b style="font-size: 18px;">Aye Score</b>
           </div>
+
+
           <br>
           <div style="justify-content: center; display: flex;">
           <span
             style="font-size: 30px;margin-top: 7px; font-family: 'Courier New',serif; color: #3366ff"><b>8032</b></span>
           </div>
         </div>
+
 
         <div style="width:100%;">
           <div style="justify-content: center; display: flex;font-size: 35px;margin-top: 11px;">
@@ -49,7 +71,7 @@
 
       <img mat-card-image src="{{metadata.user_metadata.profilePicUrl}}"
            alt="Profile picture"
-           style="border-radius: 5px; width: 95%; max-width: 750px; margin: 10px;" fill>
+           style="border-radius: 5px; width: 95%; max-width: 750px; margin: 10px;">
 
       <!--      <ng-template #defaultImage>-->
       <!--        <img mat-card-image src="https://i.insider.com/59ca65fefca6e427008b4776?width=1750&format=jpeg&auto=webp"-->
@@ -59,7 +81,10 @@
       <br>
       <mat-card-content>
       <span style="font-size: 16px;font-family: 'Cascadia Code',serif">
-        Hey I'm Gonah welcome to my profile.asdfasdfasdf
+        Hey I'm Gonah welcome to my profile.asdfasdfasdf<span
+        style="margin-left: 25px; border: 2px solid black;padding: 5px; border-radius: 10px;
+                background-color: rebeccapurple; font-size: 14px"
+        (click)="this.inEditMode = !this.inEditMode;">✏️</span>
       </span>
       </mat-card-content>
 
@@ -112,7 +137,8 @@
         <!--        <div>-->
         <ng-container *ngIf="auth.user$ | async as user;">
           <ng-container *ngIf="auth.idTokenClaims$ | async as token;">
-            <button mat-stroked-button (click)="updateProfilePicture(user.sub, token.__raw, this.metadata!.user_metadata!.ayeUsername)"
+            <button mat-stroked-button
+                    (click)="updateProfilePicture(user.sub, token.__raw, this.metadata!.user_metadata!.ayeUsername)"
                     style=" width: 65%;"
                     [disabled]="!profileChangesMade"
                     #tooltip="matTooltip"
