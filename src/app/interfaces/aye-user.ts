@@ -24,6 +24,7 @@ export interface UserMetadata {
   profileCode: number;
   profilePicUrl: string;
   ayeUsername: string;
+  bio: string;
 }
 
 export interface Identity {

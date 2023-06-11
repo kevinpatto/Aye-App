@@ -1,0 +1,40 @@
+table {
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.mat-cell {
+  font-size: 18px;
+  text-align: center;
+  border: 1px solid black;
+  padding: 4px;
+  font-weight: bolder;
+}
+
+.mat-header-cell {
+  font-size: 24px;
+  font-weight: bold;
+  border: 1px solid black;
+  text-align: center;
+  padding: 2px;
+  color: #3366FF;
+}
+
+
+th.mat-header-cell:first-of-type {
+  padding:2px;
+}
+th.mat-header-cell:last-of-type {
+  padding: 2px;
+}
+
+.mat-cell:first-child, mat-footer-cell:first-child, mat-header-cell:first-child {
+  padding-left: 4px;
+}
+
+.mat-cell:last-child, mat-footer-cell:last-child, mat-header-cell:last-child {
+  padding-right: 4px;
+}
+
+mat-radio-label {
+}

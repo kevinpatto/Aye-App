@@ -18,34 +18,34 @@
                                                           width="180" style="margin-top: 24px;"></a></h1>
     </ng-template>
 
-    <ng-container *ngIf="auth.isAuthenticated$ | async;">
+<!--    <ng-container *ngIf="auth.isAuthenticated$ | async;">-->
 
-<!--      <ng-container *ngIf="auth.idTokenClaims$ | async as token">-->
-<!--        {{token.sub_jwk}}-->
-<!--        {{token.__raw}}-->
+<!--&lt;!&ndash;      <ng-container *ngIf="auth.idTokenClaims$ | async as token">&ndash;&gt;-->
+<!--&lt;!&ndash;        {{token.sub_jwk}}&ndash;&gt;-->
+<!--&lt;!&ndash;        {{token.__raw}}&ndash;&gt;-->
+<!--&lt;!&ndash;      </ng-container>&ndash;&gt;-->
+
+
+<!--      <ng-container *ngIf="auth.user$ | async as user">-->
+
+<!--        <span class="example-spacer"></span>-->
+<!--        &lt;!&ndash;        {{user.nickname}}&ndash;&gt;-->
+<!--        &lt;!&ndash;        {{auth.idTokenClaims$}}&ndash;&gt;-->
+<!--        &lt;!&ndash;        {{user.preferred_username}}&ndash;&gt;-->
+<!--&lt;!&ndash;        <a [routerLink]="['/profile/' + user.profile]">&ndash;&gt;-->
+<!--          <button mat-icon-button aria-label="profile" role="button"-->
+<!--                  matTooltip="Your profile" routerLink="/profile/{{user.preferred_username}}">-->
+<!--            <mat-icon>child_care</mat-icon>-->
+<!--          </button>-->
+<!--&lt;!&ndash;        </a>&ndash;&gt;-->
+<!--        <button mat-icon-button (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })"-->
+<!--                matTooltip="Log out"-->
+<!--                aria-label="profile"-->
+<!--                role="button">-->
+<!--          <mat-icon>logout</mat-icon>-->
+<!--        </button>-->
 <!--      </ng-container>-->
-
-
-      <ng-container *ngIf="auth.user$ | async as user">
-
-        <span class="example-spacer"></span>
-        <!--        {{user.nickname}}-->
-        <!--        {{auth.idTokenClaims$}}-->
-        <!--        {{user.preferred_username}}-->
-<!--        <a [routerLink]="['/profile/' + user.profile]">-->
-          <button mat-icon-button aria-label="profile" role="button"
-                  matTooltip="Your profile" routerLink="/profile/{{user.preferred_username}}">
-            <mat-icon>child_care</mat-icon>
-          </button>
-<!--        </a>-->
-        <button mat-icon-button (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })"
-                matTooltip="Log out"
-                aria-label="profile"
-                role="button">
-          <mat-icon>logout</mat-icon>
-        </button>
-      </ng-container>
-    </ng-container>
+<!--    </ng-container>-->
 
   </mat-toolbar>
 
@@ -54,17 +54,22 @@
                          [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'over'"
                  [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
-      <mat-nav-list>
+      <mat-nav-list style="padding: 0;">
+        <a mat-list-item routerLink="/softball" (click)="snav.toggle()">
+          <!--          <img src="assets/skyler.PNG" height="75px" width="75px" style="margin-right: 5px;  border-radius: 50%;">-->
+          <b>🥎<span style="margin-left: 5px;">Aye's & Bae's</span></b>
+          <!--          <button mat-button mat-small class="badge-button" style="background-color: #3366ff"><b>NEW UPDATE😮</b></button>-->
+        </a>
         <a mat-list-item routerLink="/poop-diaries" (click)="snav.toggle()">
           <!--          <img src="assets/skyler.PNG" height="75px" width="75px" style="margin-right: 5px;  border-radius: 50%;">-->
           <b>📓<span style="margin-left: 5px;">Poop Diaries</span></b>
           <!--          <button mat-button mat-small class="badge-button" style="background-color: #3366ff"><b>NEW UPDATE😮</b></button>-->
         </a>
-        <a mat-list-item routerLink="/leaderboards" (click)="snav.toggle()">
-          <!--          <img src="assets/skyler.PNG" height="75px" width="75px" style="margin-right: 5px;  border-radius: 50%;">-->
-          <b>🏆<span style="margin-left: 5px;">Leaderboards</span></b>
-          <!--          <button mat-button mat-small class="badge-button" style="background-color: #3366ff"><b>NEW UPDATE😮</b></button>-->
-        </a>
+<!--        <a mat-list-item routerLink="/leaderboards" (click)="snav.toggle()">-->
+<!--          &lt;!&ndash;          <img src="assets/skyler.PNG" height="75px" width="75px" style="margin-right: 5px;  border-radius: 50%;">&ndash;&gt;-->
+<!--          <b>🏆<span style="margin-left: 5px;">Leaderboards</span></b>-->
+<!--          &lt;!&ndash;          <button mat-button mat-small class="badge-button" style="background-color: #3366ff"><b>NEW UPDATE😮</b></button>&ndash;&gt;-->
+<!--        </a>-->
         <!--        <br><br>-->
         <!--        <span style="margin-left: 10px;">🤔</span> <span style="margin-left: 5px; margin-right: 5px;">More coming soon...</span>-->
         <!--        <br><br>-->

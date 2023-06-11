@@ -11,15 +11,17 @@ import {PoopFormComponent} from "./poop-form/poop-form.component";
 import {MaintenanceComponent} from "./maintenance/maintenance.component";
 import {LeaderboardsComponent} from "./leaderboards/leaderboards.component";
 import {ProfileComponent} from "./profile/profile.component";
+import {SoftballComponent} from "./softball/softball.component";
 
 const routes: Routes = [
 
   // { path: 'goblin-dating-simulator',
   //   component: GoblinDatingSimulatorComponent
   // },
-  // { path: 'ayes-and-baes',
-  //   component: AyesAndBaesComponent
-  // },
+  { path: 'softball',
+    component: SoftballComponent,
+    title: "Aye - Aye's & Bae's"
+  },
   { path: 'poop-diaries',
     component: PoopDiariesComponent,
     title: 'Aye - Poop Diaries'

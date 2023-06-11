@@ -1,0 +1,172 @@
+<div
+  style="margin-top: 10px; margin-bottom: 10px; display: flex; justify-content: center; align-items: center; font-size: 50px; line-height: 1;">
+  <!--      <span style="font-size: 65px; line-height: 1;">-->
+  <b><i>Aye's & Bae's</i></b>
+  <!--      </span>-->
+</div>
+
+<div style="margin-top: 10px; margin-bottom: 10px; display: flex; justify-content: center;">
+    <span style="font-size: 26px;">
+      <span style="color: green">0</span> Wins - <span style="color: red">1</span> Loss
+    </span>
+</div>
+
+<br>
+
+<ng-container *ngIf="dataSource.data.length > 0">
+  <div class="mat-elevation-z8"
+       style="margin-top: 10px; overflow: auto; width: 98%; margin-left: 1%; margin-right: 1%;"
+       tabindex="0">
+    <ng-container>
+      <table [dataSource]="dataSource" mat-table>
+        <ng-container matColumnDef="name" sticky>
+          <th *matHeaderCellDef mat-header-cell>Player</th>
+          <td *matCellDef="let element"
+              mat-cell>
+            <b>
+              {{element.name}} <span style="color: gray">{{element.position}}</span>
+
+            </b>
+          </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="games">
+          <th *matHeaderCellDef mat-header-cell>G</th>
+          <td *matCellDef="let element; let i = index;"
+              mat-cell>
+            {{element.games}}
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="atBats">
+          <th *matHeaderCellDef mat-header-cell>AB</th>
+          <td *matCellDef="let element; let i = index;"
+              mat-cell>
+            {{element.atBats}}
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="runs">
+          <th *matHeaderCellDef mat-header-cell>R</th>
+          <td *matCellDef="let element; let i = index;"
+              mat-cell>
+            {{element.runs}}
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="hits">
+          <th *matHeaderCellDef mat-header-cell>H</th>
+          <td *matCellDef="let element; let i = index;"
+              mat-cell>
+            {{element.hits}}
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="doubles">
+          <th *matHeaderCellDef mat-header-cell>2B</th>
+          <td *matCellDef="let element; let i = index;"
+              mat-cell>
+            {{element.doubles}}
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="triples">
+          <th *matHeaderCellDef mat-header-cell>3B</th>
+          <td *matCellDef="let element; let i = index;"
+              mat-cell>
+            {{element.triples}}
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="homeruns">
+          <th *matHeaderCellDef mat-header-cell>HR</th>
+          <td *matCellDef="let element; let i = index;"
+              mat-cell>
+            {{element.homeruns}}
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="rbis">
+          <th *matHeaderCellDef mat-header-cell>RBI</th>
+          <td *matCellDef="let element; let i = index;"
+              mat-cell>
+            {{element.rbis}}
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="walks">
+          <th *matHeaderCellDef mat-header-cell>BB</th>
+          <td *matCellDef="let element; let i = index;"
+              mat-cell>
+            {{element.walks}}
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="battingAverage">
+          <th *matHeaderCellDef mat-header-cell>BA</th>
+          <td *matCellDef="let element; let i = index;"
+              mat-cell>
+            {{element.battingAverage | number: '.3-3'}}
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="onBasePercentage">
+          <th *matHeaderCellDef mat-header-cell>OBP</th>
+          <td *matCellDef="let element; let i = index;"
+              mat-cell>
+            {{element.onBasePercentage | number: '.3-3'}}
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="sluggingPercentage">
+          <th *matHeaderCellDef mat-header-cell>SLG</th>
+          <td *matCellDef="let element; let i = index;"
+              mat-cell>
+            {{element.sluggingPercentage | number: '.3-3'}}
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="onBasePlusSlugging">
+          <th *matHeaderCellDef mat-header-cell>OPS</th>
+          <td *matCellDef="let element; let i = index;"
+              mat-cell>
+            {{element.onBasePlusSlugging | number: '.3-3'}}
+
+          </td>
+        </ng-container>
+
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+      </table>
+            <mat-paginator [pageSizeOptions]="[8, 16, 24]"
+                           aria-label="Select page of work order"
+                           showFirstLastButtons>
+            </mat-paginator>
+      <!--Refer to this package for how the data is output as csv: https://github.com/scttcper/ngx-csv -->
+                <ng-container *ngIf="dataSource.data.length >= 1">
+                  <a [data]="dataSource.data" filename="ayes-and-baes-stats-{{getCurrDate()}}.csv" csvLink>
+                    <button mat-raised-button
+                            style="width: 40%; max-width: 375px; background-color: #fad900; color: black; margin-left: 10px; margin-bottom: 10px;">
+                      <b>Download Data</b>
+                    </button>
+                  </a>
+                </ng-container>
+
+
+    </ng-container>
+
+  </div>
+</ng-container>

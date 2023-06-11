@@ -4,14 +4,14 @@
       <mat-card-header style="width: 100%; padding: 0; margin-top: 8px;">
         <div style="justify-content: center; display: flex; width: 100%;">
           <mat-card-title style="width: 80%; max-width: 350px;justify-content: center; display: flex;">
-            <ng-container *ngIf="inEditMode;">
+            <ng-container *ngIf="editingUsername;">
               <mat-form-field style="width: 100%;">
                 <mat-label>Username</mat-label>
                 <input matInput [ngModel]="metadata.user_metadata.ayeUsername"
                        (input)="changeUsername($event)">
 
                 <button *ngIf="metadata.user_metadata.ayeUsername" matSuffix mat-icon-button aria-label="Clear"
-                        (click)="this.inEditMode = !this.inEditMode;">
+                        (click)="this.editingUsername = !this.editingUsername;">
                   <mat-icon>close</mat-icon>
                 </button>
 
@@ -19,13 +19,13 @@
               <!--              <mat-error>test</mat-error>-->
             </ng-container>
 
-            <ng-container *ngIf="!inEditMode;">
+            <ng-container *ngIf="!editingUsername;">
               <i><b style="font-size: 30px;overflow-wrap: anywhere">@{{metadata.user_metadata.ayeUsername}}
 
 
                 <span style="margin-left: 8px; border: 2px solid black;padding: 5px; border-radius: 10px;
-                background-color: rebeccapurple; font-size: 18px"
-                      (click)="this.inEditMode = !this.inEditMode;">✏️</span></b></i>
+                background-color: rebeccapurple; font-size: 17px"
+                      (click)="this.editingUsername = !this.editingUsername;">✏️</span></b></i>
 
             </ng-container>
 
@@ -80,12 +80,28 @@
       <!--      </ng-template>-->
       <br>
       <mat-card-content>
-      <span style="font-size: 16px;font-family: 'Cascadia Code',serif">
-        Hey I'm Gonah welcome to my profile.asdfasdfasdf<span
-        style="margin-left: 25px; border: 2px solid black;padding: 5px; border-radius: 10px;
+        <ng-container *ngIf="editingBio; else showBio">
+          <mat-form-field style="width: 100%;">
+            <mat-label>Your Bio</mat-label>
+            <textarea matInput rows="2" id="bio" style="font-family: 'Cascadia Code',serif; font-size: 16px;"
+                      [ngModel]="metadata.user_metadata.bio" (input)="changeBio($event)">
+
+              </textarea>
+            <button *ngIf="metadata.user_metadata.bio" matSuffix mat-icon-button aria-label="Clear"
+                    (click)="this.editingBio = !this.editingBio;">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </ng-container>
+
+        <ng-template #showBio>
+        <span style="font-size: 16px;font-family: 'Cascadia Code',serif">
+        {{metadata.user_metadata.bio}}<span
+          style="margin-left: 25px; border: 2px solid black;padding: 5px; border-radius: 10px;
                 background-color: rebeccapurple; font-size: 14px"
-        (click)="this.inEditMode = !this.inEditMode;">✏️</span>
+          (click)="this.editingBio = !this.editingBio;">✏️</span>
       </span>
+        </ng-template>
       </mat-card-content>
 
 
@@ -138,7 +154,7 @@
         <ng-container *ngIf="auth.user$ | async as user;">
           <ng-container *ngIf="auth.idTokenClaims$ | async as token;">
             <button mat-stroked-button
-                    (click)="updateProfilePicture(user.sub, token.__raw, this.metadata!.user_metadata!.ayeUsername)"
+                    (click)="updateProfile(user.sub, token.__raw)"
                     style=" width: 65%;"
                     [disabled]="!profileChangesMade"
                     #tooltip="matTooltip"

@@ -37,6 +37,10 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthHttpInterceptor} from '@auth0/auth0-angular';
 import {NgOptimizedImage} from "@angular/common";
+import { SoftballComponent } from './softball/softball.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatTableModule} from "@angular/material/table";
+import {CsvModule} from "@ctrl/ngx-csv";
 
 
 @NgModule({
@@ -53,60 +57,64 @@ import {NgOptimizedImage} from "@angular/common";
     LeaderboardsComponent,
     AuthbuttonComponent,
     ProfileComponent,
-    TrophyDialogComponent
+    TrophyDialogComponent,
+    SoftballComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        MatListModule,
-        MatIconModule,
-        MatButtonModule,
-        HttpClientModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatInputModule,
-        StarRatingModule.forRoot(),
-        MatProgressSpinnerModule,
-        FormsModule,
-        ReactiveFormsModule,
-        CdkVirtualScrollViewport,
-        CdkFixedSizeVirtualScroll,
-        ScrollingModule,
-        AuthModule.forRoot({
-            domain: environment.auth0Domain,
-            clientId: environment.auth0ClientId,
-            cacheLocation: 'localstorage',
-            useRefreshTokens: true,
-            authorizationParams: {
-                redirect_uri: window.location.origin,
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule,
+    HttpClientModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    StarRatingModule.forRoot(),
+    MatProgressSpinnerModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CdkVirtualScrollViewport,
+    CdkFixedSizeVirtualScroll,
+    ScrollingModule,
+    AuthModule.forRoot({
+      domain: environment.auth0Domain,
+      clientId: environment.auth0ClientId,
+      cacheLocation: 'localstorage',
+      useRefreshTokens: true,
+      authorizationParams: {
+        redirect_uri: window.location.origin,
+        audience: `https://${environment.auth0Domain}/api/v2/`,
+        scope: 'openid profile update:current_user_metadata offline_access read:current_user create:current_user_metadata delete:current_user_metadata create:current_user_device_credentials delete:current_user_device_credentials',
+      },
+
+      httpInterceptor: {
+        allowedList: [
+          {
+            uri: `https://${environment.auth0Domain}/api/v2/*`,
+            tokenOptions: {
+              authorizationParams: {
+                // The attached token should target this audience
                 audience: `https://${environment.auth0Domain}/api/v2/`,
-                scope: 'openid profile update:current_user_metadata offline_access read:current_user create:current_user_metadata delete:current_user_metadata create:current_user_device_credentials delete:current_user_device_credentials',
-            },
 
-            httpInterceptor: {
-                allowedList: [
-                    {
-                        uri: `https://${environment.auth0Domain}/api/v2/*`,
-                        tokenOptions: {
-                            authorizationParams: {
-                                // The attached token should target this audience
-                                audience: `https://${environment.auth0Domain}/api/v2/`,
-
-                                // The attached token should have these scopes
-                                scope: 'openid profile update:current_user_metadata offline_access read:current_user create:current_user_metadata delete:current_user_metadata create:current_user_device_credentials delete:current_user_device_credentials'
-                            }
-                        }
-                    }]
+                // The attached token should have these scopes
+                scope: 'openid profile update:current_user_metadata offline_access read:current_user create:current_user_metadata delete:current_user_metadata create:current_user_device_credentials delete:current_user_device_credentials'
+              }
             }
-        }),
-        MatDialogModule,
-        ClipboardModule,
-        MatTooltipModule,
-        NgOptimizedImage,
-    ],
+          }]
+      }
+    }),
+    MatDialogModule,
+    ClipboardModule,
+    MatTooltipModule,
+    NgOptimizedImage,
+    MatPaginatorModule,
+    MatTableModule,
+    CsvModule,
+  ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true},
   ],

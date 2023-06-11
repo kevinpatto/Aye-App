@@ -1,14 +1,11 @@
-<div style="display: flex; justify-content: center">
+<div *ngIf="!(auth.isAuthenticated$ | async);" style="display: flex; justify-content: center;">
 
 
-  <ng-container *ngIf="!(auth.isAuthenticated$ | async);">
+  <button mat-raised-button
+          style="font-family: serif; background-color: black;
+            font-size: 16px; color: white;width: 75%;max-width: 650px;margin-bottom: 15px;"
+          (click)="auth.loginWithRedirect()">
+    <b>Login🗝️</b></button>
 
-      <button mat-raised-button
-            style="font-family: serif; background-color: black;
-            font-size: 16px; color: white;width: 75%;max-width: 650px;"
-            (click)="auth.loginWithRedirect()">
-      <b>Login🗝️</b></button>
-
-  </ng-container>
 
 </div>

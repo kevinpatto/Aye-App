@@ -16,7 +16,8 @@ import {AyeUser} from "../interfaces/aye-user";
 })
 export class ProfileComponent {
   fullProfileUrl: string;
-  inEditMode = false;
+  editingUsername = false;
+  editingBio = false;
   profileChangesMade = false;
   metadata: AyeUser | undefined;
 
@@ -39,6 +40,13 @@ export class ProfileComponent {
     this.profileChangesMade = true;
   }
 
+  changeBio(event: any) {
+    // console.log(event.originalTarget.value);
+    // console.log(event.target.value);
+    this.metadata!.user_metadata!.bio = event.target.value;
+    this.profileChangesMade = true;
+  }
+
 
   openTrophyDialog() {
     this.dialog.open(TrophyDialogComponent);
@@ -50,13 +58,16 @@ export class ProfileComponent {
     return this.profileService.getProfile(userId, authToken).subscribe();
   }
 
-  updateProfilePicture(userId: string | undefined, authToken: string | undefined, ayeUsername: string | undefined) {
-    if (!ayeUsername) {
-      return;
-    } else {
-      this.profileService.updateProfilePicture(userId, authToken, ayeUsername);
+  updateProfile(userId: string | undefined, authToken: string | undefined) {
+    if (this.metadata!.user_metadata!.ayeUsername) {
+      this.profileService.updateProfilePicture(userId, authToken, this.metadata!.user_metadata!.ayeUsername);
       this.profileChangesMade = false;
-      this.inEditMode = false;
+      this.editingUsername = false;
+    }
+    if (this.metadata!.user_metadata!.bio) {
+      this.profileService.updateProfileBio(userId, authToken, this.metadata!.user_metadata!.bio);
+      this.profileChangesMade = false;
+      this.editingBio = false;
     }
   }
 
