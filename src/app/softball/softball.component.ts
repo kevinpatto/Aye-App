@@ -18,7 +18,7 @@ export class SoftballComponent implements AfterViewInit {
       name: 'Zach Batio',
       position: 'SS',
       games: 1,
-      atBats: 1,
+      plateAppearances: 1,
       runs: 0,
       hits: 0,
       doubles: 0,
@@ -26,16 +26,12 @@ export class SoftballComponent implements AfterViewInit {
       homeruns: 0,
       rbis: 0,
       walks: 1,
-      battingAverage: 0.000,
-      onBasePercentage: 1.000,
-      sluggingPercentage: 0.000,
-      onBasePlusSlugging: 1.000,
     },
     {
       name: 'Alexander Bae',
       position: '',
       games: 0,
-      atBats: 0,
+      plateAppearances: 0,
       runs: 0,
       hits: 0,
       doubles: 0,
@@ -43,16 +39,12 @@ export class SoftballComponent implements AfterViewInit {
       homeruns: 0,
       rbis: 0,
       walks: 0,
-      battingAverage: 0.000,
-      onBasePercentage: 0.000,
-      sluggingPercentage: 0.000,
-      onBasePlusSlugging: 0.000,
     },
     {
       name: 'Tessa Berger',
       position: 'RF',
       games: 1,
-      atBats: 2,
+      plateAppearances: 2,
       runs: 0,
       hits: 0,
       doubles: 0,
@@ -60,16 +52,12 @@ export class SoftballComponent implements AfterViewInit {
       homeruns: 0,
       rbis: 0,
       walks: 0,
-      battingAverage: 0.000,
-      onBasePercentage: 0.000,
-      sluggingPercentage: 0.000,
-      onBasePlusSlugging: 0.000,
     },
     {
       name: 'Alexander Caines',
       position: '',
       games: 0,
-      atBats: 0,
+      plateAppearances: 0,
       runs: 0,
       hits: 0,
       doubles: 0,
@@ -77,16 +65,12 @@ export class SoftballComponent implements AfterViewInit {
       homeruns: 0,
       rbis: 0,
       walks: 0,
-      battingAverage: 0.000,
-      onBasePercentage: 0.000,
-      sluggingPercentage: 0.000,
-      onBasePlusSlugging: 0.000,
     },
     {
       name: 'Brandon Deleon',
       position: '3B',
       games: 1,
-      atBats: 1,
+      plateAppearances: 1,
       runs: 1,
       hits: 1,
       doubles: 1,
@@ -94,33 +78,25 @@ export class SoftballComponent implements AfterViewInit {
       homeruns: 0,
       rbis: 0,
       walks: 0,
-      battingAverage: 1.000,
-      onBasePercentage: 1.000,
-      sluggingPercentage: 1.000,
-      onBasePlusSlugging: 2.000,
     },
     {
       name: 'Audrey Dehler',
       position: 'RF',
       games: 1,
-      atBats: 1,
+      plateAppearances: 1,
       runs: 0,
       hits: 1,
-      doubles: 1,
+      doubles: 0,
       triples: 0,
       homeruns: 0,
       rbis: 1,
       walks: 0,
-      battingAverage: 1.000,
-      onBasePercentage: 1.000,
-      sluggingPercentage: 0.500,
-      onBasePlusSlugging: 1.500,
     },
     {
       name: 'Declan Donohue',
       position: 'LF',
       games: 1,
-      atBats: 2,
+      plateAppearances: 2,
       runs: 0,
       hits: 0,
       doubles: 0,
@@ -128,16 +104,12 @@ export class SoftballComponent implements AfterViewInit {
       homeruns: 0,
       rbis: 0,
       walks: 0,
-      battingAverage: 0.000,
-      onBasePercentage: 0.000,
-      sluggingPercentage: 0.000,
-      onBasePlusSlugging: 0.000,
     },
     {
       name: 'Ian Imhof',
       position: '3B',
       games: 1,
-      atBats: 1,
+      plateAppearances: 1,
       runs: 0,
       hits: 0,
       doubles: 0,
@@ -145,16 +117,12 @@ export class SoftballComponent implements AfterViewInit {
       homeruns: 0,
       rbis: 0,
       walks: 0,
-      battingAverage: 0.000,
-      onBasePercentage: 0.000,
-      sluggingPercentage: 0.000,
-      onBasePlusSlugging: 0.000,
     },
     {
       name: 'Justin Imhof',
       position: 'CF',
       games: 1,
-      atBats: 2,
+      plateAppearances: 2,
       runs: 0,
       hits: 1,
       doubles: 0,
@@ -162,16 +130,12 @@ export class SoftballComponent implements AfterViewInit {
       homeruns: 0,
       rbis: 0,
       walks: 0,
-      battingAverage: 0.500,
-      onBasePercentage: 0.500,
-      sluggingPercentage: 0.000,
-      onBasePlusSlugging: 0.000,
     },
     {
       name: 'Kyra Kalliope',
       position: 'C',
       games: 1,
-      atBats: 2,
+      plateAppearances: 2,
       runs: 0,
       hits: 0,
       doubles: 0,
@@ -179,16 +143,12 @@ export class SoftballComponent implements AfterViewInit {
       homeruns: 0,
       rbis: 0,
       walks: 0,
-      battingAverage: 0.000,
-      onBasePercentage: 0.000,
-      sluggingPercentage: 0.000,
-      onBasePlusSlugging: 0.000,
     },
     {
       name: 'Juliana Livieri',
       position: '2B',
       games: 1,
-      atBats: 2,
+      plateAppearances: 2,
       runs: 0,
       hits: 1,
       doubles: 0,
@@ -196,16 +156,12 @@ export class SoftballComponent implements AfterViewInit {
       homeruns: 0,
       rbis: 1,
       walks: 0,
-      battingAverage: 0.500,
-      onBasePercentage: 0.500,
-      sluggingPercentage: 0.000,
-      onBasePlusSlugging: 0.500,
     },
     {
       name: 'Kevin Patto',
       position: '',
       games: 0,
-      atBats: 0,
+      plateAppearances: 0,
       runs: 0,
       hits: 0,
       doubles: 0,
@@ -213,16 +169,12 @@ export class SoftballComponent implements AfterViewInit {
       homeruns: 0,
       rbis: 0,
       walks: 0,
-      battingAverage: 0.000,
-      onBasePercentage: 0.000,
-      sluggingPercentage: 0.000,
-      onBasePlusSlugging: 0.000,
     },
     {
       name: 'Alyssa Pierce',
       position: '',
       games: 0,
-      atBats: 0,
+      plateAppearances: 0,
       runs: 0,
       hits: 0,
       doubles: 0,
@@ -230,16 +182,12 @@ export class SoftballComponent implements AfterViewInit {
       homeruns: 0,
       rbis: 0,
       walks: 0,
-      battingAverage: 0.000,
-      onBasePercentage: 0.000,
-      sluggingPercentage: 0.000,
-      onBasePlusSlugging: 0.000,
     },
     {
       name: 'Zaq Perdomo',
       position: '1B',
       games: 1,
-      atBats: 2,
+      plateAppearances: 2,
       runs: 0,
       hits: 0,
       doubles: 0,
@@ -247,16 +195,12 @@ export class SoftballComponent implements AfterViewInit {
       homeruns: 0,
       rbis: 0,
       walks: 0,
-      battingAverage: 0.000,
-      onBasePercentage: 0.000,
-      sluggingPercentage: 0.000,
-      onBasePlusSlugging: 0.000,
     },
     {
       name: 'Kenny Puleikis',
       position: 'SS',
       games: 1,
-      atBats: 2,
+      plateAppearances: 2,
       runs: 1,
       hits: 1,
       doubles: 0,
@@ -264,16 +208,12 @@ export class SoftballComponent implements AfterViewInit {
       homeruns: 0,
       rbis: 1,
       walks: 0,
-      battingAverage: 0.500,
-      onBasePercentage: 0.500,
-      sluggingPercentage: 0.375,
-      onBasePlusSlugging: 0.875,
     },
     {
       name: 'Jan Rara',
       position: 'CF',
       games: 1,
-      atBats: 2,
+      plateAppearances: 2,
       runs: 1,
       hits: 2,
       doubles: 0,
@@ -281,16 +221,12 @@ export class SoftballComponent implements AfterViewInit {
       homeruns: 0,
       rbis: 0,
       walks: 0,
-      battingAverage: 1.000,
-      onBasePercentage: 1.000,
-      sluggingPercentage: 0.000,
-      onBasePlusSlugging: 1.000,
     },
     {
       name: 'Tony Rayas',
       position: '',
       games: 0,
-      atBats: 0,
+      plateAppearances: 0,
       runs: 0,
       hits: 0,
       doubles: 0,
@@ -298,16 +234,12 @@ export class SoftballComponent implements AfterViewInit {
       homeruns: 0,
       rbis: 0,
       walks: 0,
-      battingAverage: 0.000,
-      onBasePercentage: 0.000,
-      sluggingPercentage: 0.000,
-      onBasePlusSlugging: 0.000,
     },
     {
       name: 'Jonah Toch',
       position: 'P',
       games: 1,
-      atBats: 2,
+      plateAppearances: 2,
       runs: 0,
       hits: 2,
       doubles: 0,
@@ -315,16 +247,12 @@ export class SoftballComponent implements AfterViewInit {
       homeruns: 0,
       rbis: 0,
       walks: 0,
-      battingAverage: 1.000,
-      onBasePercentage: 1.000,
-      sluggingPercentage: 0.000,
-      onBasePlusSlugging: 1.000,
     },
     {
       name: 'Jessica Uy',
       position: 'LF',
       games: 1,
-      atBats: 1,
+      plateAppearances: 1,
       runs: 0,
       hits: 0,
       doubles: 0,
@@ -332,19 +260,17 @@ export class SoftballComponent implements AfterViewInit {
       homeruns: 0,
       rbis: 0,
       walks: 0,
-      battingAverage: 0.000,
-      onBasePercentage: 0.000,
-      sluggingPercentage: 0.000,
-      onBasePlusSlugging: 0.000,
     },
   ]
 
-  headers = [
-    {label: 'Item ID', key: 'manufacturerItemId'},
-    {label: 'Quantity', key: 'quantity'},
-    {label: 'Purchase Order', key: 'purchaseOrder'},
-  ];
-  displayedColumns: string[] = ['name', 'games', 'atBats', 'runs', 'hits', 'doubles', 'triples', 'homeruns', 'rbis', 'walks', 'battingAverage',
+  // Your pitching stats: 5 IP with 5 walks and 2 Strikeouts
+
+  // headers = [
+  //   {label: 'Item ID', key: 'manufacturerItemId'},
+  //   {label: 'Quantity', key: 'quantity'},
+  //   {label: 'Purchase Order', key: 'purchaseOrder'},
+  // ];
+  displayedColumns: string[] = ['name', 'games', 'plateAppearances', 'runs', 'hits', 'doubles', 'triples', 'homeruns', 'rbis', 'walks', 'battingAverage',
     'onBasePercentage', 'sluggingPercentage', 'onBasePlusSlugging'];
 
   constructor() {
@@ -361,7 +287,40 @@ export class SoftballComponent implements AfterViewInit {
     return formatDate(new Date(), 'MM-dd-yy', 'en');
   }
 
-  convertToPercentage(num: number) {
+  calcAvg(plateApp: number, walks: number, hits: number): number {
+    let AVG = hits / (plateApp - walks);
+    if (isNaN(AVG)) {
+      AVG = 0.000;
+    }
+    return AVG;
+  }
+
+
+  calcOBP(hits: number, walks: number, plateAppearances: number) {
+  let OBP = (hits + walks) / (plateAppearances)
+    if (isNaN(OBP)) {
+      OBP = 0.000;
+    }
+    return OBP;
+  }
+
+  calcSlugging(hits: number, doubles: number, triples: number, homeruns: number, plateAppearances: number, walks: number) {
+    const singles = hits - doubles - triples - homeruns;
+    let slugging = singles + (doubles * 2) + (triples * 3) + (homeruns * 4) / (plateAppearances - walks);
+    if (isNaN(slugging)) {
+      slugging = 0.000;
+    }
+    return slugging;
+  }
+
+  calcOPS(hits: number, doubles: number, triples: number, homeruns: number, plateAppearances: number, walks: number) {
+    const OBP = this.calcOBP(hits, walks, plateAppearances);
+    const slugging = this.calcSlugging(hits, doubles, triples, homeruns, plateAppearances, walks)
+    let OPS = OBP + slugging;
+    if (isNaN(OPS)) {
+      OPS = 0.000;
+    }
+    return OPS;
   }
 
 
