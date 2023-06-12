@@ -6,8 +6,9 @@
 </div>
 
 <div style="margin-top: 10px; margin-bottom: 10px; display: flex; justify-content: center;">
+
     <span style="font-size: 26px;">
-      <span style="color: green">0</span> Wins - <span style="color: red">1</span> Loss
+      <span style="color: green"><b>0</b></span> Wins - <span style="color: red"><b>1</b></span> Loss
     </span>
 </div>
 
@@ -40,11 +41,11 @@
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="atBats">
-          <th *matHeaderCellDef mat-header-cell>AB</th>
+        <ng-container matColumnDef="plateAppearances">
+          <th *matHeaderCellDef mat-header-cell>PA</th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
-            {{element.atBats}}
+            {{element.plateAppearances}}
 
           </td>
         </ng-container>
@@ -113,10 +114,10 @@
         </ng-container>
 
         <ng-container matColumnDef="battingAverage">
-          <th *matHeaderCellDef mat-header-cell>BA</th>
+          <th *matHeaderCellDef mat-header-cell>AVG</th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
-            {{element.battingAverage | number: '.3-3'}}
+            {{calcAvg(element.plateAppearances, element.walks, element.hits) | number: '.3-3'}}
 
           </td>
         </ng-container>
@@ -125,7 +126,7 @@
           <th *matHeaderCellDef mat-header-cell>OBP</th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
-            {{element.onBasePercentage | number: '.3-3'}}
+            {{calcOBP(element.hits, element.walks, element.plateAppearances) | number: '.3-3'}}
 
           </td>
         </ng-container>
@@ -134,7 +135,8 @@
           <th *matHeaderCellDef mat-header-cell>SLG</th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
-            {{element.sluggingPercentage | number: '.3-3'}}
+            {{calcSlugging(element.hits, element.doubles, element.triples, element.homeruns,
+            element.plateAppearances, element.walks) | number: '.3-3'}}
 
           </td>
         </ng-container>
@@ -143,7 +145,8 @@
           <th *matHeaderCellDef mat-header-cell>OPS</th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
-            {{element.onBasePlusSlugging | number: '.3-3'}}
+            {{calcOPS(element.hits, element.doubles, element.triples, element.homeruns,
+            element.plateAppearances, element.walks) | number: '.3-3'}}
 
           </td>
         </ng-container>
@@ -151,19 +154,19 @@
         <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
         <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
       </table>
-            <mat-paginator [pageSizeOptions]="[8, 16, 24]"
-                           aria-label="Select page of work order"
-                           showFirstLastButtons>
-            </mat-paginator>
+      <mat-paginator [pageSizeOptions]="[8, 16, 24]"
+                     aria-label="Select page of work order"
+                     showFirstLastButtons>
+      </mat-paginator>
       <!--Refer to this package for how the data is output as csv: https://github.com/scttcper/ngx-csv -->
-                <ng-container *ngIf="dataSource.data.length >= 1">
-                  <a [data]="dataSource.data" filename="ayes-and-baes-stats-{{getCurrDate()}}.csv" csvLink>
-                    <button mat-raised-button
-                            style="width: 40%; max-width: 375px; background-color: #fad900; color: black; margin-left: 10px; margin-bottom: 10px;">
-                      <b>Download Data</b>
-                    </button>
-                  </a>
-                </ng-container>
+      <ng-container *ngIf="dataSource.data.length >= 1">
+        <a [data]="dataSource.data" filename="ayes-and-baes-stats-{{getCurrDate()}}.csv" csvLink>
+          <button mat-raised-button
+                  style="width: 40%; max-width: 375px; background-color: #fad900; color: black; margin-left: 10px; margin-bottom: 10px;">
+            <b>Download Data</b>
+          </button>
+        </a>
+      </ng-container>
 
 
     </ng-container>

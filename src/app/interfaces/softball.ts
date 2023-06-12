@@ -2,7 +2,7 @@ export interface SoftballHitter {
   name: string;
   position: string;
   games: number;
-  atBats: number;
+  plateAppearances: number;
   runs: number;
   hits: number;
   doubles: number;
@@ -10,8 +10,4 @@ export interface SoftballHitter {
   homeruns: number;
   rbis: number;
   walks: number;
-  battingAverage: number;
-  onBasePercentage: number;
-  sluggingPercentage: number;
-  onBasePlusSlugging: number;
 }
