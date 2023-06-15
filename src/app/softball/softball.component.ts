@@ -1,8 +1,11 @@
 import {AfterViewInit, Component, Input, ViewChild} from '@angular/core';
-import {MatPaginator} from "@angular/material/paginator";
+import {MatPaginator, MatPaginatorIntl} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
-import {SoftballHitter} from "../interfaces/softball";
+import {SoftballHitter, StatExplain} from "../interfaces/softball";
 import {formatDate} from "@angular/common";
+import {TrophyDialogComponent} from "../dialogs/trophy-dialog/trophy-dialog.component";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {StatExplanationComponent} from "../dialogs/stat-explanation/stat-explanation.component";
 
 @Component({
   selector: 'app-softball',
@@ -273,8 +276,74 @@ export class SoftballComponent implements AfterViewInit {
   displayedColumns: string[] = ['name', 'games', 'plateAppearances', 'runs', 'hits', 'doubles', 'triples', 'homeruns', 'rbis', 'walks', 'battingAverage',
     'onBasePercentage', 'sluggingPercentage', 'onBasePlusSlugging'];
 
-  constructor() {
+  baseballRef = new Map<string, StatExplain>([
+    ["G", {
+      fullStat: "Games",
+      statExplained: "Show up to the game and you get a game stat. You don't even have to play."
+    },
+    ],
+    ["PA", {
+      fullStat: "Plate Appearances",
+      statExplained: "When you bat and there is an outcome."
+    },
+    ],
+    ["R", {
+      fullStat: "Runs",
+      statExplained: "Cross home and score a run as a base runner."
+    },
+    ],
+    ["H", {
+      fullStat: "Hits",
+      statExplained: "Hit the ball and reach at least 1st base without it being an error or a fielder's choice."
+    },
+    ], ["2B", {
+      fullStat: "Double",
+      statExplained: "Hit the ball and reach 2nd base without it being due to a throwing error by the defense."
+    },
+    ], ["3B", {
+      fullStat: "Triple",
+      statExplained: "Hit the ball and reach 3rd base without it being due to a throwing error by the defense."
+    },
+    ], ["HR", {
+      fullStat: "Homerun",
+      statExplained: "Hit the ball and go around all of the bases without it being due to a throwing error by the defense."
+    },
+    ], ["RBI", {
+      fullStat: "Runs Batted In",
+      statExplained: "Hit the ball and someone scores because of it and not due to a throwing error by the defense."
+    },
+    ], ["BB", {
+      fullStat: "Base on Balls",
+      statExplained: "Take 4 balls as a hitter and get a free 1st base."
+    },
+    ], ["AVG", {
+      fullStat: "Batting Average",
+      statExplained: "The number of hits you have divided by at bats. (Walks don't contribute to stat)."
+    },
+    ], ["OBP", {
+      fullStat: "On Base Percentage",
+      statExplained: "The number of times you get on base divided by at bats. So hit or get walked and have your plate appearance end without an out."
+    },
+    ], ["SLG", {
+      fullStat: "Slugging Percentage",
+      statExplained: "Of your hits, how many of them are multi base hits? The formula is (1B + 2Bx2 + 3Bx3 + HRx4)/AB."
+    },
+    ],
+    ["OPS", {
+      fullStat: "On Base Percentage + Slugging Percentage",
+      statExplained: "The best stat. It tells you not only how often a player gets on base but how often they get big hits. The best stat."
+    },
+    ],
+  ])
+
+  constructor(
+    public dialog: MatDialog,
+  ) {
     this.dataSource = new MatTableDataSource<SoftballHitter>(this.softballHitterData);
+  }
+
+  openStatDefinition() {
+    // this.dialog.open(TrophyDialogComponent);
   }
 
   ngAfterViewInit() {
@@ -297,7 +366,7 @@ export class SoftballComponent implements AfterViewInit {
 
 
   calcOBP(hits: number, walks: number, plateAppearances: number) {
-  let OBP = (hits + walks) / (plateAppearances)
+    let OBP = (hits + walks) / (plateAppearances)
     if (isNaN(OBP)) {
       OBP = 0.000;
     }
@@ -321,6 +390,21 @@ export class SoftballComponent implements AfterViewInit {
       OPS = 0.000;
     }
     return OPS;
+  }
+
+  openStatExplanation(stat: string) {
+
+    const fullStat = this.baseballRef.get(stat)?.fullStat;
+    const statExplained = this.baseballRef.get(stat)?.statExplained;
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      title: stat,
+      fullName: fullStat,
+      description: statExplained
+    }
+
+    this.dialog.open(StatExplanationComponent, dialogConfig);
   }
 
 

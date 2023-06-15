@@ -11,3 +11,9 @@ export interface SoftballHitter {
   rbis: number;
   walks: number;
 }
+
+
+export interface StatExplain {
+  fullStat: string;
+  statExplained: string;
+}

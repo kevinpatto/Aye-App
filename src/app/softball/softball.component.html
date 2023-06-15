@@ -33,7 +33,7 @@
 
 
         <ng-container matColumnDef="games">
-          <th *matHeaderCellDef mat-header-cell>G</th>
+          <th *matHeaderCellDef mat-header-cell><button (click)="openStatExplanation('G')"><b>G</b></button></th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
             {{element.games}}
@@ -42,7 +42,7 @@
         </ng-container>
 
         <ng-container matColumnDef="plateAppearances">
-          <th *matHeaderCellDef mat-header-cell>PA</th>
+          <th *matHeaderCellDef mat-header-cell><button (click)="openStatExplanation('PA')"><b>PA</b></button></th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
             {{element.plateAppearances}}
@@ -51,7 +51,7 @@
         </ng-container>
 
         <ng-container matColumnDef="runs">
-          <th *matHeaderCellDef mat-header-cell>R</th>
+          <th *matHeaderCellDef mat-header-cell><button (click)="openStatExplanation('R')"><b>R</b></button></th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
             {{element.runs}}
@@ -60,7 +60,7 @@
         </ng-container>
 
         <ng-container matColumnDef="hits">
-          <th *matHeaderCellDef mat-header-cell>H</th>
+          <th *matHeaderCellDef mat-header-cell><button (click)="openStatExplanation('H')"><b>H</b></button></th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
             {{element.hits}}
@@ -69,7 +69,7 @@
         </ng-container>
 
         <ng-container matColumnDef="doubles">
-          <th *matHeaderCellDef mat-header-cell>2B</th>
+          <th *matHeaderCellDef mat-header-cell><button (click)="openStatExplanation('2B')"><b>2B</b></button></th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
             {{element.doubles}}
@@ -78,7 +78,7 @@
         </ng-container>
 
         <ng-container matColumnDef="triples">
-          <th *matHeaderCellDef mat-header-cell>3B</th>
+          <th *matHeaderCellDef mat-header-cell><button (click)="openStatExplanation('3B')"><b>3B</b></button></th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
             {{element.triples}}
@@ -87,7 +87,7 @@
         </ng-container>
 
         <ng-container matColumnDef="homeruns">
-          <th *matHeaderCellDef mat-header-cell>HR</th>
+          <th *matHeaderCellDef mat-header-cell><button (click)="openStatExplanation('HR')"><b>HR</b></button></th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
             {{element.homeruns}}
@@ -96,7 +96,7 @@
         </ng-container>
 
         <ng-container matColumnDef="rbis">
-          <th *matHeaderCellDef mat-header-cell>RBI</th>
+          <th *matHeaderCellDef mat-header-cell><button (click)="openStatExplanation('RBI')"><b>RBI</b></button></th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
             {{element.rbis}}
@@ -105,7 +105,7 @@
         </ng-container>
 
         <ng-container matColumnDef="walks">
-          <th *matHeaderCellDef mat-header-cell>BB</th>
+          <th *matHeaderCellDef mat-header-cell><button (click)="openStatExplanation('BB')"><b>BB</b></button></th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
             {{element.walks}}
@@ -114,7 +114,7 @@
         </ng-container>
 
         <ng-container matColumnDef="battingAverage">
-          <th *matHeaderCellDef mat-header-cell>AVG</th>
+          <th *matHeaderCellDef mat-header-cell><button (click)="openStatExplanation('AVG')"><b>AVG</b></button></th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
             {{calcAvg(element.plateAppearances, element.walks, element.hits) | number: '.3-3'}}
@@ -123,7 +123,7 @@
         </ng-container>
 
         <ng-container matColumnDef="onBasePercentage">
-          <th *matHeaderCellDef mat-header-cell>OBP</th>
+          <th *matHeaderCellDef mat-header-cell><button (click)="openStatExplanation('OBP')"><b>OBP</b></button></th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
             {{calcOBP(element.hits, element.walks, element.plateAppearances) | number: '.3-3'}}
@@ -132,7 +132,7 @@
         </ng-container>
 
         <ng-container matColumnDef="sluggingPercentage">
-          <th *matHeaderCellDef mat-header-cell>SLG</th>
+          <th *matHeaderCellDef mat-header-cell><button (click)="openStatExplanation('SLG')"><b>SLG</b></button></th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
             {{calcSlugging(element.hits, element.doubles, element.triples, element.homeruns,
@@ -142,7 +142,7 @@
         </ng-container>
 
         <ng-container matColumnDef="onBasePlusSlugging">
-          <th *matHeaderCellDef mat-header-cell>OPS</th>
+          <th *matHeaderCellDef mat-header-cell><button (click)="openStatExplanation('OPS')"><b>OPS</b></button></th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
             {{calcOPS(element.hits, element.doubles, element.triples, element.homeruns,

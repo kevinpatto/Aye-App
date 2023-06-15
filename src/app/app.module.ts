@@ -41,6 +41,7 @@ import { SoftballComponent } from './softball/softball.component';
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatTableModule} from "@angular/material/table";
 import {CsvModule} from "@ctrl/ngx-csv";
+import { StatExplanationComponent } from './dialogs/stat-explanation/stat-explanation.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import {CsvModule} from "@ctrl/ngx-csv";
     AuthbuttonComponent,
     ProfileComponent,
     TrophyDialogComponent,
-    SoftballComponent
+    SoftballComponent,
+    StatExplanationComponent
   ],
   imports: [
     BrowserModule,
