@@ -42,6 +42,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatTableModule} from "@angular/material/table";
 import {CsvModule} from "@ctrl/ngx-csv";
 import { StatExplanationComponent } from './dialogs/stat-explanation/stat-explanation.component';
+import {MatSortModule} from "@angular/material/sort";
 
 
 @NgModule({
@@ -116,6 +117,7 @@ import { StatExplanationComponent } from './dialogs/stat-explanation/stat-explan
     MatPaginatorModule,
     MatTableModule,
     CsvModule,
+    MatSortModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true},

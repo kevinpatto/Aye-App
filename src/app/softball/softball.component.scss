@@ -30,6 +30,7 @@ th.mat-header-cell:last-of-type {
 
 .mat-cell:first-child, mat-footer-cell:first-child, mat-header-cell:first-child {
   padding-left: 4px;
+  border-right: 1px solid black;
 }
 
 .mat-cell:last-child, mat-footer-cell:last-child, mat-header-cell:last-child {
@@ -38,3 +39,30 @@ th.mat-header-cell:last-of-type {
 
 mat-radio-label {
 }
+
+.mdc-data-table__header-cell {
+  text-align: center;
+  padding: 0 0 0 8px;
+}
+
+.mdc-data-table__cell {
+  padding: 0 0 0 8px;
+}
+
+.mdc-data-table__cell:first-of-type {
+  padding-right: 6px;
+}
+
+
+
+// To center the content
+
+//.mdc-data-table__cell {
+//  text-align: center;
+//}
+
+
+//:host ::ng-deep .mat-sort-header-container {
+//  display: flex;
+//  justify-content: center;
+//}

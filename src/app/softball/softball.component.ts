@@ -6,6 +6,8 @@ import {formatDate} from "@angular/common";
 import {TrophyDialogComponent} from "../dialogs/trophy-dialog/trophy-dialog.component";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {StatExplanationComponent} from "../dialogs/stat-explanation/stat-explanation.component";
+import {MatSort, MatSortable, Sort} from "@angular/material/sort";
+import {LiveAnnouncer} from "@angular/cdk/a11y";
 
 @Component({
   selector: 'app-softball',
@@ -15,6 +17,8 @@ import {StatExplanationComponent} from "../dialogs/stat-explanation/stat-explana
 export class SoftballComponent implements AfterViewInit {
   dataSource: MatTableDataSource<SoftballHitter>;
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
+
+  @ViewChild(MatSort) sort: MatSort;
 
   softballHitterData: SoftballHitter[] = [
     {
@@ -338,8 +342,10 @@ export class SoftballComponent implements AfterViewInit {
 
   constructor(
     public dialog: MatDialog,
+    private _liveAnnouncer: LiveAnnouncer,
   ) {
     this.dataSource = new MatTableDataSource<SoftballHitter>(this.softballHitterData);
+    this.sort = new MatSort();
   }
 
   openStatDefinition() {
@@ -350,6 +356,20 @@ export class SoftballComponent implements AfterViewInit {
     this.dataSource = new MatTableDataSource<SoftballHitter>(this.softballHitterData);
     // @ts-ignore
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+
+  }
+
+  announceSortChange(sortState: Sort) {
+    // This example uses English messages. If your application supports
+    // multiple language, you would internationalize these strings.
+    // Furthermore, you can customize the message to add additional
+    // details about the values being sorted.
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
   }
 
   getCurrDate() {
