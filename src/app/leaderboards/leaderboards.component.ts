@@ -25,9 +25,9 @@ export class LeaderboardsComponent implements OnInit {
 
   ngOnInit(): void {
     this.poopService.poopListObs$.pipe(
-      map((x) => {
-        if (x) {
-          x.forEach((y: Poop) => {
+      map((poops) => {
+        if (poops) {
+          poops.forEach((poop: Poop) => {
             // Algorithm
             // pts per char of description is 1pt, max 300.
             // pts per giving addr is 100 if give, 250 if not in illinois, 0 if not.
@@ -37,13 +37,16 @@ export class LeaderboardsComponent implements OnInit {
             // max score is 1300 and with full dislikes it is 1000.
             //
             let ayePoints = 0;
-            let descripValue = y.description.length;
-            if (descripValue) {
-              if (descripValue > 300) {
-                descripValue = 300;
+            let descValue = poop.description.length;
+            // if (poop.name.toUpperCase() === "KEVIN") {
+            //   console.log(poop);
+            // }
+            if (descValue) {
+              if (descValue > 300) {
+                descValue = 300;
               }
             }
-            let addr = y.fullAddr;
+            let addr = poop.fullAddr;
             let addrValue = 0;
             if (addrValue) {
               if (addr) {
@@ -53,13 +56,13 @@ export class LeaderboardsComponent implements OnInit {
                 addrValue = 250;
               }
             }
-            let commentVal = (y.comments.length * 50);
+            let commentVal = (poop.comments.length * 50);
             if (commentVal) {
               if (commentVal > 250) {
                 commentVal = 250;
               }
             }
-            let fixedLikes = y.likes;
+            let fixedLikes = poop.likes;
             let likeVal = 0;
             if (fixedLikes) {
               if (fixedLikes === 0) {
@@ -67,49 +70,46 @@ export class LeaderboardsComponent implements OnInit {
               }
               likeVal = (fixedLikes * 10);
               if (likeVal > 500) {
-                likeVal = 500
+                likeVal = 500;
               }
             }
-            let fixedDislikes = y.dislikes;
+            let fixedDislikes = poop.dislikes;
             let dislikeVal = 0;
             if (fixedDislikes) {
               if (fixedDislikes === 0) {
-                fixedDislikes = 1
+                fixedDislikes = 1;
               }
               dislikeVal = (fixedDislikes * 8);
               if (dislikeVal > 300) {
-                dislikeVal = 300
+                dislikeVal = 300;
               }
             }
-            ayePoints += descripValue + addrValue + commentVal + likeVal - dislikeVal;
+            ayePoints += descValue + addrValue + commentVal + likeVal - dislikeVal;
             if (ayePoints > 1300) {
               ayePoints = 1300
             }
 
-            if (!this.dataMap.has(y.name.toUpperCase())) {
+            if (!this.dataMap.has(poop.name.toUpperCase())) {
               // TODO FIGURE OUT HOW TO NOT ADD UNDEFINED TO ARRAY.
-              this.dataMap.set(y.name.toUpperCase(), {
+              this.dataMap.set(poop.name.toUpperCase(), {
                 cities: [],
                 states: [],
-                uniqCities: 0,
-                uniqStates: 0,
                 ayeScore: ayePoints,
               });
-            } else {
-              let ayeMap = this.dataMap.get(y.name.toUpperCase());
-              if (ayeMap) {
-                ayeMap.ayeScore += ayePoints;
-                if (y.city && !ayeMap.cities.includes(y.city)) {
-                  ayeMap.cities.push(y.city);
-                }
-                if (y.longState && !ayeMap.states.includes(y.longState)) {
-                  // if (y.name.toUpperCase() === "KEVIN") {
-                  //   console.log(ayeMap.states);
-                  // }
-                  ayeMap.states.push(y.longState);
-                }
-                this.dataMap.set(y.name.toUpperCase(), ayeMap!);
+            }
+            let ayeMap = this.dataMap.get(poop.name.toUpperCase());
+            // if (poop.name.toUpperCase() === "JONAH") {
+            //   console.log(ayeMap);
+            // }
+            if (ayeMap) {
+              ayeMap.ayeScore += ayePoints;
+              if (poop.city && !ayeMap.cities.includes(poop.city)) {
+                ayeMap.cities.push(poop.city);
               }
+              if (poop.longState && !ayeMap.states.includes(poop.longState)) {
+                ayeMap.states.push(poop.longState);
+              }
+              this.dataMap.set(poop.name.toUpperCase(), ayeMap!);
             }
           })
           this.sortedMap = [...this.dataMap.entries()].sort((a: any, b: any) =>
