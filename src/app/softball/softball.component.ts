@@ -340,6 +340,9 @@ export class SoftballComponent implements AfterViewInit {
     ],
   ])
 
+
+  softballImgUrl = 'assets/softball/ayes-and-baes-06-24-23.jpg';
+
   constructor(
     public dialog: MatDialog,
     private _liveAnnouncer: LiveAnnouncer,
@@ -359,6 +362,18 @@ export class SoftballComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
 
   }
+
+  // TODO: Change this to switch statement
+  changePhoto(color: string) {
+    if (color === 'red') {
+      this.softballImgUrl = 'assets/softball/ayes-and-baes-06-10-23.jpg'
+    } else if (color === 'orange') {
+      this.softballImgUrl = 'assets/softball/ayes-and-baes-06-17-23.jpg'
+    } else if (color === 'yellow') {
+      this.softballImgUrl = 'assets/softball/ayes-and-baes-06-24-23.jpg'
+    }
+  }
+
 
   announceSortChange(sortState: Sort) {
     // This example uses English messages. If your application supports
