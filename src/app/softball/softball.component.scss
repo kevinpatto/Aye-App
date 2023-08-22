@@ -42,27 +42,39 @@ mat-radio-label {
 
 .mdc-data-table__header-cell {
   text-align: center;
-  padding: 0 0 0 8px;
+  padding: 16px 0 0 32px;
 }
 
 .mdc-data-table__cell {
-  padding: 0 0 0 8px;
+  padding: 0 0 0 32px;
 }
 
 .mdc-data-table__cell:first-of-type {
   padding-right: 6px;
 }
 
+.stat-header {
+  margin-top: 15px;
+  //display: grid;
 
+}
+
+.stat-button {
+  margin-bottom: 5px;
+}
 
 // To center the content
 
-//.mdc-data-table__cell {
-//  text-align: center;
-//}
+.mdc-data-table__cell {
+  text-align: center;
+}
 
 
 //:host ::ng-deep .mat-sort-header-container {
 //  display: flex;
 //  justify-content: center;
 //}
+::ng-deep .mat-sort-header-container:not(.mat-sort-header-sorted) .mat-sort-header-arrow {
+  opacity: 0.75 !important;
+  color: #3366ff;
+}

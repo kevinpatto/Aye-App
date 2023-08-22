@@ -23,13 +23,13 @@
 <div style="display: flex; justify-content: center">
 
   <button mat-raised-button (click)="changePhoto('red')"
-          style="font-family: serif; background-color: darkred; width: 10%; font-size: 16px; color: white; padding: 20px; max-width: 650px; margin: 10px;">
+          style="font-family: serif; background-color: darkred; width: 15%; min-width: 80px; font-size: 16px; color: white; padding: 20px; max-width: 650px; margin: 10px;">
     <b>06/10/23</b></button>
   <button mat-raised-button (click)="changePhoto('orange')"
-          style="font-family: serif; background-color: darkorange; width: 10%; font-size: 16px; color: white; padding: 20px; max-width: 650px; margin: 10px;">
+          style="font-family: serif; background-color: darkorange; width: 15%; min-width: 80px; font-size: 16px; color: white; padding: 20px; max-width: 650px; margin: 10px;">
     <b>06/10/23</b></button>
   <button mat-raised-button (click)="changePhoto('yellow')"
-          style="font-family: serif; background-color: yellow; width: 10%; font-size: 16px; color: black; padding: 20px; max-width: 650px; margin: 10px;">
+          style="font-family: serif; background-color: yellow; width: 15%; min-width: 80px; font-size: 16px; color: black; padding: 20px; max-width: 650px; margin: 10px;">
     <b>06/10/23</b></button>
 </div>
 
@@ -44,8 +44,17 @@
     <ng-container>
       <table [dataSource]="dataSource" mat-table matSort matSortStart="desc" matSortDisableClear
              (matSortChange)="announceSortChange($event)">
-        <ng-container matColumnDef="name" sticky style="justify-content: center">
-          <th *matHeaderCellDef mat-sort-header sortActionDescription="Sort by " mat-header-cell>Player</th>
+
+
+        <ng-container matColumnDef="name" sticky>
+
+          <th mat-header-cell *matHeaderCellDef class="stat-header">
+            <b>Player</b>
+            <div style="display: flex; justify-content: center">
+              <span mat-sort-header></span>
+            </div>
+          </th>
+
           <td *matCellDef="let element"
               mat-cell style="justify-content: center">
             <b style="justify-content: center">
@@ -56,21 +65,30 @@
         </ng-container>
 
 
-        <ng-container matColumnDef="games">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sort by ">
-            <button (click)="openStatExplanation('G')"><b>G</b></button>
+        <ng-container matColumnDef="games" style="justify-content: center">
+
+          <th mat-header-cell *matHeaderCellDef class="stat-header">
+            <button (click)="openStatExplanation('G')" class="stat-button"><b>G</b></button>
+            <div style="display: flex; justify-content: center">
+              <span mat-sort-header></span>
+            </div>
           </th>
+
           <td *matCellDef="let element; let i = index;"
               mat-cell>
             {{element.games}}
-
           </td>
         </ng-container>
 
         <ng-container matColumnDef="plateAppearances">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sort by ">
-            <button (click)="openStatExplanation('PA')"><b>PA</b></button>
+
+          <th mat-header-cell *matHeaderCellDef class="stat-header">
+            <button (click)="openStatExplanation('PA')" class="stat-button"><b>PA</b></button>
+            <div style="display: flex; justify-content: center">
+              <span mat-sort-header></span>
+            </div>
           </th>
+
           <td *matCellDef="let element; let i = index;"
               mat-cell>
             {{element.plateAppearances}}
@@ -79,8 +97,11 @@
         </ng-container>
 
         <ng-container matColumnDef="runs">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sort by ">
-            <button (click)="openStatExplanation('R')"><b>R</b></button>
+          <th mat-header-cell *matHeaderCellDef class="stat-header">
+            <button (click)="openStatExplanation('R')" class="stat-button"><b>R</b></button>
+            <div style="display: flex; justify-content: center">
+              <span mat-sort-header></span>
+            </div>
           </th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
@@ -90,8 +111,11 @@
         </ng-container>
 
         <ng-container matColumnDef="hits">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sort by ">
-            <button (click)="openStatExplanation('H')"><b>H</b></button>
+          <th mat-header-cell *matHeaderCellDef class="stat-header">
+            <button (click)="openStatExplanation('H')" class="stat-button"><b>H</b></button>
+            <div style="display: flex; justify-content: center">
+              <span mat-sort-header></span>
+            </div>
           </th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
@@ -101,8 +125,11 @@
         </ng-container>
 
         <ng-container matColumnDef="doubles">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sort by ">
-            <button (click)="openStatExplanation('2B')"><b>2B</b></button>
+          <th mat-header-cell *matHeaderCellDef class="stat-header">
+            <button (click)="openStatExplanation('2B')" class="stat-button"><b>2B</b></button>
+            <div style="display: flex; justify-content: center">
+              <span mat-sort-header></span>
+            </div>
           </th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
@@ -112,8 +139,11 @@
         </ng-container>
 
         <ng-container matColumnDef="triples">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sort by ">
-            <button (click)="openStatExplanation('3B')"><b>3B</b></button>
+          <th mat-header-cell *matHeaderCellDef class="stat-header">
+            <button (click)="openStatExplanation('3B')" class="stat-button"><b>3B</b></button>
+            <div style="display: flex; justify-content: center">
+              <span mat-sort-header></span>
+            </div>
           </th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
@@ -123,8 +153,11 @@
         </ng-container>
 
         <ng-container matColumnDef="homeruns">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sort by ">
-            <button (click)="openStatExplanation('HR')"><b>HR</b></button>
+          <th mat-header-cell *matHeaderCellDef class="stat-header">
+            <button (click)="openStatExplanation('HR')" class="stat-button"><b>HR</b></button>
+            <div style="display: flex; justify-content: center">
+              <span mat-sort-header></span>
+            </div>
           </th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
@@ -134,8 +167,11 @@
         </ng-container>
 
         <ng-container matColumnDef="rbis">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sort by ">
-            <button (click)="openStatExplanation('RBI')"><b>RBI</b></button>
+          <th mat-header-cell *matHeaderCellDef class="stat-header">
+            <button (click)="openStatExplanation('RBI')" class="stat-button"><b>RBI</b></button>
+            <div style="display: flex; justify-content: center">
+              <span mat-sort-header></span>
+            </div>
           </th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
@@ -145,8 +181,11 @@
         </ng-container>
 
         <ng-container matColumnDef="walks">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sort by ">
-            <button (click)="openStatExplanation('BB')"><b>BB</b></button>
+          <th mat-header-cell *matHeaderCellDef class="stat-header">
+            <button (click)="openStatExplanation('BB')" class="stat-button"><b>BB</b></button>
+            <div style="display: flex; justify-content: center">
+              <span mat-sort-header></span>
+            </div>
           </th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
@@ -156,8 +195,11 @@
         </ng-container>
 
         <ng-container matColumnDef="battingAverage">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sort by ">
-            <button (click)="openStatExplanation('AVG')"><b>AVG</b></button>
+          <th mat-header-cell *matHeaderCellDef class="stat-header">
+            <button (click)="openStatExplanation('AVG')" class="stat-button"><b>AVG</b></button>
+            <div style="display: flex; justify-content: center">
+              <span mat-sort-header></span>
+            </div>
           </th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
@@ -167,8 +209,11 @@
         </ng-container>
 
         <ng-container matColumnDef="onBasePercentage">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sort by ">
-            <button (click)="openStatExplanation('OBP')"><b>OBP</b></button>
+          <th mat-header-cell *matHeaderCellDef class="stat-header">
+            <button (click)="openStatExplanation('OBP')" class="stat-button"><b>OBP</b></button>
+            <div style="display: flex; justify-content: center">
+              <span mat-sort-header></span>
+            </div>
           </th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
@@ -178,8 +223,11 @@
         </ng-container>
 
         <ng-container matColumnDef="sluggingPercentage">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sort by ">
-            <button (click)="openStatExplanation('SLG')"><b>SLG</b></button>
+          <th mat-header-cell *matHeaderCellDef class="stat-header">
+            <button (click)="openStatExplanation('SLG')" class="stat-button"><b>SLG</b></button>
+            <div style="display: flex; justify-content: center">
+              <span mat-sort-header></span>
+            </div>
           </th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
@@ -190,8 +238,11 @@
         </ng-container>
 
         <ng-container matColumnDef="onBasePlusSlugging">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sort by ">
-            <button (click)="openStatExplanation('OPS')"><b>OPS</b></button>
+          <th mat-header-cell *matHeaderCellDef class="stat-header">
+            <button (click)="openStatExplanation('OPS')" class="stat-button"><b>OPS</b></button>
+            <div style="display: flex; justify-content: center">
+              <span mat-sort-header></span>
+            </div>
           </th>
           <td *matCellDef="let element; let i = index;"
               mat-cell>
