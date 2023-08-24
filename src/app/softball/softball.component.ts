@@ -439,6 +439,9 @@ export class SoftballComponent implements AfterViewInit {
       description: statExplained
     }
 
+    dialogConfig.restoreFocus = false;
+    dialogConfig.autoFocus = true;
+
     this.dialog.open(StatExplanationComponent, dialogConfig);
   }
 
