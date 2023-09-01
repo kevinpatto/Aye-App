@@ -23,13 +23,13 @@
 <div style="display: flex; justify-content: center">
 
   <button mat-raised-button (click)="changePhoto('red')"
-          style="font-family: serif; background-color: darkred; width: 15%; min-width: 80px; font-size: 16px; color: white; padding: 20px; max-width: 650px; margin: 10px;">
+          style="font-family: Georgia, sans-serif; background-color: darkred; width: 25%; min-width: 80px; font-size: 16px; color: white; padding: 20px; max-width: 650px; margin: 10px;">
     <b>06/10/23</b></button>
   <button mat-raised-button (click)="changePhoto('orange')"
-          style="font-family: serif; background-color: darkorange; width: 15%; min-width: 80px; font-size: 16px; color: white; padding: 20px; max-width: 650px; margin: 10px;">
+          style="font-family: Georgia, sans-serif; background-color: darkorange; width: 25%; min-width: 80px; font-size: 16px; color: white; padding: 20px; max-width: 650px; margin: 10px;">
     <b>06/10/23</b></button>
   <button mat-raised-button (click)="changePhoto('yellow')"
-          style="font-family: serif; background-color: yellow; width: 15%; min-width: 80px; font-size: 16px; color: black; padding: 20px; max-width: 650px; margin: 10px;">
+          style="font-family: Georgia, sans-serif; background-color: yellow; width: 25%; min-width: 80px; font-size: 16px; color: black; padding: 20px; max-width: 650px; margin: 10px;">
     <b>06/10/23</b></button>
 </div>
 
@@ -37,13 +37,16 @@
 
 <br>
 
+<!--TODO: Figure out how to get shadow for the box on left or right side when scrolling
+ See here: https://codepen.io/matthewbeta/pen/OJmmmr-->
+
 <ng-container *ngIf="dataSource.data.length > 0">
   <div class="mat-elevation-z8"
        style="margin-top: 10px; overflow: auto; width: 98%; margin-left: 1%; margin-right: 1%;"
        tabindex="0">
     <ng-container>
       <table [dataSource]="dataSource" mat-table matSort matSortStart="desc" matSortDisableClear
-             (matSortChange)="announceSortChange($event)">
+             (matSortChange)="sortSoftballData($event)">
 
 
         <ng-container matColumnDef="name" sticky>
@@ -58,7 +61,7 @@
           <td *matCellDef="let element"
               mat-cell style="justify-content: center">
             <b style="justify-content: center">
-              {{element.name}} <span style="color: gray">{{element.position}}</span>
+              {{element.name}} <span style="color: rgb(128,128,128)">{{element.position}}</span>
 
             </b>
           </td>

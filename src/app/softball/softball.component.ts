@@ -1,12 +1,11 @@
-import {AfterViewInit, Component, Input, ViewChild} from '@angular/core';
-import {MatPaginator, MatPaginatorIntl} from "@angular/material/paginator";
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {SoftballHitter, StatExplain} from "../interfaces/softball";
 import {formatDate} from "@angular/common";
-import {TrophyDialogComponent} from "../dialogs/trophy-dialog/trophy-dialog.component";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {StatExplanationComponent} from "../dialogs/stat-explanation/stat-explanation.component";
-import {MatSort, MatSortable, Sort} from "@angular/material/sort";
+import {MatSort, Sort} from "@angular/material/sort";
 import {LiveAnnouncer} from "@angular/cdk/a11y";
 
 @Component({
@@ -22,19 +21,6 @@ export class SoftballComponent implements AfterViewInit {
 
   softballHitterData: SoftballHitter[] = [
     {
-      name: 'Zach Batio',
-      position: 'SS',
-      games: 2,
-      plateAppearances: 2,
-      runs: 1,
-      hits: 1,
-      doubles: 0,
-      triples: 0,
-      homeruns: 0,
-      rbis: 0,
-      walks: 1,
-    },
-    {
       name: 'Alexander Bae',
       position: '',
       games: 0,
@@ -46,6 +32,19 @@ export class SoftballComponent implements AfterViewInit {
       homeruns: 0,
       rbis: 0,
       walks: 0,
+    },
+    {
+      name: 'Zach Batio',
+      position: 'SS',
+      games: 2,
+      plateAppearances: 2,
+      runs: 1,
+      hits: 1,
+      doubles: 0,
+      triples: 0,
+      homeruns: 0,
+      rbis: 0,
+      walks: 1,
     },
     {
       name: 'Tessa Berger',
@@ -363,7 +362,6 @@ export class SoftballComponent implements AfterViewInit {
 
   }
 
-  // TODO: Change this to switch statement
   changePhoto(color: string) {
     if (color === 'red') {
       this.softballImgUrl = 'assets/softball/ayes-and-baes-06-10-23.jpg'
@@ -375,16 +373,39 @@ export class SoftballComponent implements AfterViewInit {
   }
 
 
-  announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
-    if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`).then();
-    } else {
-      this._liveAnnouncer.announce('Sorting cleared').then();
+  sortSoftballData(sortState: Sort) {
+
+    let originalData = this.dataSource.data;
+    let newData: SoftballHitter[] = [];
+
+    for (let i = 0; i < originalData.length; i++) {
+      let avg = this.calcAvg(originalData[i].plateAppearances, originalData[i].walks, originalData[i].hits);
+
+      if (i === 0) {
+        newData.push(originalData[i]);
+        continue;
+      }
+      for (let j = 0; j < newData.length; j++) {
+        if (j === newData.length - 1) {
+          if (avg >= this.calcAvg(newData[j].plateAppearances, newData[j].walks, newData[j].hits)) {
+            newData.push(originalData[i]);
+          } else {
+            newData.unshift(originalData[i]);
+          }
+          break;
+        }
+
+        if (avg > this.calcAvg(newData[j].plateAppearances, newData[j].walks, newData[j].hits) &&
+          avg <= this.calcAvg(newData[j+1].plateAppearances, newData[j+1].walks, newData[j+1].hits)) {
+          newData.splice(j+1, 0, originalData[i]);
+          break;
+        }
+      }
     }
+    if (sortState.direction === "desc") {
+      newData.reverse();
+    }
+    this.dataSource.data = newData;
   }
 
   getCurrDate() {
