@@ -8,7 +8,7 @@
 <div style="margin-top: 10px; margin-bottom: 10px; display: flex; justify-content: center;">
 
     <span style="font-size: 26px;">
-      <span style="color: green"><b>2</b></span> Wins - <span style="color: red"><b>1</b></span> Loss
+      <span style="color: green"><b>1</b></span> Win - <span style="color: red"><b>1</b></span> Loss
     </span>
 </div>
 <br>
@@ -27,13 +27,16 @@
     <b>06/10/23</b></button>
   <button mat-raised-button (click)="changePhoto('orange')"
           style="font-family: Georgia, sans-serif; background-color: darkorange; width: 25%; min-width: 80px; font-size: 16px; color: white; padding: 20px; max-width: 650px; margin: 10px;">
-    <b>06/10/23</b></button>
+    <b>06/17/23</b></button>
   <button mat-raised-button (click)="changePhoto('yellow')"
           style="font-family: Georgia, sans-serif; background-color: yellow; width: 25%; min-width: 80px; font-size: 16px; color: black; padding: 20px; max-width: 650px; margin: 10px;">
-    <b>06/10/23</b></button>
+    <b>06/24/23</b></button>
 </div>
 
-<!-- TODO: Write caption for each game--->
+<div style="display: flex; justify-content: center; padding: 10px;font-family: Georgia, sans-serif;">
+  The Aye's and Bae's were having an amazing season. Unfortunately, after two games the other teams stopped showing
+  up and the season was canceled. We still had fun playing pickup games in place of games. Next season is our season!
+</div>
 
 <br>
 
@@ -53,7 +56,7 @@
 
           <th mat-header-cell *matHeaderCellDef class="stat-header">
             <b>Player</b>
-            <div style="display: flex; justify-content: center">
+            <div class="stat-arrow">
               <span mat-sort-header></span>
             </div>
           </th>
@@ -72,7 +75,7 @@
 
           <th mat-header-cell *matHeaderCellDef class="stat-header">
             <button (click)="openStatExplanation('G')" class="stat-button"><b>G</b></button>
-            <div style="display: flex; justify-content: center">
+            <div class="stat-arrow">
               <span mat-sort-header></span>
             </div>
           </th>
@@ -87,7 +90,7 @@
 
           <th mat-header-cell *matHeaderCellDef class="stat-header">
             <button (click)="openStatExplanation('PA')" class="stat-button"><b>PA</b></button>
-            <div style="display: flex; justify-content: center">
+            <div class="stat-arrow">
               <span mat-sort-header></span>
             </div>
           </th>
@@ -102,7 +105,7 @@
         <ng-container matColumnDef="runs">
           <th mat-header-cell *matHeaderCellDef class="stat-header">
             <button (click)="openStatExplanation('R')" class="stat-button"><b>R</b></button>
-            <div style="display: flex; justify-content: center">
+            <div class="stat-arrow">
               <span mat-sort-header></span>
             </div>
           </th>
@@ -117,7 +120,7 @@
           <th mat-header-cell *matHeaderCellDef class="stat-header">
             <button (click)="openStatExplanation('H')" class="stat-button"
             ><b>H</b></button>
-            <div style="display: flex; justify-content: center">
+            <div class="stat-arrow">
               <span mat-sort-header></span>
             </div>
           </th>
@@ -131,7 +134,7 @@
         <ng-container matColumnDef="doubles">
           <th mat-header-cell *matHeaderCellDef class="stat-header">
             <button (click)="openStatExplanation('2B')" class="stat-button"><b>2B</b></button>
-            <div style="display: flex; justify-content: center">
+            <div class="stat-arrow">
               <span mat-sort-header></span>
             </div>
           </th>
@@ -145,7 +148,7 @@
         <ng-container matColumnDef="triples">
           <th mat-header-cell *matHeaderCellDef class="stat-header">
             <button (click)="openStatExplanation('3B')" class="stat-button"><b>3B</b></button>
-            <div style="display: flex; justify-content: center">
+            <div class="stat-arrow">
               <span mat-sort-header></span>
             </div>
           </th>
@@ -159,7 +162,7 @@
         <ng-container matColumnDef="homeruns">
           <th mat-header-cell *matHeaderCellDef class="stat-header">
             <button (click)="openStatExplanation('HR')" class="stat-button"><b>HR</b></button>
-            <div style="display: flex; justify-content: center">
+            <div class="stat-arrow">
               <span mat-sort-header></span>
             </div>
           </th>
@@ -173,7 +176,7 @@
         <ng-container matColumnDef="rbis">
           <th mat-header-cell *matHeaderCellDef class="stat-header">
             <button (click)="openStatExplanation('RBI')" class="stat-button"><b>RBI</b></button>
-            <div style="display: flex; justify-content: center">
+            <div class="stat-arrow">
               <span mat-sort-header></span>
             </div>
           </th>
@@ -187,7 +190,7 @@
         <ng-container matColumnDef="walks">
           <th mat-header-cell *matHeaderCellDef class="stat-header">
             <button (click)="openStatExplanation('BB')" class="stat-button"><b>BB</b></button>
-            <div style="display: flex; justify-content: center">
+            <div class="stat-arrow">
               <span mat-sort-header></span>
             </div>
           </th>
@@ -201,7 +204,7 @@
         <ng-container matColumnDef="battingAverage">
           <th mat-header-cell *matHeaderCellDef class="stat-header">
             <button (click)="openStatExplanation('AVG')" class="stat-button"><b>AVG</b></button>
-            <div style="display: flex; justify-content: center">
+            <div class="stat-arrow">
               <span mat-sort-header></span>
             </div>
           </th>
@@ -215,7 +218,7 @@
         <ng-container matColumnDef="onBasePercentage">
           <th mat-header-cell *matHeaderCellDef class="stat-header">
             <button (click)="openStatExplanation('OBP')" class="stat-button"><b>OBP</b></button>
-            <div style="display: flex; justify-content: center">
+            <div class="stat-arrow">
               <span mat-sort-header></span>
             </div>
           </th>
@@ -229,7 +232,7 @@
         <ng-container matColumnDef="sluggingPercentage">
           <th mat-header-cell *matHeaderCellDef class="stat-header">
             <button (click)="openStatExplanation('SLG')" class="stat-button"><b>SLG</b></button>
-            <div style="display: flex; justify-content: center">
+            <div class="stat-arrow">
               <span mat-sort-header></span>
             </div>
           </th>
@@ -244,7 +247,7 @@
         <ng-container matColumnDef="onBasePlusSlugging">
           <th mat-header-cell *matHeaderCellDef class="stat-header">
             <button (click)="openStatExplanation('OPS')" class="stat-button"><b>OPS</b></button>
-            <div style="display: flex; justify-content: center">
+            <div class="stat-arrow">
               <span mat-sort-header></span>
             </div>
           </th>

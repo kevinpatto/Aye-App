@@ -376,6 +376,46 @@ export class SoftballComponent implements AfterViewInit {
   sortSoftballData(sortState: Sort) {
 
     let originalData = this.dataSource.data;
+    let sortedData: SoftballHitter[] = [];
+
+    if (sortState.active === "battingAverage") {
+      sortedData = this.sortByAvg(originalData);
+
+      if (sortState.direction === "desc") {
+        sortedData.reverse();
+      }
+
+      this.dataSource.data = sortedData;
+
+    } else if (sortState.active === "onBasePercentage") {
+
+      sortedData = this.sortByOBP(originalData);
+
+      if (sortState.direction === "desc") {
+        sortedData.reverse();
+      }
+
+      this.dataSource.data = sortedData;
+    } else if (sortState.active === "sluggingPercentage") {
+      sortedData = this.sortBySLG(originalData);
+
+      if (sortState.direction === "desc") {
+        sortedData.reverse();
+      }
+        this.dataSource.data = sortedData;
+    } else if (sortState.active === "onBasePlusSlugging") {
+      sortedData = this.sortByOPS(originalData);
+
+      if (sortState.direction === "desc") {
+        sortedData.reverse();
+      }
+
+      this.dataSource.data = sortedData;
+    }
+
+  }
+
+  sortByAvg(originalData: SoftballHitter[]) {
     let newData: SoftballHitter[] = [];
 
     for (let i = 0; i < originalData.length; i++) {
@@ -386,6 +426,7 @@ export class SoftballComponent implements AfterViewInit {
         continue;
       }
       for (let j = 0; j < newData.length; j++) {
+
         if (j === newData.length - 1) {
           if (avg >= this.calcAvg(newData[j].plateAppearances, newData[j].walks, newData[j].hits)) {
             newData.push(originalData[i]);
@@ -396,16 +437,116 @@ export class SoftballComponent implements AfterViewInit {
         }
 
         if (avg > this.calcAvg(newData[j].plateAppearances, newData[j].walks, newData[j].hits) &&
-          avg <= this.calcAvg(newData[j+1].plateAppearances, newData[j+1].walks, newData[j+1].hits)) {
-          newData.splice(j+1, 0, originalData[i]);
+          avg <= this.calcAvg(newData[j + 1].plateAppearances, newData[j + 1].walks, newData[j + 1].hits)) {
+          newData.splice(j + 1, 0, originalData[i]);
           break;
         }
       }
     }
-    if (sortState.direction === "desc") {
-      newData.reverse();
+    return newData;
+  }
+
+  sortByOBP(originalData: SoftballHitter[]) {
+    let newData: SoftballHitter[] = [];
+
+    for (let i = 0; i < originalData.length; i++) {
+      let obp = this.calcOBP(originalData[i].hits, originalData[i].walks, originalData[i].plateAppearances);
+
+      if (i === 0) {
+        newData.push(originalData[i]);
+        continue;
+      }
+      for (let j = 0; j < newData.length; j++) {
+
+        if (j === newData.length - 1) {
+          if (obp >= this.calcOBP(newData[j].hits, newData[j].walks, newData[j].plateAppearances)) {
+            newData.push(originalData[i]);
+          } else {
+            newData.unshift(originalData[i]);
+          }
+          break;
+        }
+
+        if (obp > this.calcOBP(newData[j].hits, newData[j].walks, newData[j].plateAppearances) &&
+          obp <= this.calcOBP(newData[j + 1].hits, newData[j + 1].walks, newData[j + 1].plateAppearances)) {
+          newData.splice(j + 1, 0, originalData[i]);
+          break;
+        }
+      }
     }
-    this.dataSource.data = newData;
+    return newData;
+  }
+
+  sortBySLG(originalData: SoftballHitter[]) {
+    let newData: SoftballHitter[] = [];
+
+    for (let i = 0; i < originalData.length; i++) {
+      let slg = this.calcSlugging(originalData[i].hits, originalData[i].doubles, originalData[i].triples,
+        originalData[i].homeruns, originalData[i].plateAppearances, originalData[i].walks);
+
+      if (i === 0) {
+        newData.push(originalData[i]);
+        continue;
+      }
+      for (let j = 0; j < newData.length; j++) {
+
+        if (j === newData.length - 1) {
+          if (slg >= this.calcSlugging(newData[j].hits, newData[j].doubles, newData[j].triples,
+            newData[j].homeruns, newData[j].plateAppearances, newData[j].walks)) {
+            newData.push(originalData[i]);
+          } else {
+            newData.unshift(originalData[i]);
+          }
+          break;
+        }
+
+        if (slg > this.calcSlugging(newData[j].hits, newData[j].doubles, newData[j].triples,
+            newData[j].homeruns, newData[j].plateAppearances, newData[j].walks) &&
+          slg <= this.calcSlugging(newData[j + 1].hits, newData[j + 1].doubles, newData[j + 1].triples,
+            newData[j + 1].homeruns, newData[j + 1].plateAppearances, newData[j + 1].walks)) {
+          newData.splice(j + 1, 0, originalData[i]);
+          break;
+        }
+      }
+    }
+    return newData;
+
+  }
+
+  sortByOPS(originalData: SoftballHitter[]) {
+    let newData: SoftballHitter[] = [];
+
+    for (let i = 0; i < originalData.length; i++) {
+      let ops = this.calcOPS(originalData[i].hits, originalData[i].doubles, originalData[i].triples,
+        originalData[i].homeruns, originalData[i].plateAppearances, originalData[i].walks);
+
+      if (i === 0) {
+        newData.push(originalData[i]);
+        continue;
+      }
+      for (let j = 0; j < newData.length; j++) {
+
+        if (j === newData.length - 1) {
+          if (ops >= this.calcOPS(newData[j].hits, newData[j].doubles, newData[j].triples,
+            newData[j].homeruns, newData[j].plateAppearances, newData[j].walks)) {
+            newData.push(originalData[i]);
+          } else {
+            newData.unshift(originalData[i]);
+          }
+          break;
+        }
+
+        if (ops > this.calcOPS(newData[j].hits, newData[j].doubles, newData[j].triples,
+            newData[j].homeruns, newData[j].plateAppearances, newData[j].walks) &&
+          ops <= this.calcOPS(newData[j + 1].hits, newData[j + 1].doubles, newData[j + 1].triples,
+            newData[j + 1].homeruns, newData[j + 1].plateAppearances, newData[j + 1].walks)) {
+          newData.splice(j + 1, 0, originalData[i]);
+          break;
+        }
+      }
+    }
+    return newData;
+
   }
 
   getCurrDate() {
