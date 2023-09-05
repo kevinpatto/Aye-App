@@ -1,16 +1,27 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {map, Observable, of, pipe} from "rxjs";
 import {Poop} from "../models/poop";
 import {HttpClient} from "@angular/common/http";
 import {PoopService} from "../services/poop.service";
-import {AyeScore} from "../interfaces/aye-score";
+import {AyeScore, AyeScoreArr} from "../interfaces/aye-score";
+import {MatTableDataSource} from "@angular/material/table";
+import {SoftballHitter} from "../interfaces/softball";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-leaderboards',
   templateUrl: './leaderboards.component.html',
   styleUrls: ['./leaderboards.component.scss']
 })
-export class LeaderboardsComponent implements OnInit {
+export class LeaderboardsComponent implements AfterViewInit {
+  dataSource: MatTableDataSource<AyeScoreArr>;
+  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
+  @ViewChild(MatSort) sort: MatSort;
+
+  displayedColumns: string[] = ['user','ayeScore','uniqueStates', 'uniqueCities'];
+
   public listOfPoops$: Observable<any> = new Observable<any>();
   public dataMap: Map<string, AyeScore>;
   public sortedMap: [string, AyeScore][];
@@ -21,9 +32,13 @@ export class LeaderboardsComponent implements OnInit {
   ) {
     this.dataMap = new Map<string, AyeScore>();
     this.sortedMap = [];
+    this.dataSource = new MatTableDataSource<AyeScoreArr>([]);
+    // // @ts-ignore
+    // this.dataSource.paginator = this.paginator;
+    this.sort = new MatSort();
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit() {
     this.poopService.poopListObs$.pipe(
       map((poops) => {
         if (poops) {
@@ -118,7 +133,30 @@ export class LeaderboardsComponent implements OnInit {
         } else {
           this.poopService.getPoops().subscribe();
         }
-      })).subscribe()
+        this.dataSource = new MatTableDataSource<AyeScoreArr>(this.ayeScoreToArr(this.sortedMap));
+        console.log(this.dataSource)
+        setTimeout(() => {
+          // @ts-ignore
+          this.dataSource.paginator = this.paginator;
+        }, 1)
+        this.dataSource.sort = this.sort;
+        console.log(this.dataSource.paginator);
+      })).subscribe();
+  }
+
+  ayeScoreToArr(arr: [string, AyeScore][]) {
+    let newArr: AyeScoreArr[] = [];
+
+    for (let i = 0; i < arr.length; i++) {
+      newArr.push({
+        user: arr[i][0],
+        cities: arr[i][1].cities,
+        states: arr[i][1].states,
+        ayeScore: arr[i][1].ayeScore,
+      })
+    }
+    return newArr;
+
   }
 
   getBorder(n: number) {
@@ -134,6 +172,8 @@ export class LeaderboardsComponent implements OnInit {
     return 'camper';
 
   }
-
+  getCurrDate() {
+    return formatDate(new Date(), 'MM-dd-yy', 'en');
+  }
 
 }
