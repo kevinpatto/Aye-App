@@ -1,39 +1,47 @@
 <div style="display: flex; justify-content: center">
   <mat-card appearance="outlined" style="width: 100%; max-width: 1000px;">
-        <div class="row" style="width: 98%; margin-left: 1%; margin-right: 1%;">
-          <div class="col-md-12 col-xs-12">
-            <div class="tableHeader">Poop Diaries
-              <br>
-              <span style="margin-top: 155px">
+    <div class="row" style="width: 98%; margin-left: 1%; margin-right: 1%;">
+      <div class="col-md-12 col-xs-12">
+        <div class="tableHeader">Poop Diaries
+          <br>
+          <span style="margin-top: 155px">
             Leaderboard
           </span>
-            </div>
-          </div>
         </div>
+      </div>
+    </div>
     <ng-container *ngIf="dataSource.data.length > 0">
-<!--TODO decide on whether ot use elevation-->
+      <!--TODO decide on whether ot use elevation-->
       <!--      <div class="mat-elevation-z8"-->
       <div class="mat-elevation-z8"
            style=" overflow: auto; width: 98%; margin-left: 1%; margin-right: 1%;"
            tabindex="0">
         <ng-container>
           <table [dataSource]="dataSource" mat-table matSort matSortStart="desc" matSortDisableClear>
-<!--            (matSortChange)="sortSoftballData($event)">-->
-
+            <!--            (matSortChange)="sortSoftballData($event)">-->
 
 
             <ng-container matColumnDef="user" style="justify-content: center" sticky>
 
               <th mat-header-cell *matHeaderCellDef class="stat-header">
                 <b>User</b>
-                <div class="stat-arrow">
-                  <span mat-sort-header></span>
-                </div>
+<!--                <div class="stat-arrow">-->
+<!--                  <span mat-sort-header></span>-->
+<!--                </div>-->
               </th>
 
-              <td *matCellDef="let element; let i = index;"
+              <td *matCellDef="let element; let i = index;" [class]="getBorder(i)"
                   mat-cell>
-                {{element.user.toLowerCase()}}
+                <ng-container *ngIf="i === 0">
+                  <span style="font-size: 20px;">🥇</span>
+                </ng-container>
+                <ng-container *ngIf="i === 1">
+                  <span style="font-size: 20px;">🥈</span>
+                </ng-container>
+                <ng-container *ngIf="i === 2">
+                  <span style="font-size: 20px;">🥉</span>
+                </ng-container>
+                <span style="font-weight: 500">{{element.user.toLowerCase()}}</span>
               </td>
             </ng-container>
 
@@ -41,14 +49,15 @@
 
               <th mat-header-cell *matHeaderCellDef class="stat-header">
                 <b>Aye Score</b>
-                <div class="stat-arrow">
-                  <span mat-sort-header></span>
-                </div>
+<!--                <div class="stat-arrow">-->
+<!--                  <span mat-sort-header></span>-->
+<!--                </div>-->
               </th>
 
               <td *matCellDef="let element; let i = index;"
                   mat-cell>
-                {{element.ayeScore}}
+                <span style="color: #3366FF; font-weight: 500">{{element.ayeScore}}</span>
+
               </td>
             </ng-container>
 
@@ -56,14 +65,15 @@
 
               <th mat-header-cell *matHeaderCellDef class="stat-header">
                 <b>Unique States</b>
-                <div class="stat-arrow">
-                  <span mat-sort-header></span>
-                </div>
+<!--                <div class="stat-arrow">-->
+<!--                  <span mat-sort-header></span>-->
+<!--                </div>-->
               </th>
 
               <td *matCellDef="let element; let i = index;"
                   mat-cell>
-                {{element.states.length}}
+                <span style="font-weight: 500"> {{element.states.length}}</span>
+
               </td>
             </ng-container>
 
@@ -71,17 +81,17 @@
 
               <th mat-header-cell *matHeaderCellDef class="stat-header">
                 <b>Unique Cities</b>
-                <div class="stat-arrow">
-                  <span mat-sort-header></span>
-                </div>
+<!--                <div class="stat-arrow">-->
+<!--                  <span mat-sort-header></span>-->
+<!--                </div>-->
               </th>
 
               <td *matCellDef="let element; let i = index;"
                   mat-cell>
-                {{element.cities.length}}
+                <span style="font-weight: 500"> {{element.cities.length}}</span>
+
               </td>
             </ng-container>
-
 
 
             <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
@@ -109,71 +119,46 @@
     </ng-container>
 
 
-<!-- Old code    -->
-<!--    <div class="row">-->
-<!--      <div class="col-md-12 col-xs-12">-->
-<!--        <div class="tableHeader">Poop Diaries-->
-<!--          <br>-->
-<!--          <span style="margin-top: 155px">-->
-<!--        Leaderboard-->
-<!--      </span>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
+    <!-- Old code    -->
 
-<!--    <div class="row">-->
-<!--      <div class="col-md-12 col-xs-12">-->
-<!--        <table class="table-bordered">-->
-<!--          <thead>-->
-<!--          <tr class="camper">-->
-<!--            <th class="number">User</th>-->
-<!--            <th>Unique Cities</th>-->
-<!--            <th>Unique States</th>-->
-<!--            <th class="number">-->
-<!--              Aye Score-->
-<!--              <div></div>-->
-<!--            </th>-->
-<!--          </tr>-->
-<!--          </thead>-->
-<!--          <tbody>-->
-<!--          <ng-container *ngIf="this.sortedMap">-->
-<!--            <ng-container *ngFor="let d of this.sortedMap; let i = index;">-->
-<!--              <tr>-->
-<!--                <div [class]="getBorder(i)" style="display: flex;">-->
-<!--                  <ng-container *ngIf="i === 0;">-->
-<!--                    <span style="font-size: 44px; float: left">-->
-<!--                        🥇-->
-<!--                      </span>-->
-<!--                    <td style="font-weight: 500; padding-left: 0;">-->
-<!--                      <i>{{d[0][0] + d[0].slice(1).toLowerCase()}}</i>-->
-<!--                    </td>-->
-<!--                  </ng-container>-->
-<!--                  <ng-container *ngIf="i === 1;">-->
-<!--                    <span style="font-size: 44px; float: left;">-->
-<!--                        🥈-->
-<!--                      </span>-->
-<!--                    <td style="font-weight: 500;"><i>{{d[0][0] + d[0].slice(1).toLowerCase()}}</i></td>-->
-<!--                  </ng-container>-->
-<!--                  <ng-container *ngIf="i === 2;">-->
-<!--                       <span style="font-size: 44px;">-->
-<!--                        🥉-->
-<!--                      </span>-->
-<!--                    <td style="font-weight: 500;"><i>{{d[0][0] + d[0].slice(1).toLowerCase()}}</i></td>-->
-<!--                  </ng-container>-->
-<!--                  <ng-container *ngIf="i > 2;">-->
-<!--                    <td style="font-weight: 500;"><i>{{d[0][0] + d[0].slice(1).toLowerCase()}}</i></td>-->
-<!--                  </ng-container>-->
-<!--                </div>-->
-<!--                <td class="number">{{d[1].cities.length}}</td>-->
-<!--                <td class="number">{{d[1].states.length}}</td>-->
-<!--                <td class="number" style="color: #3366ff; font-weight: 500;">{{d[1].ayeScore}}</td>-->
-<!--              </tr>-->
-<!--            </ng-container>-->
-<!--          </ng-container>-->
-<!--          </tbody>-->
-<!--        </table>-->
-<!--      </div>-->
-<!--    </div>-->
+    <!--          <ng-container *ngIf="this.sortedMap">-->
+    <!--            <ng-container *ngFor="let d of this.sortedMap; let i = index;">-->
+    <!--              <tr>-->
+    <!--                <div [class]="getBorder(i)" style="display: flex;">-->
+    <!--                  <ng-container *ngIf="i === 0;">-->
+    <!--                    <span style="font-size: 44px; float: left">-->
+    <!--                        🥇-->
+    <!--                      </span>-->
+    <!--                    <td style="font-weight: 500; padding-left: 0;">-->
+    <!--                      <i>{{d[0][0] + d[0].slice(1).toLowerCase()}}</i>-->
+    <!--                    </td>-->
+    <!--                  </ng-container>-->
+    <!--                  <ng-container *ngIf="i === 1;">-->
+    <!--                    <span style="font-size: 44px; float: left;">-->
+    <!--                        🥈-->
+    <!--                      </span>-->
+    <!--                    <td style="font-weight: 500;"><i>{{d[0][0] + d[0].slice(1).toLowerCase()}}</i></td>-->
+    <!--                  </ng-container>-->
+    <!--                  <ng-container *ngIf="i === 2;">-->
+    <!--                       <span style="font-size: 44px;">-->
+    <!--                        🥉-->
+    <!--                      </span>-->
+    <!--                    <td style="font-weight: 500;"><i>{{d[0][0] + d[0].slice(1).toLowerCase()}}</i></td>-->
+    <!--                  </ng-container>-->
+    <!--                  <ng-container *ngIf="i > 2;">-->
+    <!--                    <td style="font-weight: 500;"><i>{{d[0][0] + d[0].slice(1).toLowerCase()}}</i></td>-->
+    <!--                  </ng-container>-->
+    <!--                </div>-->
+    <!--                <td class="number">{{d[1].cities.length}}</td>-->
+    <!--                <td class="number">{{d[1].states.length}}</td>-->
+    <!--                <td class="number" style="color: #3366ff; font-weight: 500;">{{d[1].ayeScore}}</td>-->
+    <!--              </tr>-->
+    <!--            </ng-container>-->
+    <!--          </ng-container>-->
+    <!--          </tbody>-->
+    <!--        </table>-->
+    <!--      </div>-->
+    <!--    </div>-->
     <br>
   </mat-card>
   <br>

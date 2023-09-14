@@ -73,3 +73,92 @@ td {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
+
+// TODO: Make it so this file and the softball table shares the same scss page
+
+table {
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.mat-cell {
+  font-size: 18px;
+  text-align: center;
+  border: 1px solid black;
+  padding: 4px;
+  font-weight: bolder;
+}
+
+.mat-header-cell {
+  font-size: 24px;
+  font-weight: bold;
+  border: 1px solid black;
+  text-align: center;
+  padding: 2px;
+  color: #3366FF;
+}
+
+
+th.mat-header-cell:first-of-type {
+  padding: 2px;
+}
+
+th.mat-header-cell:last-of-type {
+  padding: 2px;
+}
+
+.mat-cell:first-child, mat-footer-cell:first-child, mat-header-cell:first-child {
+  padding-left: 4px;
+  border-right: 1px solid black;
+}
+
+.mat-cell:last-child, mat-footer-cell:last-child, mat-header-cell:last-child {
+  padding-right: 4px;
+}
+
+mat-radio-label {
+}
+
+.mdc-data-table__header-cell {
+  text-align: center;
+  padding: 16px 0 0 32px;
+}
+
+.mdc-data-table__header-cell:first-of-type {
+  text-align: left;
+  padding: 16px 0 0 16px;
+}
+
+.mdc-data-table__cell {
+  padding: 0 0 0 32px;
+  text-align: center;
+}
+
+.mdc-data-table__cell:first-of-type {
+  padding: 0 0 0 16px;
+  text-align: left;
+}
+
+.stat-header {
+  margin-top: 15px;
+  //display: grid;
+
+}
+
+.stat-button {
+  margin-bottom: 5px;
+}
+
+
+
+.stat-arrow {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+::ng-deep .mat-sort-header-container:not(.mat-sort-header-sorted) .mat-sort-header-arrow {
+  opacity: 0.75 !important;
+  color: #3366ff;
+}
+
