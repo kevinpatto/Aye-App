@@ -6,13 +6,11 @@ Aye app was created as a way for Jonah Toch (and friends) to learn the MEAN tech
 
 It is developed infrequently on weekday evenings when there is time so there are no consistent updates.
 
-The app has many different unrelated features and is sort of charcuterie board of features.
+The app has many different unrelated features and is sort of charcuterie board of features and fun things to do.
 
 ## Access
 
 Access Aye App at https://jonahtoch.com/
-
-For now, the app is only available on the web.
 
 ## Contributing
 
