@@ -18,10 +18,10 @@ If you would like to contibute I recommend you reach out to @GonahSoftware on In
 
 ## Feedback
 
-If you have any feedback for the app please feel free to share it. Contact @GonahSoftware on Instagram for feedback.
+If you have any feedback for the app please feel free to share it. Contact @GonahSoftware on Instagram with any and all criticism.
 
 ## License
 
-Copyright (c) Gonah Software All rights reserved.
+Copyright (c) Gonah Software. All rights reserved.
 
 Licensed under the MIT license.
