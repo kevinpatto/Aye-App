@@ -7,7 +7,7 @@ import {AyeScore, AyeScoreArr} from "../interfaces/aye-score";
 import {MatTableDataSource} from "@angular/material/table";
 import {SoftballHitter} from "../interfaces/softball";
 import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
+import {MatSort, Sort} from "@angular/material/sort";
 import {formatDate} from "@angular/common";
 
 @Component({
@@ -20,7 +20,7 @@ export class LeaderboardsComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['user','ayeScore','uniqueStates', 'uniqueCities'];
+  displayedColumns: string[] = ['user', 'ayeScore', 'uniqueStates', 'uniqueCities'];
 
   public listOfPoops$: Observable<any> = new Observable<any>();
   public dataMap: Map<string, AyeScore>;
@@ -144,6 +144,118 @@ export class LeaderboardsComponent implements AfterViewInit {
       })).subscribe();
   }
 
+  sortPoopData(sortState: Sort) {
+
+    let originalData = this.dataSource.data;
+
+    let sortedData: AyeScoreArr[] = [];
+
+    if (sortState.active === "ayeScore") {
+      sortedData = this.sortByAyeScore(originalData);
+
+      if (sortState.direction === "asc") {
+        sortedData.reverse();
+      }
+      this.dataSource.data = sortedData;
+    } else if (sortState.active === "uniqueStates") {
+      sortedData = this.sortByUniqueStates(originalData);
+      if (sortState.direction === "desc") {
+        sortedData.reverse();
+      }
+      this.dataSource.data = sortedData;
+    } else if (sortState.active === "uniqueCities") {
+      sortedData = this.sortByUniqueCities(originalData);
+      if (sortState.direction === "desc") {
+        sortedData.reverse();
+      }
+      this.dataSource.data = sortedData;
+    }
+  }
+
+  sortByAyeScore(originalData: AyeScoreArr[]) {
+    let newData: AyeScoreArr[] = [];
+
+    for (let i = 0; i < originalData.length; i++) {
+      let score = originalData[i].ayeScore;
+      if (i === 0) {
+        newData.push(originalData[i]);
+        continue;
+      }
+      for (let j = 0; j < newData.length; j++) {
+        if (j === newData.length - 1) {
+          if (score >= newData[j].ayeScore) {
+            newData.push(originalData[i]);
+          } else {
+            newData.unshift(originalData[i]);
+          }
+          break;
+        }
+        if (score > newData[j].ayeScore &&
+          score <= newData[j + 1].ayeScore) {
+          newData.splice(j + 1, 0, originalData[i]);
+          break;
+        }
+      }
+    }
+    return newData;
+  }
+
+  sortByUniqueStates(originalData: AyeScoreArr[]) {
+    let newData: AyeScoreArr[] = [];
+
+    for (let i = 0; i < originalData.length; i++) {
+      let score = originalData[i].states.length;
+      if (i === 0) {
+        newData.push(originalData[i]);
+        continue;
+      }
+      for (let j = 0; j < newData.length; j++) {
+        if (j === newData.length - 1) {
+          if (score >= newData[j].states.length) {
+            newData.push(originalData[i]);
+          } else {
+            newData.unshift(originalData[i]);
+          }
+          break;
+        }
+        if (score > newData[j].states.length &&
+          score <= newData[j + 1].states.length) {
+          newData.splice(j + 1, 0, originalData[i]);
+          break;
+        }
+      }
+    }
+    return newData;
+  }
+
+  sortByUniqueCities(originalData: AyeScoreArr[]) {
+    let newData: AyeScoreArr[] = [];
+
+    for (let i = 0; i < originalData.length; i++) {
+      let score = originalData[i].cities.length;
+      if (i === 0) {
+        newData.push(originalData[i]);
+        continue;
+      }
+      for (let j = 0; j < newData.length; j++) {
+        if (j === newData.length - 1) {
+          if (score >= newData[j].cities.length) {
+            newData.push(originalData[i]);
+          } else {
+            newData.unshift(originalData[i]);
+          }
+          break;
+        }
+        if (score > newData[j].cities.length &&
+          score <= newData[j + 1].cities.length) {
+          newData.splice(j + 1, 0, originalData[i]);
+          break;
+        }
+      }
+    }
+    return newData;
+  }
+
   ayeScoreToArr(arr: [string, AyeScore][]) {
     let newArr: AyeScoreArr[] = [];
 
@@ -159,19 +271,30 @@ export class LeaderboardsComponent implements AfterViewInit {
 
   }
 
-  getBorder(n: number) {
-    if (n === 0) {
+  getBorder(name: string): string {
+    if (name === this.dataSource.data[0].user.toLowerCase()) {
       return 'golden';
     }
-    if (n === 1) {
+    if (name === this.dataSource.data[1].user.toLowerCase()) {
       return 'silver';
     }
-    if (n === 2) {
+    if (name === this.dataSource.data[2].user.toLowerCase()) {
       return 'bronze';
     }
     return 'camper';
-
   }
+
+  qualifyForMedal(name: string): boolean {
+    if (name === this.dataSource.data[0].user.toLowerCase()) {
+      return true;
+    } else if (name === this.dataSource.data[1].user.toLowerCase()) {
+      return true;
+    } else if (name === this.dataSource.data[2].user.toLowerCase()) {
+      return true;
+    }
+    return false;
+  }
+
   getCurrDate() {
     return formatDate(new Date(), 'MM-dd-yy', 'en');
   }
