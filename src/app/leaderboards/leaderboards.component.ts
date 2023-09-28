@@ -9,6 +9,11 @@ import {SoftballHitter} from "../interfaces/softball";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort, Sort} from "@angular/material/sort";
 import {formatDate} from "@angular/common";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {StatExplanationComponent} from "../dialogs/stat-explanation/stat-explanation.component";
+import {
+  LocationExplanationComponent
+} from "../dialogs/location-explanation/location-explanation/location-explanation.component";
 
 @Component({
   selector: 'app-leaderboards',
@@ -22,13 +27,15 @@ export class LeaderboardsComponent implements AfterViewInit {
 
   displayedColumns: string[] = ['user', 'ayeScore', 'uniqueStates', 'uniqueCities'];
 
-  public listOfPoops$: Observable<any> = new Observable<any>();
-  public dataMap: Map<string, AyeScore>;
-  public sortedMap: [string, AyeScore][];
+  listOfPoops$: Observable<any> = new Observable<any>();
+  dataMap: Map<string, AyeScore>;
+  sortedMap: [string, AyeScore][];
+  showingLeaderboardInReverse = false;
 
   constructor(
     private http: HttpClient,
     private poopService: PoopService,
+    public dialog: MatDialog,
   ) {
     this.dataMap = new Map<string, AyeScore>();
     this.sortedMap = [];
@@ -145,31 +152,38 @@ export class LeaderboardsComponent implements AfterViewInit {
   }
 
   sortPoopData(sortState: Sort) {
-
+    this.showingLeaderboardInReverse = false;
     let originalData = this.dataSource.data;
 
     let sortedData: AyeScoreArr[] = [];
 
     if (sortState.active === "ayeScore") {
       sortedData = this.sortByAyeScore(originalData);
-
       if (sortState.direction === "asc") {
         sortedData.reverse();
+      } else {
+        this.showingLeaderboardInReverse = true;
       }
       this.dataSource.data = sortedData;
     } else if (sortState.active === "uniqueStates") {
       sortedData = this.sortByUniqueStates(originalData);
       if (sortState.direction === "desc") {
         sortedData.reverse();
+      } else {
+        this.showingLeaderboardInReverse = true;
       }
       this.dataSource.data = sortedData;
     } else if (sortState.active === "uniqueCities") {
       sortedData = this.sortByUniqueCities(originalData);
       if (sortState.direction === "desc") {
         sortedData.reverse();
+      } else {
+        this.showingLeaderboardInReverse = true;
       }
       this.dataSource.data = sortedData;
     }
+    console.log(this.showingLeaderboardInReverse);
+
   }
 
   sortByAyeScore(originalData: AyeScoreArr[]) {
@@ -272,6 +286,9 @@ export class LeaderboardsComponent implements AfterViewInit {
   }
 
   getBorder(name: string): string {
+    if (this.showingLeaderboardInReverse) {
+      return 'camper';
+    }
     if (name === this.dataSource.data[0].user.toLowerCase()) {
       return 'golden';
     }
@@ -284,7 +301,27 @@ export class LeaderboardsComponent implements AfterViewInit {
     return 'camper';
   }
 
+
+  openExplanation(locations: string[], personsName: string, type: string) {
+
+    console.log(locations);
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      title: type,
+      personsName: personsName,
+      locations: locations,
+    }
+
+    dialogConfig.restoreFocus = false;
+    dialogConfig.autoFocus = true;
+    this.dialog.open(LocationExplanationComponent, dialogConfig);
+  }
+
   qualifyForMedal(name: string): boolean {
+    if (this.showingLeaderboardInReverse) {
+      return false;
+    }
     if (name === this.dataSource.data[0].user.toLowerCase()) {
       return true;
     } else if (name === this.dataSource.data[1].user.toLowerCase()) {

@@ -43,6 +43,7 @@ import {MatTableModule} from "@angular/material/table";
 import {CsvModule} from "@ctrl/ngx-csv";
 import { StatExplanationComponent } from './dialogs/stat-explanation/stat-explanation.component';
 import {MatSortModule} from "@angular/material/sort";
+import { LocationExplanationComponent } from './dialogs/location-explanation/location-explanation/location-explanation.component';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import {MatSortModule} from "@angular/material/sort";
     ProfileComponent,
     TrophyDialogComponent,
     SoftballComponent,
-    StatExplanationComponent
+    StatExplanationComponent,
+    LocationExplanationComponent
   ],
   imports: [
     BrowserModule,
