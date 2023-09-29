@@ -1,25 +1,41 @@
 <div style="padding: 15px;">
-  <div style="display: flex; justify-content: center;">
-    <h1 style="font-size: 22px; color: #3366ff">
-      <b>{{this.personsName.substring(0, 1).toUpperCase() + this.personsName.substring(1, this.personsName.length)}}'s
-        Unique {{this.title.substring(0, 1).toUpperCase() + this.title.substring(1, this.title.length)}}</b></h1>
-  </div>
-
-
-  <ng-container *ngIf="this.locations.length > 0">
-  <ng-container *ngFor="let locs of this.locations">
-
-  <div style="display: flex; justify-content: center;">
-    <h1 mat-dialog-content style="font-size: 20px; margin-bottom: 0; margin-top: 0; padding-top: 0; padding-bottom: 0">{{locs}}</h1>
-  </div>
-
-  </ng-container>
-  </ng-container>
-
-  <ng-container *ngIf="this.locations.length === 0">
     <div style="display: flex; justify-content: center;">
-      <h1 mat-dialog-content style="font-size: 20px; margin-bottom: 0; margin-top: 0; padding-top: 0; padding-bottom: 0">None recorded yet 😔</h1>
+        <h1 style="font-size: 22px; color: #3366ff">
+            <b>{{this.personsName.substring(0, 1).toUpperCase() + this.personsName.substring(1, this.personsName.length)}}
+                's
+                Unique {{this.title.substring(0, 1).toUpperCase() + this.title.substring(1, this.title.length)}}</b>
+        </h1>
     </div>
-  </ng-container>
+
+
+    <ng-container *ngIf="this.title === 'cities'">
+
+
+        <ng-container *ngIf="this.locations.length > 0">
+            <ng-container *ngFor="let locs of this.locations">
+
+                <div style="display: flex; justify-content: center;">
+                    <h1 mat-dialog-content
+                        style="font-size: 20px; margin-bottom: 0; margin-top: 0; padding-top: 0; padding-bottom: 0">{{locs}}</h1>
+                </div>
+
+            </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="this.locations.length === 0">
+            <div style="display: flex; justify-content: center;">
+                <h1 mat-dialog-content
+                    style="font-size: 20px; margin-bottom: 0; margin-top: 0; padding-top: 0; padding-bottom: 0">None
+                    recorded yet 😔</h1>
+            </div>
+        </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="this.title === 'states'">
+    <us-map (onMapClick)="(this.logIt($event))" fillColor="black" fillStateColor="#e0e0e0" strokeColor="black"
+            style="font-size: 17px; font-weight: bold">
+
+    </us-map>
+    </ng-container>
 
 </div>

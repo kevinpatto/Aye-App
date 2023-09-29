@@ -12,328 +12,334 @@ import {formatDate} from "@angular/common";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {StatExplanationComponent} from "../dialogs/stat-explanation/stat-explanation.component";
 import {
-  LocationExplanationComponent
+    LocationExplanationComponent
 } from "../dialogs/location-explanation/location-explanation/location-explanation.component";
 
 @Component({
-  selector: 'app-leaderboards',
-  templateUrl: './leaderboards.component.html',
-  styleUrls: ['./leaderboards.component.scss']
+    selector: 'app-leaderboards',
+    templateUrl: './leaderboards.component.html',
+    styleUrls: ['./leaderboards.component.scss']
 })
 export class LeaderboardsComponent implements AfterViewInit {
-  dataSource: MatTableDataSource<AyeScoreArr>;
-  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
-  @ViewChild(MatSort) sort: MatSort;
+    dataSource: MatTableDataSource<AyeScoreArr>;
+    @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
+    @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['user', 'ayeScore', 'uniqueStates', 'uniqueCities'];
+    displayedColumns: string[] = ['user', 'ayeScore', 'uniqueStates', 'uniqueCities'];
 
-  listOfPoops$: Observable<any> = new Observable<any>();
-  dataMap: Map<string, AyeScore>;
-  sortedMap: [string, AyeScore][];
-  showingLeaderboardInReverse = false;
+    listOfPoops$: Observable<any> = new Observable<any>();
+    dataMap: Map<string, AyeScore>;
+    sortedMap: [string, AyeScore][];
+    showingLeaderboardInReverse = false;
+    fillColor = "red";
 
-  constructor(
-    private http: HttpClient,
-    private poopService: PoopService,
-    public dialog: MatDialog,
-  ) {
-    this.dataMap = new Map<string, AyeScore>();
-    this.sortedMap = [];
-    this.dataSource = new MatTableDataSource<AyeScoreArr>([]);
-    // // @ts-ignore
-    // this.dataSource.paginator = this.paginator;
-    this.sort = new MatSort();
-  }
 
-  ngAfterViewInit() {
-    this.poopService.poopListObs$.pipe(
-      map((poops) => {
-        if (poops) {
-          poops.forEach((poop: Poop) => {
-            // Algorithm
-            // pts per char of description is 1pt, max 300.
-            // pts per giving addr is 100 if give, 250 if not in illinois, 0 if not.
-            // pts per comment = 50, max for comments is 250.
-            // pts per likes is 10, max for likes is 500
-            // pts per dislike is -8, max for dislikes is 300
-            // max score is 1300 and with full dislikes it is 1000.
-            //
-            let ayePoints = 0;
-            let descValue = poop.description.length;
-            // if (poop.name.toUpperCase() === "KEVIN") {
-            //   console.log(poop);
-            // }
-            if (descValue) {
-              if (descValue > 300) {
-                descValue = 300;
-              }
-            }
-            let addr = poop.fullAddr;
-            let addrValue = 0;
-            if (addrValue) {
-              if (addr) {
-                addrValue = 100;
-              }
-              if (addr && addr !== "Illinois") {
-                addrValue = 250;
-              }
-            }
-            let commentVal = (poop.comments.length * 50);
-            if (commentVal) {
-              if (commentVal > 250) {
-                commentVal = 250;
-              }
-            }
-            let fixedLikes = poop.likes;
-            let likeVal = 0;
-            if (fixedLikes) {
-              if (fixedLikes === 0) {
-                fixedLikes = 1;
-              }
-              likeVal = (fixedLikes * 10);
-              if (likeVal > 500) {
-                likeVal = 500;
-              }
-            }
-            let fixedDislikes = poop.dislikes;
-            let dislikeVal = 0;
-            if (fixedDislikes) {
-              if (fixedDislikes === 0) {
-                fixedDislikes = 1;
-              }
-              dislikeVal = (fixedDislikes * 8);
-              if (dislikeVal > 300) {
-                dislikeVal = 300;
-              }
-            }
-            ayePoints += descValue + addrValue + commentVal + likeVal - dislikeVal;
-            if (ayePoints > 1300) {
-              ayePoints = 1300
-            }
+    constructor(
+        private http: HttpClient,
+        private poopService: PoopService,
+        public dialog: MatDialog,
+    ) {
+        this.dataMap = new Map<string, AyeScore>();
+        this.sortedMap = [];
+        this.dataSource = new MatTableDataSource<AyeScoreArr>([]);
+        // // @ts-ignore
+        // this.dataSource.paginator = this.paginator;
+        this.sort = new MatSort();
+    }
 
-            if (!this.dataMap.has(poop.name.toUpperCase())) {
-              // TODO FIGURE OUT HOW TO NOT ADD UNDEFINED TO ARRAY.
-              this.dataMap.set(poop.name.toUpperCase(), {
-                cities: [],
-                states: [],
-                ayeScore: ayePoints,
-              });
+
+    ngAfterViewInit() {
+        this.poopService.poopListObs$.pipe(
+            map((poops) => {
+                if (poops) {
+                    poops.forEach((poop: Poop) => {
+                        // Algorithm
+                        // pts per char of description is 1pt, max 300.
+                        // pts per giving addr is 100 if give, 250 if not in illinois, 0 if not.
+                        // pts per comment = 50, max for comments is 250.
+                        // pts per likes is 10, max for likes is 500
+                        // pts per dislike is -8, max for dislikes is 300
+                        // max score is 1300 and with full dislikes it is 1000.
+                        //
+                        let ayePoints = 0;
+                        let descValue = poop.description.length;
+                        // if (poop.name.toUpperCase() === "KEVIN") {
+                        //   console.log(poop);
+                        // }
+                        if (descValue) {
+                            if (descValue > 300) {
+                                descValue = 300;
+                            }
+                        }
+                        let addr = poop.fullAddr;
+                        let addrValue = 0;
+                        if (addrValue) {
+                            if (addr) {
+                                addrValue = 100;
+                            }
+                            if (addr && addr !== "Illinois") {
+                                addrValue = 250;
+                            }
+                        }
+                        let commentVal = (poop.comments.length * 50);
+                        if (commentVal) {
+                            if (commentVal > 250) {
+                                commentVal = 250;
+                            }
+                        }
+                        let fixedLikes = poop.likes;
+                        let likeVal = 0;
+                        if (fixedLikes) {
+                            if (fixedLikes === 0) {
+                                fixedLikes = 1;
+                            }
+                            likeVal = (fixedLikes * 10);
+                            if (likeVal > 500) {
+                                likeVal = 500;
+                            }
+                        }
+                        let fixedDislikes = poop.dislikes;
+                        let dislikeVal = 0;
+                        if (fixedDislikes) {
+                            if (fixedDislikes === 0) {
+                                fixedDislikes = 1;
+                            }
+                            dislikeVal = (fixedDislikes * 8);
+                            if (dislikeVal > 300) {
+                                dislikeVal = 300;
+                            }
+                        }
+                        ayePoints += descValue + addrValue + commentVal + likeVal - dislikeVal;
+                        if (ayePoints > 1300) {
+                            ayePoints = 1300
+                        }
+
+                        if (!this.dataMap.has(poop.name.toUpperCase())) {
+                            // TODO FIGURE OUT HOW TO NOT ADD UNDEFINED TO ARRAY.
+                            this.dataMap.set(poop.name.toUpperCase(), {
+                                cities: [],
+                                states: [],
+                                ayeScore: ayePoints,
+                            });
+                        }
+                        let ayeMap = this.dataMap.get(poop.name.toUpperCase());
+                        // if (poop.name.toUpperCase() === "JONAH") {
+                        //   console.log(ayeMap);
+                        // }
+                        if (ayeMap) {
+                            ayeMap.ayeScore += ayePoints;
+                            if (poop.city && !ayeMap.cities.includes(poop.city)) {
+                                ayeMap.cities.push(poop.city);
+                            }
+                            if (poop.longState && !ayeMap.states.includes(poop.longState)) {
+                                ayeMap.states.push(poop.longState);
+                            }
+                            this.dataMap.set(poop.name.toUpperCase(), ayeMap!);
+                        }
+                    })
+                    this.sortedMap = [...this.dataMap.entries()].sort((a: any, b: any) =>
+                        b[1].ayeScore - a[1].ayeScore,
+                    );
+                } else {
+                    this.poopService.getPoops().subscribe();
+                }
+                this.dataSource = new MatTableDataSource<AyeScoreArr>(this.ayeScoreToArr(this.sortedMap));
+                console.log(this.dataSource)
+                setTimeout(() => {
+                    // @ts-ignore
+                    this.dataSource.paginator = this.paginator;
+                }, 1)
+                this.dataSource.sort = this.sort;
+                console.log(this.dataSource.paginator);
+            })).subscribe();
+    }
+
+    sortPoopData(sortState: Sort) {
+        this.showingLeaderboardInReverse = false;
+        let originalData = this.dataSource.data;
+
+        let sortedData: AyeScoreArr[] = [];
+
+        if (sortState.active === "ayeScore") {
+            sortedData = this.sortByAyeScore(originalData);
+            if (sortState.direction === "asc") {
+                sortedData.reverse();
+            } else {
+                this.showingLeaderboardInReverse = true;
             }
-            let ayeMap = this.dataMap.get(poop.name.toUpperCase());
-            // if (poop.name.toUpperCase() === "JONAH") {
-            //   console.log(ayeMap);
-            // }
-            if (ayeMap) {
-              ayeMap.ayeScore += ayePoints;
-              if (poop.city && !ayeMap.cities.includes(poop.city)) {
-                ayeMap.cities.push(poop.city);
-              }
-              if (poop.longState && !ayeMap.states.includes(poop.longState)) {
-                ayeMap.states.push(poop.longState);
-              }
-              this.dataMap.set(poop.name.toUpperCase(), ayeMap!);
+            this.dataSource.data = sortedData;
+        } else if (sortState.active === "uniqueStates") {
+            sortedData = this.sortByUniqueStates(originalData);
+            if (sortState.direction === "desc") {
+                sortedData.reverse();
+            } else {
+                this.showingLeaderboardInReverse = true;
             }
-          })
-          this.sortedMap = [...this.dataMap.entries()].sort((a: any, b: any) =>
-            b[1].ayeScore - a[1].ayeScore,
-          );
-        } else {
-          this.poopService.getPoops().subscribe();
+            this.dataSource.data = sortedData;
+        } else if (sortState.active === "uniqueCities") {
+            sortedData = this.sortByUniqueCities(originalData);
+            if (sortState.direction === "desc") {
+                sortedData.reverse();
+            } else {
+                this.showingLeaderboardInReverse = true;
+            }
+            this.dataSource.data = sortedData;
         }
-        this.dataSource = new MatTableDataSource<AyeScoreArr>(this.ayeScoreToArr(this.sortedMap));
-        console.log(this.dataSource)
-        setTimeout(() => {
-          // @ts-ignore
-          this.dataSource.paginator = this.paginator;
-        }, 1)
-        this.dataSource.sort = this.sort;
-        console.log(this.dataSource.paginator);
-      })).subscribe();
-  }
+        console.log(this.showingLeaderboardInReverse);
 
-  sortPoopData(sortState: Sort) {
-    this.showingLeaderboardInReverse = false;
-    let originalData = this.dataSource.data;
-
-    let sortedData: AyeScoreArr[] = [];
-
-    if (sortState.active === "ayeScore") {
-      sortedData = this.sortByAyeScore(originalData);
-      if (sortState.direction === "asc") {
-        sortedData.reverse();
-      } else {
-        this.showingLeaderboardInReverse = true;
-      }
-      this.dataSource.data = sortedData;
-    } else if (sortState.active === "uniqueStates") {
-      sortedData = this.sortByUniqueStates(originalData);
-      if (sortState.direction === "desc") {
-        sortedData.reverse();
-      } else {
-        this.showingLeaderboardInReverse = true;
-      }
-      this.dataSource.data = sortedData;
-    } else if (sortState.active === "uniqueCities") {
-      sortedData = this.sortByUniqueCities(originalData);
-      if (sortState.direction === "desc") {
-        sortedData.reverse();
-      } else {
-        this.showingLeaderboardInReverse = true;
-      }
-      this.dataSource.data = sortedData;
     }
-    console.log(this.showingLeaderboardInReverse);
 
-  }
+    sortByAyeScore(originalData: AyeScoreArr[]) {
+        let newData: AyeScoreArr[] = [];
 
-  sortByAyeScore(originalData: AyeScoreArr[]) {
-    let newData: AyeScoreArr[] = [];
-
-    for (let i = 0; i < originalData.length; i++) {
-      let score = originalData[i].ayeScore;
-      if (i === 0) {
-        newData.push(originalData[i]);
-        continue;
-      }
-      for (let j = 0; j < newData.length; j++) {
-        if (j === newData.length - 1) {
-          if (score >= newData[j].ayeScore) {
-            newData.push(originalData[i]);
-          } else {
-            newData.unshift(originalData[i]);
-          }
-          break;
+        for (let i = 0; i < originalData.length; i++) {
+            let score = originalData[i].ayeScore;
+            if (i === 0) {
+                newData.push(originalData[i]);
+                continue;
+            }
+            for (let j = 0; j < newData.length; j++) {
+                if (j === newData.length - 1) {
+                    if (score >= newData[j].ayeScore) {
+                        newData.push(originalData[i]);
+                    } else {
+                        newData.unshift(originalData[i]);
+                    }
+                    break;
+                }
+                if (score > newData[j].ayeScore &&
+                    score <= newData[j + 1].ayeScore) {
+                    newData.splice(j + 1, 0, originalData[i]);
+                    break;
+                }
+            }
         }
-        if (score > newData[j].ayeScore &&
-          score <= newData[j + 1].ayeScore) {
-          newData.splice(j + 1, 0, originalData[i]);
-          break;
+        return newData;
+    }
+
+    sortByUniqueStates(originalData: AyeScoreArr[]) {
+        let newData: AyeScoreArr[] = [];
+
+        for (let i = 0; i < originalData.length; i++) {
+            let score = originalData[i].states.length;
+            if (i === 0) {
+                newData.push(originalData[i]);
+                continue;
+            }
+            for (let j = 0; j < newData.length; j++) {
+                if (j === newData.length - 1) {
+                    if (score >= newData[j].states.length) {
+                        newData.push(originalData[i]);
+                    } else {
+                        newData.unshift(originalData[i]);
+                    }
+                    break;
+                }
+                if (score > newData[j].states.length &&
+                    score <= newData[j + 1].states.length) {
+                    newData.splice(j + 1, 0, originalData[i]);
+                    break;
+                }
+            }
         }
-      }
+        return newData;
     }
-    return newData;
-  }
 
-  sortByUniqueStates(originalData: AyeScoreArr[]) {
-    let newData: AyeScoreArr[] = [];
+    sortByUniqueCities(originalData: AyeScoreArr[]) {
+        let newData: AyeScoreArr[] = [];
 
-    for (let i = 0; i < originalData.length; i++) {
-      let score = originalData[i].states.length;
-      if (i === 0) {
-        newData.push(originalData[i]);
-        continue;
-      }
-      for (let j = 0; j < newData.length; j++) {
-        if (j === newData.length - 1) {
-          if (score >= newData[j].states.length) {
-            newData.push(originalData[i]);
-          } else {
-            newData.unshift(originalData[i]);
-          }
-          break;
+        for (let i = 0; i < originalData.length; i++) {
+            let score = originalData[i].cities.length;
+            if (i === 0) {
+                newData.push(originalData[i]);
+                continue;
+            }
+            for (let j = 0; j < newData.length; j++) {
+                if (j === newData.length - 1) {
+                    if (score >= newData[j].cities.length) {
+                        newData.push(originalData[i]);
+                    } else {
+                        newData.unshift(originalData[i]);
+                    }
+                    break;
+                }
+                if (score > newData[j].cities.length &&
+                    score <= newData[j + 1].cities.length) {
+                    newData.splice(j + 1, 0, originalData[i]);
+                    break;
+                }
+            }
         }
-        if (score > newData[j].states.length &&
-          score <= newData[j + 1].states.length) {
-          newData.splice(j + 1, 0, originalData[i]);
-          break;
+        return newData;
+    }
+
+    ayeScoreToArr(arr: [string, AyeScore][]) {
+        let newArr: AyeScoreArr[] = [];
+
+        for (let i = 0; i < arr.length; i++) {
+            newArr.push({
+                user: arr[i][0],
+                cities: arr[i][1].cities,
+                states: arr[i][1].states,
+                ayeScore: arr[i][1].ayeScore,
+            })
         }
-      }
+        return newArr;
+
     }
-    return newData;
-  }
 
-  sortByUniqueCities(originalData: AyeScoreArr[]) {
-    let newData: AyeScoreArr[] = [];
-
-    for (let i = 0; i < originalData.length; i++) {
-      let score = originalData[i].cities.length;
-      if (i === 0) {
-        newData.push(originalData[i]);
-        continue;
-      }
-      for (let j = 0; j < newData.length; j++) {
-        if (j === newData.length - 1) {
-          if (score >= newData[j].cities.length) {
-            newData.push(originalData[i]);
-          } else {
-            newData.unshift(originalData[i]);
-          }
-          break;
+    getBorder(name: string): string {
+        if (this.showingLeaderboardInReverse) {
+            return 'camper';
         }
-        if (score > newData[j].cities.length &&
-          score <= newData[j + 1].cities.length) {
-          newData.splice(j + 1, 0, originalData[i]);
-          break;
+        if (name === this.dataSource.data[0].user.toLowerCase()) {
+            return 'golden';
         }
-      }
-    }
-    return newData;
-  }
-
-  ayeScoreToArr(arr: [string, AyeScore][]) {
-    let newArr: AyeScoreArr[] = [];
-
-    for (let i = 0; i < arr.length; i++) {
-      newArr.push({
-        user: arr[i][0],
-        cities: arr[i][1].cities,
-        states: arr[i][1].states,
-        ayeScore: arr[i][1].ayeScore,
-      })
-    }
-    return newArr;
-
-  }
-
-  getBorder(name: string): string {
-    if (this.showingLeaderboardInReverse) {
-      return 'camper';
-    }
-    if (name === this.dataSource.data[0].user.toLowerCase()) {
-      return 'golden';
-    }
-    if (name === this.dataSource.data[1].user.toLowerCase()) {
-      return 'silver';
-    }
-    if (name === this.dataSource.data[2].user.toLowerCase()) {
-      return 'bronze';
-    }
-    return 'camper';
-  }
-
-
-  openExplanation(locations: string[], personsName: string, type: string) {
-
-    console.log(locations);
-
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {
-      title: type,
-      personsName: personsName,
-      locations: locations,
+        if (name === this.dataSource.data[1].user.toLowerCase()) {
+            return 'silver';
+        }
+        if (name === this.dataSource.data[2].user.toLowerCase()) {
+            return 'bronze';
+        }
+        return 'camper';
     }
 
-    dialogConfig.restoreFocus = false;
-    dialogConfig.autoFocus = true;
-    this.dialog.open(LocationExplanationComponent, dialogConfig);
-  }
 
-  qualifyForMedal(name: string): boolean {
-    if (this.showingLeaderboardInReverse) {
-      return false;
-    }
-    if (name === this.dataSource.data[0].user.toLowerCase()) {
-      return true;
-    } else if (name === this.dataSource.data[1].user.toLowerCase()) {
-      return true;
-    } else if (name === this.dataSource.data[2].user.toLowerCase()) {
-      return true;
-    }
-    return false;
-  }
+    openExplanation(locations: string[], personsName: string, type: string) {
 
-  getCurrDate() {
-    return formatDate(new Date(), 'MM-dd-yy', 'en');
-  }
+        console.log(locations);
+
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = {
+            title: type,
+            personsName: personsName,
+            locations: locations,
+        }
+
+        dialogConfig.restoreFocus = false;
+        dialogConfig.autoFocus = true;
+        dialogConfig.maxWidth = "1250px";
+        dialogConfig.width = "98%"
+
+        this.dialog.open(LocationExplanationComponent, dialogConfig);
+    }
+
+    qualifyForMedal(name: string): boolean {
+        if (this.showingLeaderboardInReverse) {
+            return false;
+        }
+        if (name === this.dataSource.data[0].user.toLowerCase()) {
+            return true;
+        } else if (name === this.dataSource.data[1].user.toLowerCase()) {
+            return true;
+        } else if (name === this.dataSource.data[2].user.toLowerCase()) {
+            return true;
+        }
+        return false;
+    }
+
+    getCurrDate() {
+        return formatDate(new Date(), 'MM-dd-yy', 'en');
+    }
 
 }

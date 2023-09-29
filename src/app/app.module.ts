@@ -44,6 +44,8 @@ import {CsvModule} from "@ctrl/ngx-csv";
 import { StatExplanationComponent } from './dialogs/stat-explanation/stat-explanation.component';
 import {MatSortModule} from "@angular/material/sort";
 import { LocationExplanationComponent } from './dialogs/location-explanation/location-explanation/location-explanation.component';
+import { UsMapModule } from 'angular-us-map';
+import { UnitedStatesMapComponent } from './united-states-map/united-states-map.component';
 
 
 @NgModule({
@@ -63,7 +65,8 @@ import { LocationExplanationComponent } from './dialogs/location-explanation/loc
     TrophyDialogComponent,
     SoftballComponent,
     StatExplanationComponent,
-    LocationExplanationComponent
+    LocationExplanationComponent,
+    UnitedStatesMapComponent
   ],
   imports: [
     BrowserModule,
@@ -120,6 +123,7 @@ import { LocationExplanationComponent } from './dialogs/location-explanation/loc
     MatTableModule,
     CsvModule,
     MatSortModule,
+    UsMapModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true},
