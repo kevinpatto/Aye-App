@@ -1,3 +1,4 @@
+// TODO: Make this used by all files rather than having it in location-explanation.component.ts
 var usStates = [
     { name: 'ALABAMA', abbreviation: 'AL'},
     { name: 'ALASKA', abbreviation: 'AK'},

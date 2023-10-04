@@ -1,129 +1,129 @@
 <div style="display: flex; justify-content: center">
-    <mat-card appearance="outlined" style="width: 100%; max-width: 1100px;">
-        <div class="row" style="width: 98%; margin-left: 1%; margin-right: 1%;">
-            <div class="col-md-12 col-xs-12">
-                <div class="tableHeader">Poop Diaries
-                    <br>
-                    <span style="margin-top: 155px">
+  <mat-card appearance="outlined" style="width: 100%; max-width: 1100px;">
+    <div class="row" style="width: 98%; margin-left: 1%; margin-right: 1%;">
+      <div class="col-md-12 col-xs-12">
+        <div class="tableHeader">Poop Diaries
+          <br>
+          <span style="margin-top: 155px">
                     Leaderboard
                   </span>
-                </div>
-            </div>
         </div>
-        <ng-container *ngIf="dataSource.data.length > 0">
-            <div
-                    style=" overflow: auto; width: 98%; margin-left: 1%; margin-right: 1%;"
-                    tabindex="0">
-                <ng-container>
-                    <table [dataSource]="dataSource" mat-table matSort matSortStart="desc" matSortDisableClear
-                           (matSortChange)="sortPoopData($event)">
+      </div>
+    </div>
+    <ng-container *ngIf="dataSource.data.length > 0">
+      <div
+        style=" overflow: auto; width: 98%; margin-left: 1%; margin-right: 1%;"
+        tabindex="0">
+        <ng-container>
+          <table [dataSource]="dataSource" mat-table matSort matSortStart="desc" matSortDisableClear
+                 (matSortChange)="sortPoopData($event)">
 
 
-                        <ng-container matColumnDef="user" style="justify-content: center" sticky>
+            <ng-container matColumnDef="user" style="justify-content: center" sticky>
 
-                            <th mat-header-cell *matHeaderCellDef class="stat-header">
-                                <b>User</b>
-                                <!--                <div class="stat-arrow" style="justify-content: left">-->
-                                <!--&lt;!&ndash;                  <span mat-sort-header></span>&ndash;&gt;-->
-                                <!--                </div>-->
-                            </th>
+              <th mat-header-cell *matHeaderCellDef class="stat-header">
+                <b>User</b>
+                <!--                <div class="stat-arrow" style="justify-content: left">-->
+                <!--&lt;!&ndash;                  <span mat-sort-header></span>&ndash;&gt;-->
+                <!--                </div>-->
+              </th>
 
-                            <td *matCellDef="let element; let i = index;"
-                                [class]="getBorder(element.user.toLowerCase())"
-                                mat-cell>
-                                <ng-container *ngIf="qualifyForMedal(element.user.toLowerCase()) && i === 0">
-                                    <span class="medal">🥇</span>
-                                </ng-container>
-                                <ng-container *ngIf="qualifyForMedal(element.user.toLowerCase()) && i === 1">
-                                    <span class="medal">🥈</span>
-                                </ng-container>
-                                <ng-container *ngIf="qualifyForMedal(element.user.toLowerCase()) && i === 2">
-                                    <span class="medal">🥉</span>
-                                </ng-container>
-                                <span style="font-weight: 500">{{element.user.toLowerCase()}}</span>
-                            </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="ayeScore" style="justify-content: center">
-
-                            <th mat-header-cell *matHeaderCellDef class="stat-header">
-                                <b>Aye Score</b>
-                                <div class="stat-arrow">
-                                    <span mat-sort-header></span>
-                                </div>
-                            </th>
-
-                            <td *matCellDef="let element; let i = index;"
-                                mat-cell>
-                                <span style="color: #3366FF; font-weight: 500">{{element.ayeScore}}</span>
-
-                            </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="uniqueStates" style="justify-content: center">
-
-                            <th mat-header-cell *matHeaderCellDef class="stat-header">
-                                <b>Unique States</b>
-                                <div class="stat-arrow">
-                                    <span mat-sort-header></span>
-                                </div>
-                            </th>
-
-                            <td *matCellDef="let element; let i = index;"
-                                mat-cell>
-                                <button mat-raised-button style="background-color: ghostwhite"
-                                        (click)="openExplanation(element.states, element.user.toLowerCase(), 'states')">
-                                    <span style="font-weight: 500"> {{element.states.length}}</span>
-                                </button>
-
-                            </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="uniqueCities" style="justify-content: center">
-
-                            <th mat-header-cell *matHeaderCellDef class="stat-header">
-                                <b>Unique Cities</b>
-                                <div class="stat-arrow">
-                                    <span mat-sort-header></span>
-                                </div>
-                            </th>
-
-                            <td *matCellDef="let element; let i = index;"
-                                mat-cell>
-                                <button mat-raised-button style="background-color: ghostwhite"
-                                        (click)="openExplanation(element.cities, element.user.toLowerCase(),'cities')">
-                                    <span style="font-weight: 500"> {{element.cities.length}}</span>
-                                </button>
-                            </td>
-                        </ng-container>
-
-
-                        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-                        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
-                    </table>
-                    <mat-paginator [pageSizeOptions]="[10, 20, 30]" [length]="dataSource.data.length"
-                                   [hidePageSize]="true"
-                                   aria-label="Select page of work order"
-                                   showFirstLastButtons>
-                    </mat-paginator>
-                    <!--Refer to this package for how the data is output as csv: https://github.com/scttcper/ngx-csv -->
-                    <ng-container *ngIf="dataSource.data.length >= 1">
-                        <a [data]="dataSource.data" filename="poop-diaries-leaderboard-{{getCurrDate()}}.csv" csvLink>
-                            <button mat-raised-button
-                                    style="width: 40%; max-width: 375px; background-color: #fad900; color: black; margin-left: 10px; margin-bottom: 10px;">
-                                <b>Download Data</b>
-                            </button>
-                        </a>
-                    </ng-container>
-
-
+              <td *matCellDef="let element; let i = index;"
+                  [class]="getBorder(element.user.toLowerCase())"
+                  mat-cell>
+                <ng-container *ngIf="qualifyForMedal(element.user.toLowerCase()) && i === 0">
+                  <span class="medal">🥇</span>
                 </ng-container>
+                <ng-container *ngIf="qualifyForMedal(element.user.toLowerCase()) && i === 1">
+                  <span class="medal">🥈</span>
+                </ng-container>
+                <ng-container *ngIf="qualifyForMedal(element.user.toLowerCase()) && i === 2">
+                  <span class="medal">🥉</span>
+                </ng-container>
+                <span style="font-weight: 500">{{element.user.toLowerCase()}}</span>
+              </td>
+            </ng-container>
 
-            </div>
+            <ng-container matColumnDef="ayeScore" style="justify-content: center">
+
+              <th mat-header-cell *matHeaderCellDef class="stat-header">
+                <b>Aye Score</b>
+                <div class="stat-arrow">
+                  <span mat-sort-header></span>
+                </div>
+              </th>
+
+              <td *matCellDef="let element; let i = index;"
+                  mat-cell>
+                <span style="color: #3366FF; font-weight: 500">{{element.ayeScore}}</span>
+
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="uniqueStates" style="justify-content: center">
+
+              <th mat-header-cell *matHeaderCellDef class="stat-header">
+                <b>Unique States</b>
+                <div class="stat-arrow">
+                  <span mat-sort-header></span>
+                </div>
+              </th>
+
+              <td *matCellDef="let element; let i = index;"
+                  mat-cell>
+                <button mat-raised-button style="background-color: ghostwhite"
+                        (click)="openExplanation(element.states, element.user.toLowerCase(), 'states')">
+                  <span style="font-weight: 500"> {{element.states.length}}</span>
+                </button>
+
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="uniqueCities" style="justify-content: center">
+
+              <th mat-header-cell *matHeaderCellDef class="stat-header">
+                <b>Unique Cities</b>
+                <div class="stat-arrow">
+                  <span mat-sort-header></span>
+                </div>
+              </th>
+
+              <td *matCellDef="let element; let i = index;"
+                  mat-cell>
+                <button mat-raised-button style="background-color: ghostwhite"
+                        (click)="openExplanation(element.cities, element.user.toLowerCase(),'cities')">
+                  <span style="font-weight: 500"> {{element.cities.length}}</span>
+                </button>
+              </td>
+            </ng-container>
+
+
+            <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+            <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[10, 20, 30]" [length]="dataSource.data.length"
+                         [hidePageSize]="true"
+                         aria-label="Select page of work order"
+                         showFirstLastButtons>
+          </mat-paginator>
+          <!--Refer to this package for how the data is output as csv: https://github.com/scttcper/ngx-csv -->
+          <ng-container *ngIf="dataSource.data.length >= 1">
+            <a [data]="dataSource.data" filename="poop-diaries-leaderboard-{{getCurrDate()}}.csv" csvLink>
+              <button mat-raised-button
+                      style="width: 40%; max-width: 375px; background-color: #fad900; color: black; margin-left: 10px; margin-bottom: 10px;">
+                <b>Download Data</b>
+              </button>
+            </a>
+          </ng-container>
+
+
         </ng-container>
 
-        <br>
-    </mat-card>
+      </div>
+    </ng-container>
+
     <br>
+  </mat-card>
+  <br>
 </div>
 

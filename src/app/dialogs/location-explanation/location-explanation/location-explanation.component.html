@@ -1,41 +1,61 @@
 <div style="padding: 15px;">
-    <div style="display: flex; justify-content: center;">
-        <h1 style="font-size: 22px; color: #3366ff">
-            <b>{{this.personsName.substring(0, 1).toUpperCase() + this.personsName.substring(1, this.personsName.length)}}
-                's
-                Unique {{this.title.substring(0, 1).toUpperCase() + this.title.substring(1, this.title.length)}}</b>
-        </h1>
-    </div>
+  <div style="display: flex; justify-content: center;">
+    <h1 style="font-size: 22px; color: #3366ff">
+      <ng-container *ngIf="!easterEggActive">
+        <b>{{this.personsName.substring(0, 1).toUpperCase() + this.personsName.substring(1, this.personsName.length)}}'s
+          Unique {{this.title.substring(0, 1).toUpperCase() + this.title.substring(1, this.title.length)}}</b>
+      </ng-container>
+      <ng-container *ngIf="easterEggActive">
+        <b>Donkey Kong Easter Egg!!!!</b>
+      </ng-container>
 
 
-    <ng-container *ngIf="this.title === 'cities'">
+    </h1>
+  </div>
 
 
-        <ng-container *ngIf="this.locations.length > 0">
-            <ng-container *ngFor="let locs of this.locations">
+  <ng-container *ngIf="this.title === 'cities'">
 
-                <div style="display: flex; justify-content: center;">
-                    <h1 mat-dialog-content
-                        style="font-size: 20px; margin-bottom: 0; margin-top: 0; padding-top: 0; padding-bottom: 0">{{locs}}</h1>
-                </div>
 
-            </ng-container>
-        </ng-container>
+    <ng-container *ngIf="this.locations.length > 0">
+      <ng-container *ngFor="let locs of this.locations">
 
-        <ng-container *ngIf="this.locations.length === 0">
+          <h1 mat-dialog-content
+              style="font-size: 20px; margin-bottom: 0; margin-top: 0; padding-top: 0; padding-bottom: 0">
             <div style="display: flex; justify-content: center;">
-                <h1 mat-dialog-content
-                    style="font-size: 20px; margin-bottom: 0; margin-top: 0; padding-top: 0; padding-bottom: 0">None
-                    recorded yet 😔</h1>
+            {{locs}}
             </div>
-        </ng-container>
+
+          </h1>
+
+      </ng-container>
     </ng-container>
 
-    <ng-container *ngIf="this.title === 'states'">
-    <us-map (onMapClick)="(this.logIt($event))" fillColor="black" fillStateColor="#e0e0e0" strokeColor="black"
-            style="font-size: 17px; font-weight: bold">
-
-    </us-map>
+    <ng-container *ngIf="this.locations.length === 0">
+      <div style="display: flex; justify-content: center;">
+        <h1 mat-dialog-content
+            style="font-size: 20px; margin-bottom: 0; margin-top: 0; padding-top: 0; padding-bottom: 0">None
+          recorded yet 😔</h1>
+      </div>
     </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="this.title === 'states'">
+    <ng-container *ngIf="!easterEggActive">
+      <us-map (onMapClick)="(this.addEasterEggChance())" fillColor="black" fillStateColor="#e0e0e0" strokeColor="black"
+              style="font-size: 17px; font-weight: bold">
+
+      </us-map>
+    </ng-container>
+    <ng-container *ngIf="easterEggActive">
+      <div style="display: flex; justify-content: center;">
+        <img
+          src="https://media.giphy.com/media/Bb3MlNHhcG45G/giphy.gif"
+          alt="picture of donkey kong dancing cause you got the easter egg active"
+          style="width: 95%; max-width: 750px; border-radius: 20px;">
+      </div>
+
+    </ng-container>
+  </ng-container>
 
 </div>
