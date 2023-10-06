@@ -14,17 +14,16 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 })
 export class PoopDiariesComponent implements OnInit {
 
-  public isLoadedContentSubscription: Subscription;
-  public contentLoaded = false;
-  public likeCount = 0;
-  public dislikeCount = 0;
-  public poops$!: Observable<Poop[]>;
-  public addCommentDate: Date;
-  public addCommentName = '';
-  public addCommentText = '';
-  public addReplyCommentDate: Date;
-  public addReplyCommentName = '';
-  public addReplyCommentText = '';
+  isLoadedContentSubscription: Subscription;
+  isContentLoaded = false;
+  poops$!: Observable<Poop[]>;
+  addCommentDate: Date;
+  addCommentName = '';
+  addCommentText = '';
+  addReplyCommentDate: Date;
+  addReplyCommentName = '';
+  addReplyCommentText = '';
+  entriesToShow = 5;
 
   formData = this.formBuilder.group({
     name: '',
@@ -46,14 +45,19 @@ export class PoopDiariesComponent implements OnInit {
     this.addReplyCommentDate = new Date();
     this.isLoadedContentSubscription = this.poopService.poopLoaded$.subscribe((v) => {
       console.log(v);
-      this.contentLoaded = v;
+      this.isContentLoaded = v;
     });
   }
 
   ngOnInit(): void {
-    this.contentLoaded = false;
+    this.isContentLoaded = false;
     this.poops$ = this.poopService.getPoops();
   }
+
+  showMoreEntries() {
+    this.entriesToShow += 15;
+  }
+
 
   addCommentRating(id: string, likes: number, dislikes: number) {
     this.poopService.addCommentRating(id, likes, dislikes);
@@ -134,34 +138,6 @@ export class PoopDiariesComponent implements OnInit {
       return Math.floor(seconds) + " seconds";
     }
     return d;
-  }
-
-  convertToRoman(num: number) {
-    if (num === 0) return "0";
-    let roman: any = {
-      M: 1000,
-      CM: 900,
-      D: 500,
-      CD: 400,
-      C: 100,
-      XC: 90,
-      L: 50,
-      XL: 40,
-      X: 10,
-      IX: 9,
-      V: 5,
-      IV: 4,
-      I: 1
-    };
-    let str = '';
-
-    for (let i of Object.keys(roman)) {
-      let q = Math.floor(num / roman[i]);
-      num -= q * roman[i];
-      str += i.repeat(q);
-    }
-
-    return str;
   }
 
 

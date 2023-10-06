@@ -20,9 +20,10 @@ export class PoopFormComponent implements OnInit {
 
   loading = false;
   buttonText = ''
-  submitted = false;
   locationPermission = true;
   unknownError = false;
+  isTextLoaded = false;
+  helpText = "";
 
   public poopLocation!: googleInterface;
 
@@ -41,9 +42,29 @@ export class PoopFormComponent implements OnInit {
     private locationService: LocationService
   ) {
     this.buttonText = 'Submit';
+    this.generateRandomHelpText();
   }
 
   ngOnInit(): void {
+  }
+
+
+  generateRandomHelpText(): void {
+    const randomVal = Math.random() * 100;
+    switch (true) {
+      case (randomVal <= 25):
+        this.helpText = "How's it going?";
+        break;
+      case (randomVal <= 50):
+        this.helpText = "What's up?";
+        break;
+      case (randomVal <= 75):
+        this.helpText = "You feeling alright?";
+        break;
+      default:
+        this.helpText = "Tell me how you're feeling.";
+    }
+
   }
 
   decodeLocation(longitude: number, latitude: number) {

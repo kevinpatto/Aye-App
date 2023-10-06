@@ -1,42 +1,43 @@
 <br>
-<div style="display: flex; justify-content: center">
-  <!--  <p style="font-size: 52px"><i>POOP<br><br><br> DIARIES</i></p>-->
-  <img style="width: 80%; max-width: 600px;"
-       src="https://see.fontimg.com/api/renderfont4/vppD/eyJyIjoiZnMiLCJoIjo2NSwidyI6MTAwMCwiZnMiOjY1LCJmZ2MiOiIjMDAwMDAwIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/UG9vcCBEaWFyaWVz/turds.png"
-       alt="Image of poop">
-</div>
-<br>
+<ng-container *ngIf="isContentLoaded">
 
-<div style="display: flex; justify-content: center">
+  <div style="display: flex; justify-content: center">
+    <img style="width: 80%; max-width: 600px;"
+         src="https://see.fontimg.com/api/renderfont4/vppD/eyJyIjoiZnMiLCJoIjo2NSwidyI6MTAwMCwiZnMiOjY1LCJmZ2MiOiIjMDAwMDAwIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/UG9vcCBEaWFyaWVz/turds.png"
+         alt="Image of poop">
+  </div>
+  <br>
 
-  <p style="font-size: 22px; margin: 20px;line-height: 150%;">Your own little personal toilet diary🙂</p>
+  <div style="display: flex; justify-content: center">
 
-</div>
+    <p style="font-size: 22px; margin: 20px;line-height: 150%;">Try to make an entry in every U.S state🗺️</p>
 
-
-<div style="display: flex; justify-content: center; overflow: hidden">
+  </div>
 
 
-  <br><br><br>
-  <button mat-raised-button routerLink="/poop-form"
-          style="font-family: serif; background-color: #a58570; height: 88px; width: 45%; max-width: 220px; font-size: 23px;    ">
-    <b>✍️<br><br> Submit Entry<br></b></button>
-  <button mat-raised-button routerLink="/leaderboards"
-          style="font-family: serif; background-color: #39ac39; height: 88px; width: 45%; margin-left: 3%;max-width: 220px; font-size: 23px; ">
-    <b>🏆<br><br>Leaderboards</b></button>
+  <div style="display: flex; justify-content: center; overflow: hidden">
 
 
-</div>
-
-<br><br>
-
-<div style="display: flex; justify-content: center" id="past-poops">
-
-  <p style="font-size: 36px"><i>Past diary entries...</i></p>
-
-</div>
+    <br><br><br>
+    <button mat-raised-button routerLink="/poop-form"
+            style="font-family: serif; background-color: #a58570; height: 88px; width: 45%; max-width: 220px; font-size: 23px;    ">
+      <b>✍️<br><br> Submit Entry<br></b></button>
+    <button mat-raised-button routerLink="/leaderboards"
+            style="font-family: serif; background-color: #39ac39; height: 88px; width: 45%; margin-left: 3%;max-width: 220px; font-size: 23px; ">
+      <b>🏆<br><br>Leaderboards</b></button>
 
 
+  </div>
+
+  <br><br>
+
+  <div style="display: flex; justify-content: center" id="past-poops">
+
+    <p style="font-size: 36px"><i>Past diary entries...</i></p>
+
+  </div>
+
+</ng-container>
 <br><br>
 
 
@@ -44,220 +45,233 @@
 
 <!--<ng-container  *cdkVirtualFor="let poo of poops$ | async; let i = index">-->
 
-<ng-container *ngIf="!this.contentLoaded">
+<ng-container *ngIf="!this.isContentLoaded">
   <div style="display: flex; justify-content: center">
 
-  <mat-spinner></mat-spinner>
+    <mat-spinner></mat-spinner>
   </div>
 
 </ng-container>
 
 
-<ng-container  *ngFor="let poo of poops$ | async; let i = index;">
-<!--{{loadContent()}}-->
-  <div style="display: flex; justify-content: center; margin-left: 2.5%; margin-right: 2.5%;">
-    <mat-card appearance="outlined" class="example-card" style="width: 100%;">
-      <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>{{poo.name}}</mat-card-title>
-        <!--    <mat-card-subtitle>PoopButt</mat-card-subtitle>-->
-      </mat-card-header>
-      <ng-container *ngIf="poo.name.length > 5; else shortname">
-        <img mat-card-image src="https://i.imgur.com/bpk1vUX.jpg" alt="Photo of monke"
-             style="margin-top: 5px; margin-bottom: 4px;">
-      </ng-container>
-      <ng-template #shortname>
-        <ng-container *ngIf="poo.name.length === 5; else notfive">
-          <img mat-card-image src="https://i.imgflip.com/3kygy8.png" alt="Photo of monke"
+<ng-container *ngFor="let poo of poops$ | async; let i = index;">
+  <ng-container *ngIf="i <= entriesToShow">
+
+    <!--{{loadContent()}}-->
+    <div style="display: flex; justify-content: center; margin-left: 2.5%; margin-right: 2.5%;">
+      <mat-card appearance="outlined" class="example-card" style="width: 100%;">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>{{poo.name}}</mat-card-title>
+          <!--    <mat-card-subtitle>PoopButt</mat-card-subtitle>-->
+        </mat-card-header>
+        <ng-container *ngIf="poo.name.length > 5; else shortname">
+          <img mat-card-image src="https://i.imgur.com/bpk1vUX.jpg" alt="Photo of monke"
                style="margin-top: 5px; margin-bottom: 4px;">
         </ng-container>
-      </ng-template>
-      <ng-template #notfive>
-        <ng-container>
-          <img mat-card-image src="https://i.ytimg.com/vi/fxE-FCxnRA0/maxresdefault.jpg" alt="Photo of monke"
-               style="margin-top: 5px; margin-bottom: 4px;">
-        </ng-container>
-      </ng-template>
-
-
-      <mat-card-content>
-
-        <ng-container *ngIf="poo.fullAddr">
-          <div style="display: flex; align-items: center; justify-content: end">
-            <i><b>📍&ensp;&ensp;{{poo.fullAddr}}</b></i>
-          </div>
-        </ng-container>
-        <div style="display: flex; align-items: center; justify-content: end">
-          <ng-container *ngIf="poo.date">
-            <i> ⏰&ensp;&ensp;{{poo.date | date:'fullDate'}} at {{poo.date | date:'shortTime'}} </i>
+        <ng-template #shortname>
+          <ng-container *ngIf="poo.name.length === 5; else notfive">
+            <img mat-card-image src="https://i.imgflip.com/3kygy8.png" alt="Photo of monke"
+                 style="margin-top: 5px; margin-bottom: 4px;">
           </ng-container>
-        </div>
+        </ng-template>
+        <ng-template #notfive>
+          <ng-container>
+            <img mat-card-image src="https://i.ytimg.com/vi/fxE-FCxnRA0/maxresdefault.jpg" alt="Photo of monke"
+                 style="margin-top: 5px; margin-bottom: 4px;">
+          </ng-container>
+        </ng-template>
 
-        <div style="display: flex; align-items: center; justify-content: center; margin-top: 5px; margin-bottom: 5px;">
 
-          <star-rating [starType]="'svg'" [rating]="poo.rating" [size]="$any('large')" speed="slow"
-                       readOnly="true"></star-rating>
+        <mat-card-content>
 
-        </div>
-
-        <div style="display: flex;justify-content: center; align-items: center;">
-          <br>
-          <p>
-            "{{poo.description}}"
-          </p>
-        </div>
-        <!--        <hr style="border: 1px solid lightgray;">-->
-        <div style="display: flex;justify-content: center; align-items: center;">
-          <button mat-raised-button title="Like this post"
-                  (click)="addLike(poo._id);poo.likes = poo.likes + 1;"
-                  style="font-family: serif; background-color: #98d4bc;width: 49%; margin-right: 2%;font-size: 14px; height: 43px;padding: 0;">
-            <b>👌&ensp;&ensp;LIKE
-              - <span>{{poo.likes}}</span></b></button>
-          <button mat-raised-button title="Dislike this post"
-                  (click)="addDislike(poo._id); poo.dislikes = poo.dislikes + 1;"
-                  style="font-family: serif; background-color: #f88474;width: 49%; margin-left: 2%;font-size: 14px;height: 43px;padding: 0;">
-            <b>🤢&ensp;&ensp;DISLIKE
-              - <span>{{poo.dislikes}}</span></b></button>
-        </div>
-
-        <ng-container *ngIf="poo.comments.length > 0">
-          <br>
-          <hr style="border: 1px solid lightgray;">
-          <div style="display: flex;justify-content: left; align-items: center;">
-            <ng-container *ngIf="poo.comments.length === 1; else moreThanOneCmnt">
-              <b>{{poo.comments.length}} Comment</b>
+          <ng-container *ngIf="poo.fullAddr">
+            <div style="display: flex; align-items: center; justify-content: end">
+              <i><b>📍&ensp;&ensp;{{poo.fullAddr}}</b></i>
+            </div>
+          </ng-container>
+          <div style="display: flex; align-items: center; justify-content: end">
+            <ng-container *ngIf="poo.date">
+              <i> ⏰&ensp;&ensp;{{poo.date | date:'fullDate'}} at {{poo.date | date:'shortTime'}} </i>
             </ng-container>
-            <ng-template #moreThanOneCmnt>
-              <b>{{poo.comments.length}} Comments</b>
-            </ng-template>
           </div>
-        </ng-container>
 
-        <ng-container *ngIf="poo.comments.length > 0;">
-          <ng-container *ngFor="let p of poo.comments">
-            <ng-container *ngIf="p.user">
-              <!--              <ng-container *ngIf="this.refresh === true">-->
-              <br>
-              <div style="display: flex;justify-content: left; align-items: center;">
-                <span style="font-size: 16px; font-weight: 450;">{{p.user}} </span>&ensp; <span
-                style="font-size: 14px; font-weight: lighter; margin-left: 5px;">   <i> {{convertToDaysAgo(p.date)}}
-                ago</i></span>
-              </div>
-              <div style="display: flex;justify-content: left; align-items: center; margin-top: 4px;">
-                <span style="font-size: 14px; font-weight: 425;">{{p.text}} </span>
-              </div>
-              <ng-container *ngIf="p.likes >= 0;">
-                <div style="display: flex;justify-content: left; align-items: center; margin-top: 3px;">
-                  <button mat-button (click)="addCommentRating(p._id, 1, 0);p.likes = p.likes + 1;"
-                          style="border: none; background-color: white">
+          <div
+            style="display: flex; align-items: center; justify-content: center; margin-top: 5px; margin-bottom: 5px;">
+
+            <star-rating [starType]="'svg'" [rating]="poo.rating" [size]="$any('large')" speed="slow"
+                         readOnly="true"></star-rating>
+
+          </div>
+
+          <div style="display: flex;justify-content: center; align-items: center;">
+            <br>
+            <p>
+              "{{poo.description}}"
+            </p>
+          </div>
+          <!--        <hr style="border: 1px solid lightgray;">-->
+          <div style="display: flex;justify-content: center; align-items: center;">
+            <button mat-raised-button title="Like this post"
+                    (click)="addLike(poo._id);poo.likes = poo.likes + 1;"
+                    style="font-family: serif; background-color: #98d4bc;width: 49%; margin-right: 2%;font-size: 14px; height: 43px;padding: 0;">
+              <b>👌&ensp;&ensp;LIKE
+                - <span>{{poo.likes}}</span></b></button>
+            <button mat-raised-button title="Dislike this post"
+                    (click)="addDislike(poo._id); poo.dislikes = poo.dislikes + 1;"
+                    style="font-family: serif; background-color: #f88474;width: 49%; margin-left: 2%;font-size: 14px;height: 43px;padding: 0;">
+              <b>🤢&ensp;&ensp;DISLIKE
+                - <span>{{poo.dislikes}}</span></b></button>
+          </div>
+
+          <ng-container *ngIf="poo.comments.length > 0">
+            <br>
+            <hr style="border: 1px solid lightgray;">
+            <div style="display: flex;justify-content: left; align-items: center;">
+              <ng-container *ngIf="poo.comments.length === 1; else moreThanOneCmnt">
+                <b>{{poo.comments.length}} Comment</b>
+              </ng-container>
+              <ng-template #moreThanOneCmnt>
+                <b>{{poo.comments.length}} Comments</b>
+              </ng-template>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="poo.comments.length > 0;">
+            <ng-container *ngFor="let p of poo.comments">
+              <ng-container *ngIf="p.user">
+                <!--              <ng-container *ngIf="this.refresh === true">-->
+                <br>
+                <div style="display: flex;justify-content: left; align-items: center;">
+                  <span style="font-size: 16px; font-weight: 450;">{{p.user}} </span>&ensp; <span
+                  style="font-size: 14px; font-weight: lighter; margin-left: 5px;">   <i> {{convertToDaysAgo(p.date)}}
+                  ago</i></span>
+                </div>
+                <div style="display: flex;justify-content: left; align-items: center; margin-top: 4px;">
+                  <span style="font-size: 14px; font-weight: 425;">{{p.text}} </span>
+                </div>
+                <ng-container *ngIf="p.likes >= 0;">
+                  <div style="display: flex;justify-content: left; align-items: center; margin-top: 3px;">
+                    <button mat-button (click)="addCommentRating(p._id, 1, 0);p.likes = p.likes + 1;"
+                            style="border: none; background-color: white">
                   <span style="font-size: 13px; font-weight: 450;"
                         title="Like this comment">😊 <span style="margin-left: 4px;">{{p.likes}}</span>  </span>
-                  </button>
-                  <button mat-button (click)="addCommentRating(p._id, 0, 1);p.dislikes = p.dislikes + 1;"
-                          style="border: none; background-color: white">
+                    </button>
+                    <button mat-button (click)="addCommentRating(p._id, 0, 1);p.dislikes = p.dislikes + 1;"
+                            style="border: none; background-color: white">
             <span style="font-size: 13px; font-weight: 450; margin-left: 10px;"
                   title="dislike this comment">😧 <span style="margin-left: 4px;">{{p.dislikes}}</span> </span>
-                  </button>
-                  <button mat-button (click)="p.replyClicked = true"
-                          style="border: none; background-color: white">
+                    </button>
+                    <button mat-button (click)="p.replyClicked = true"
+                            style="border: none; background-color: white">
             <span style="font-size: 13px; font-weight: 450; margin-left: 5px;"
                   title="reply!">↩ <span style="margin-left: 4px;">Reply</span> </span>
-                  </button>
-                </div>
-                <ng-container *ngIf="p.replyClicked">
-                  <form [formGroup]="replyFormData">
-                    <div style="display: flex;justify-content: left; align-items: center;">
-                      <mat-form-field style="width: 50%;">
-                        <mat-label>Your name</mat-label>
-                        <input matInput formControlName="replyName" id="replyName">
-                      </mat-form-field>
-                    </div>
-                    <div style="display: flex;justify-content: left; align-items: center;">
-                      <mat-form-field style="width: 80%;">
-                        <mat-label>Your comment</mat-label>
-                        <textarea matInput rows="1" style="resize: none;overflow: hidden" id="replyComment"
-                                  formControlName="replyComment">
+                    </button>
+                  </div>
+                  <ng-container *ngIf="p.replyClicked">
+                    <form [formGroup]="replyFormData">
+                      <div style="display: flex;justify-content: left; align-items: center;">
+                        <mat-form-field style="width: 50%;">
+                          <mat-label>Your name</mat-label>
+                          <input matInput formControlName="replyName" id="replyName">
+                        </mat-form-field>
+                      </div>
+                      <div style="display: flex;justify-content: left; align-items: center;">
+                        <mat-form-field style="width: 80%;">
+                          <mat-label>Your comment</mat-label>
+                          <textarea matInput rows="1" style="resize: none;overflow: hidden" id="replyComment"
+                                    formControlName="replyComment">
             </textarea>
-                      </mat-form-field>
-                    </div>
-                    <div style="display: flex;justify-content: right; align-items: center;">
-                      <button mat-raised-button title="Submit Reply"
-                              (click)="addCommentReply(poo._id, p._id);
+                        </mat-form-field>
+                      </div>
+                      <div style="display: flex;justify-content: right; align-items: center;">
+                        <button mat-raised-button title="Submit Reply"
+                                (click)="addCommentReply(poo._id, p._id);
                                   p.replies.push({date: addReplyCommentDate, dislikes: -1, likes: -1, text: addReplyCommentText, _id: '', user: addReplyCommentName})"
-                              style="font-family: serif; background-color: mediumpurple; width: 60%;"><b>👽️&ensp;&ensp;Submit
-                        Reply
-                      </b></button>
-                    </div>
-                  </form>
-                </ng-container>
-                <ng-container *ngFor="let r of p.replies">
+                                style="font-family: serif; background-color: mediumpurple; width: 60%;"><b>👽️&ensp;&ensp;Submit
+                          Reply
+                        </b></button>
+                      </div>
+                    </form>
+                  </ng-container>
+                  <ng-container *ngFor="let r of p.replies">
 
-                  <ng-container *ngIf="r.user">
-                    <span style="font-size: 16px; color: #3366ff;line-height: .5;margin-left: 10px;">↪</span>
-                    <div
-                      style="display: flex;justify-content: left; align-items: center; margin-left: 35px; margin-top: 0;">
-                      <span style="font-size: 16px; font-weight: 450;">{{r.user}} </span>&ensp; <span
-                      style="font-size: 14px; font-weight: lighter; margin-left: 5px;">   <i> {{convertToDaysAgo(r.date)}}
-                      ago</i></span>
-                    </div>
-                    <div
-                      style="display: flex;justify-content: left; align-items: center; margin-top: 4px; margin-left: 35px;">
-                      <span style="font-size: 14px; font-weight: 425;">{{r.text}} </span>
-                    </div>
-                    <!--                    <ng-container *ngIf="r.likes >= 0;">-->
-                    <!--                      <div-->
-                    <!--                        style="display: flex;justify-content: left; align-items: center; margin-top: 3px; margin-left: 35px;">-->
-                    <!--                        <button mat-button (click)="addCommentRating(r._id, 1, 0);r.likes = r.likes + 1;"-->
-                    <!--                                style="border: none; background-color: white">-->
-                    <!--                  <span style="font-size: 13px; font-weight: 450;"-->
-                    <!--                        title="Like this comment">😊 <span style="margin-left: 4px;">{{r.likes}}</span>  </span>-->
-                    <!--                        </button>-->
-                    <!--                        <button mat-button (click)="addCommentRating(r._id, 0, 1);r.dislikes = r.dislikes + 1;"-->
-                    <!--                                style="border: none; background-color: white">-->
-                    <!--            <span style="font-size: 13px; font-weight: 450; margin-left: 10px;"-->
-                    <!--                  title="dislike this comment">😧 <span style="margin-left: 4px;">{{r.dislikes}}</span> </span>-->
-                    <!--                        </button>-->
-                    <!--                      </div>-->
-                    <!--                    </ng-container>-->
+                    <ng-container *ngIf="r.user">
+                      <span style="font-size: 16px; color: #3366ff;line-height: .5;margin-left: 10px;">↪</span>
+                      <div
+                        style="display: flex;justify-content: left; align-items: center; margin-left: 35px; margin-top: 0;">
+                        <span style="font-size: 16px; font-weight: 450;">{{r.user}} </span>&ensp; <span
+                        style="font-size: 14px; font-weight: lighter; margin-left: 5px;">   <i> {{convertToDaysAgo(r.date)}}
+                        ago</i></span>
+                      </div>
+                      <div
+                        style="display: flex;justify-content: left; align-items: center; margin-top: 4px; margin-left: 35px;">
+                        <span style="font-size: 14px; font-weight: 425;">{{r.text}} </span>
+                      </div>
+                      <!--                    <ng-container *ngIf="r.likes >= 0;">-->
+                      <!--                      <div-->
+                      <!--                        style="display: flex;justify-content: left; align-items: center; margin-top: 3px; margin-left: 35px;">-->
+                      <!--                        <button mat-button (click)="addCommentRating(r._id, 1, 0);r.likes = r.likes + 1;"-->
+                      <!--                                style="border: none; background-color: white">-->
+                      <!--                  <span style="font-size: 13px; font-weight: 450;"-->
+                      <!--                        title="Like this comment">😊 <span style="margin-left: 4px;">{{r.likes}}</span>  </span>-->
+                      <!--                        </button>-->
+                      <!--                        <button mat-button (click)="addCommentRating(r._id, 0, 1);r.dislikes = r.dislikes + 1;"-->
+                      <!--                                style="border: none; background-color: white">-->
+                      <!--            <span style="font-size: 13px; font-weight: 450; margin-left: 10px;"-->
+                      <!--                  title="dislike this comment">😧 <span style="margin-left: 4px;">{{r.dislikes}}</span> </span>-->
+                      <!--                        </button>-->
+                      <!--                      </div>-->
+                      <!--                    </ng-container>-->
 
+                    </ng-container>
                   </ng-container>
                 </ng-container>
               </ng-container>
             </ng-container>
           </ng-container>
-        </ng-container>
-        <br style="margin-top: 2px;">
-        <hr style="border: 1px solid lightgray;">
-        <div style="display: flex;justify-content: left; align-items: center;">
-          <b>Leave a comment</b>
-        </div>
-        <form [formGroup]="formData">
+          <br style="margin-top: 2px;">
+          <hr style="border: 1px solid lightgray;">
           <div style="display: flex;justify-content: left; align-items: center;">
-            <mat-form-field style="width: 50%;">
-              <mat-label>Your name</mat-label>
-              <input matInput formControlName="name" id="name">
-            </mat-form-field>
+            <b>Leave a comment</b>
           </div>
-          <div style="display: flex;justify-content: left; align-items: center;">
-            <mat-form-field style="width: 80%;">
-              <mat-label>Your comment</mat-label>
-              <textarea matInput rows="1" style="resize: none;overflow: hidden" id="comment"
-                        formControlName="comment">
+          <form [formGroup]="formData">
+            <div style="display: flex;justify-content: left; align-items: center;">
+              <mat-form-field style="width: 50%;">
+                <mat-label>Your name</mat-label>
+                <input matInput formControlName="name" id="name">
+              </mat-form-field>
+            </div>
+            <div style="display: flex;justify-content: left; align-items: center;">
+              <mat-form-field style="width: 80%;">
+                <mat-label>Your comment</mat-label>
+                <textarea matInput rows="1" style="resize: none;overflow: hidden" id="comment"
+                          formControlName="comment">
             </textarea>
-            </mat-form-field>
-          </div>
-          <div style="display: flex;justify-content: right; align-items: center;">
-            <button mat-raised-button title="Submit comment"
-                    (click)="submitComment(poo._id); poo.comments.push({date: addCommentDate, dislikes: -1, likes: -1, text: addCommentText, _id: '', user: addCommentName, replies: []});"
-                    style="font-family: serif; background-color: powderblue; width: 60%;"><b>💬&ensp;&ensp;Submit
-              Comment
-            </b></button>
-          </div>
-        </form>
-      </mat-card-content>
-    </mat-card>
+              </mat-form-field>
+            </div>
+            <div style="display: flex;justify-content: right; align-items: center;">
+              <button mat-raised-button title="Submit comment"
+                      (click)="submitComment(poo._id); poo.comments.push({date: addCommentDate, dislikes: -1, likes: -1, text: addCommentText, _id: '', user: addCommentName, replies: []});"
+                      style="font-family: serif; background-color: powderblue; width: 60%;"><b>💬&ensp;&ensp;Submit
+                Comment
+              </b></button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <br><br>
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="isContentLoaded">
+  <div style="display: flex;justify-content: center;">
+    <button mat-raised-button title="Show More Entries"
+            (click)="showMoreEntries()"
+            style="font-family: serif; background-color: darkgoldenrod; width: 60%;"><b>Load More 🎲
+    </b></button>
   </div>
-  <br><br>
 </ng-container>
 <!--</cdk-virtual-scroll-viewport>-->
 <br>
