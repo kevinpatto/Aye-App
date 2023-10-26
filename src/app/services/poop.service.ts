@@ -25,7 +25,8 @@ export class PoopService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'https://jonahtoch.com'},
+        'Access-Control-Allow-Origin': 'https://jonahtoch.com',
+        },
         )
     };
     return this.http.get<Poop[]>(url, httpOptions)

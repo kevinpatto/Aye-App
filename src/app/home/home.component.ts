@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {Router, ActivatedRoute, Params} from "@angular/router";
 import {PoopService} from "../services/poop.service";
 import {concatMap, map, Observable, switchMap, tap} from "rxjs";
 import {Poop} from "../models/poop";
 import {ProfileService} from "../services/profile.service";
 import {AuthService} from "@auth0/auth0-angular";
 import {HttpClient} from "@angular/common/http";
+import {SharedDataService} from "../services/shared-data.service";
 
 @Component({
   selector: 'app-home',
@@ -18,10 +19,19 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private poopService: PoopService,
     private profileService: ProfileService,
-    public auth: AuthService, private http: HttpClient
-  ) { }
+    private sharedDataService: SharedDataService,
+    private activatedRoute: ActivatedRoute,
+    public auth: AuthService,
+    private http: HttpClient
+  ) {
+  }
 
   ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe((params: Params): void => {
+      if (params['dev'] === 'true') {
+        this.sharedDataService.isDevMode = 'true';
+      }
+    })
     // this.poopService.checkOnline().subscribe( res => {
     //   if (!res) {
     //     console.log('The web server is down!');
@@ -66,6 +76,15 @@ export class HomeComponent implements OnInit {
     });
 
   }
+
+  isDevMode(): boolean {
+    return this.sharedDataService.isDevMode === 'true';
+  }
+
+  leaveDevMode(): void {
+    this.sharedDataService.isDevMode = null;
+  }
+
 
   updateProfilePicture(userId: string | undefined, authToken: string | undefined) {
     // this.profileService.updateProfilePicture(userId, authToken);

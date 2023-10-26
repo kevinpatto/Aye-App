@@ -1,3 +1,16 @@
+<ng-container *ngIf="isDevMode()">
+
+  <div style="display: flex; justify-content: center; margin: 10px; font-family: verdana, serif;">
+    <button mat-raised-button (click)="leaveDevMode()"
+            style="font-family: serif; background-color: black; width: 75%;
+             font-size: 16px; color: white; padding: 20px; max-width: 650px;">
+      <b>👨‍💻Leave Dev Mode👨‍💻</b>
+    </button>
+  </div>
+
+</ng-container>
+
+
 <br>
 
 <div style="display: flex; justify-content: center; margin: 10px; font-family: verdana, serif;">
@@ -24,7 +37,8 @@
 <div style="display: flex; justify-content: center">
 
   <button mat-raised-button
-          style="font-family: serif; background-color: rebeccapurple; width: 75%; font-size: 16px; color: white; padding: 20px; max-width: 650px;"
+          style="font-family: serif; background-color: rebeccapurple; width: 75%;
+           font-size: 16px; color: white; padding: 20px; max-width: 650px;"
           routerLink="/softball">
     <b>Aye's & Bae's🥎</b></button>
 
