@@ -96,7 +96,7 @@ import { UnitedStatesMapComponent } from './united-states-map/united-states-map.
       authorizationParams: {
         redirect_uri: window.location.origin,
         audience: `https://${environment.auth0Domain}/api/v2/`,
-        scope: 'openid profile update:current_user_metadata offline_access read:current_user create:current_user_metadata delete:current_user_metadata create:current_user_device_credentials delete:current_user_device_credentials',
+        scope: 'openid profile update:current_user_metadata offline_access read:current_user create:current_user_metadata delete:current_user_metadata create:current_user_device_credentials delete:current_user_device_credentials read:users',
       },
 
       httpInterceptor: {
@@ -109,7 +109,7 @@ import { UnitedStatesMapComponent } from './united-states-map/united-states-map.
                 audience: `https://${environment.auth0Domain}/api/v2/`,
 
                 // The attached token should have these scopes
-                scope: 'openid profile update:current_user_metadata offline_access read:current_user create:current_user_metadata delete:current_user_metadata create:current_user_device_credentials delete:current_user_device_credentials'
+                scope: 'openid profile update:current_user_metadata offline_access read:current_user create:current_user_metadata delete:current_user_metadata create:current_user_device_credentials delete:current_user_device_credentials read:users'
               }
             }
           }]

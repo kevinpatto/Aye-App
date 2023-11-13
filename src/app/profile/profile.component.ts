@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {TrophyDialogComponent} from "../dialogs/trophy-dialog/trophy-dialog.component";
 import {MatTooltip} from "@angular/material/tooltip";
@@ -14,11 +14,11 @@ import {AyeUser} from "../interfaces/aye-user";
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
   fullProfileUrl: string;
-  editingUsername = false;
-  editingBio = false;
-  profileChangesMade = false;
+  editingUsername: boolean = false;
+  editingBio: boolean = false;
+  profileChangesMade: boolean = false;
   metadata: AyeUser | undefined;
 
   private profileList_: BehaviorSubject<any> = new BehaviorSubject(null);
@@ -29,6 +29,8 @@ export class ProfileComponent {
               public auth: AuthService,
               public profileService: ProfileService,
               private http: HttpClient,
+              private router: Router,
+
   ) {
     this.fullProfileUrl = window.location.href;
   }
@@ -72,7 +74,17 @@ export class ProfileComponent {
   }
 
 
+  getAllUsers(userId: string | undefined, authToken: string | undefined) {
+    this.profileService.getAllUsers(userId, authToken).subscribe((res) => {
+      console.log(res);
+    })
+  }
+
+
   ngOnInit() {
+    if (this.router.url.substring(0, 2) !== '/@') {
+      this.router.navigate(['/']).then();
+    }
     this.auth.user$
       .pipe(
         concatMap((user: any) =>
@@ -83,7 +95,6 @@ export class ProfileComponent {
         tap((meta: any) => {
             console.log(meta);
             (this.metadata = meta);
-            console.log(this.metadata);
           }
         )
       )

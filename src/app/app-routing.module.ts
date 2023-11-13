@@ -44,9 +44,9 @@ const routes: Routes = [
     component: LeaderboardsComponent,
     title: 'Aye - Leaderboards'
   },
-  { path: 'profile',
+  { path: ':@profile',
     component: ProfileComponent,
-    title: 'Aye - Profile'
+    title: 'Aye - Profile',
   },
   { path: 'authorize',
     component: ProfileComponent,

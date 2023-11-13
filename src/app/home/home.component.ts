@@ -32,48 +32,52 @@ export class HomeComponent implements OnInit {
         this.sharedDataService.isDevMode = 'true';
       }
     })
-    // this.poopService.checkOnline().subscribe( res => {
-    //   if (!res) {
-    //     console.log('The web server is down!');
-    //     this.router.navigate(['/maintenance']).then();
-    //   }
-    // });
-    // this.auth.user$
-    //   .pipe(
-    //
-    //     concatMap((user) =>
-    //       // Use HttpClient to make the call
-    //       this.http.get(
-    //         // @ts-ignore
-    //         encodeURI(`https://dev-mn6falogt3c14mat.us.auth0.com/api/v2/users/${user.sub}`)
-    //       )
-    //     ),
-    //     // @ts-ignore
-    //     map((user) => user['app_metadata']),
-    //     tap((meta) => (
-    //       this.metadata = meta,
-    //       console.log(meta)))
-    //   )
-    //   .subscribe();
-    // this.auth.user$
-    //   .pipe(
-    //
-    //     concatMap((user) =>
-    //       // Use HttpClient to make the call
-    //       this.http.get(
-    //         // @ts-ignore
-    //         encodeURI(`https://dev-mn6falogt3c14mat.us.auth0.com/api/v2/userinfo`)
-    //       )
-    //     ),
-    //     // @ts-ignore
-    //     map((user) => user['user_metadata']),
-    //     tap((meta) => (this.metadata = meta, console.log(meta)))
-    //   )
-    //   .subscribe();
-    this.auth.error$.subscribe(error => {
-      // Handle Error here
-      console.log(error);
+    this.poopService.checkOnline().subscribe(res => {
+      if (!res) {
+        console.log('The web server is down!');
+        this.router.navigate(['/maintenance']).then();
+      }
     });
+    // if (this.auth.isAuthenticated$.subscribe((res: boolean) => {
+    //     if (res) {
+    //       this.getManagementAuthToken();
+    //       // this.auth.user$
+    //       //   .pipe(
+    //       //     concatMap((user: any) =>
+    //       //       this.http.get(
+    //       //         // @ts-ignore
+    //       //         encodeURI(`https://dev-mn6falogt3c14mat.us.auth0.com/api/v2/users/${user.sub}`)
+    //       //       )
+    //       //     ),
+    //       //     // @ts-ignore
+    //       //     map((user) => user['app_metadata']),
+    //       //     tap((meta) => (
+    //       //       // this.metadata = meta,
+    //       //       console.log(meta)))
+    //       //   )
+    //       //   .subscribe();
+    //       // this.auth.user$
+    //       //   .pipe(
+    //       //
+    //       //     concatMap((user) =>
+    //       //       // Use HttpClient to make the call
+    //       //       this.http.get(
+    //       //         // @ts-ignore
+    //       //         encodeURI(`https://dev-mn6falogt3c14mat.us.auth0.com/api/v2/userinfo`)
+    //       //       )
+    //       //     ),
+    //       //     // @ts-ignore
+    //       //     map((user) => user['user_metadata']),
+    //       //     tap((meta) => (this.metadata = meta, console.log(meta)))
+    //       //   )
+    //       //   .subscribe();
+    //     }
+    //   }
+    // ))
+
+      this.auth.error$.subscribe(error => {
+        console.log(error);
+      });
 
   }
 
@@ -85,8 +89,21 @@ export class HomeComponent implements OnInit {
     this.sharedDataService.isDevMode = null;
   }
 
+  getManagementAuthToken() {
+    return this.sharedDataService.getManagementAuthToken().subscribe(
+      (res) => {
+        // console.log(res);
+        this.sharedDataService.isUsernameUnique('gonah3333', res.access_token).subscribe(
+          (res) => {
+            console.log(res);
+          }
+        )
+      }
+    );
+  }
 
-  updateProfilePicture(userId: string | undefined, authToken: string | undefined) {
+
+  updateProfilePicture(userId: string | undefined, authToken: string | undefined): void {
     // this.profileService.updateProfilePicture(userId, authToken);
   }
 

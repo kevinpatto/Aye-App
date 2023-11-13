@@ -153,6 +153,14 @@
         <!--        <div>-->
         <ng-container *ngIf="auth.user$ | async as user;">
           <ng-container *ngIf="auth.idTokenClaims$ | async as token;">
+
+            <button mat-stroked-button (click)="getAllUsers(user.sub, token.__raw)"
+                    style=" width: 65%;"
+                    #tooltip="matTooltip"
+                    matTooltip="Tap to copy to your clipboard"
+                    aria-label="Show tooltip on the button at the end of this section">Get Users
+            </button>
+
             <button mat-stroked-button
                     (click)="updateProfile(user.sub, token.__raw)"
                     style=" width: 65%;"

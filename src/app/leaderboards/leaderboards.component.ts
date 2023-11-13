@@ -184,14 +184,15 @@ export class LeaderboardsComponent implements AfterViewInit {
               });
             }
             let ayeMap = this.dataMap.get(poop.name.toUpperCase());
-            // if (poop.name.toUpperCase() === "JONAH") {
-            //   console.log(ayeMap);
-            // }
+
             if (ayeMap) {
               ayeMap.ayeScore += ayePoints;
               if (poop.city && !ayeMap.cities.includes(poop.city)) {
                 ayeMap.cities.push(poop.city);
               }
+              // if (poop.name.toUpperCase() === "JONAH") {
+              //   console.log(poop);
+              // }
               if (poop.longState && !ayeMap.states.includes(poop.longState) && this.isUSState(poop.longState)) {
                 ayeMap.states.push(poop.longState);
               }
