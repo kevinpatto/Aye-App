@@ -5,6 +5,8 @@ import {environment} from "../environments/environment.prod";
 import {DOCUMENT} from "@angular/common";
 import {AuthService} from "@auth0/auth0-angular";
 import {SharedDataService} from "./services/shared-data.service";
+import {AyeUser} from "./interfaces/aye-user";
+import {Observable, of} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -14,6 +16,7 @@ import {SharedDataService} from "./services/shared-data.service";
 export class AppComponent implements OnDestroy {
   mobileQuery: MediaQueryList;
   version: string = '';
+  username$: Observable<AyeUser | undefined>;
 
   private readonly _mobileQueryListener: () => void;
   public innerWidth?: number;
@@ -28,6 +31,7 @@ export class AppComponent implements OnDestroy {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+    this.username$ = this.sharedDataService.ayeUser$;
   }
 
   ngOnInit() {

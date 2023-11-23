@@ -93,7 +93,7 @@ export class HomeComponent implements OnInit {
     return this.sharedDataService.getManagementAuthToken().subscribe(
       (res) => {
         // console.log(res);
-        this.sharedDataService.isUsernameUnique('gonah3333', res.access_token).subscribe(
+        this.sharedDataService.getUser('gonah3333', res.access_token).subscribe(
           (res) => {
             console.log(res);
           }

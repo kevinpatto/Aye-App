@@ -34,10 +34,12 @@
         <!--        {{auth.idTokenClaims$}}-->
         <!--        {{user.preferred_username}}-->
 <!--        <a [routerLink]="['/profile/' + user.profile]">-->
+          <ng-container *ngIf="username$ | async as username">
           <button mat-icon-button aria-label="profile" role="button"
-                  matTooltip="Your profile" routerLink="/profile/{{user.preferred_username}}">
+                  matTooltip="Your profile" routerLink="/@{{username.user_metadata?.ayeUsername}}">
             <mat-icon>child_care</mat-icon>
           </button>
+          </ng-container>
 <!--        </a>-->
         <button mat-icon-button (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })"
                 matTooltip="Log out"
@@ -66,22 +68,6 @@
           <b>📓<span style="margin-left: 5px;">Poop Diaries</span></b>
           <!--          <button mat-button mat-small class="badge-button" style="background-color: #3366ff"><b>NEW UPDATE😮</b></button>-->
         </a>
-<!--        <a mat-list-item routerLink="/leaderboards" (click)="snav.toggle()">-->
-<!--          &lt;!&ndash;          <img src="assets/skyler.PNG" height="75px" width="75px" style="margin-right: 5px;  border-radius: 50%;">&ndash;&gt;-->
-<!--          <b>🏆<span style="margin-left: 5px;">Leaderboards</span></b>-->
-<!--          &lt;!&ndash;          <button mat-button mat-small class="badge-button" style="background-color: #3366ff"><b>NEW UPDATE😮</b></button>&ndash;&gt;-->
-<!--        </a>-->
-        <!--        <br><br>-->
-        <!--        <span style="margin-left: 10px;">🤔</span> <span style="margin-left: 5px; margin-right: 5px;">More coming soon...</span>-->
-        <!--        <br><br>-->
-        <!--        <a mat-list-item routerLink="/Pokayemon" (click)="snav.toggle()"><img src="assets/chuck.PNG" height="75px" width="75px" style="margin-right: 5px; border-radius: 50%;"><b>Pokayemon</b> <button mat-button mat-small class="badge-button" style="background-color: #c38427"><b>WIP 😊</b></button></a>-->
-        <!--        <br><br>-->
-        <!--        <a mat-list-item routerLink="/Goblin-Dating-Simulator" (click)="snav.toggle()"><img src="assets/walter.PNG" height="75px" width="75px" style="margin-right: 5px; border-radius: 50%;"><b>Goblin Dating Sim</b><button mat-button mat-small  class="badge-button" style="background-color: #c38427"><b>WIP 😊</b></button></a>-->
-        <!--        <br><br>-->
-        <!--        <a mat-list-item routerLink="/Feedback"  (click)="snav.toggle()"><img src="assets/gus.PNG" height="75px" width="75px" style="margin-right: 5px; border-radius: 50%;"><b>Careers</b></a>-->
-        <!--        <a mat-list-item routerLink="/Ayes-And-Baes" (click)="snav.toggle()"><img src="assets/gus.PNG" height="75px" width="75px" style="margin-right: 5px; border-radius: 50%;"><b>Aye's and Bae's</b></a>-->
-        <!--        <br><br>-->
-        <!--        <a mat-list-item routerLink="/Bergler"  (click)="snav.toggle()"><img src="assets/jesse.PNG" height="75px" width="75px" style="margin-right: 5px; border-radius: 50%;"><b>Bergler</b></a>-->
       </mat-nav-list>
     </mat-sidenav>
 
