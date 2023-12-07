@@ -23,7 +23,11 @@ export class PoopService {
   getPoops(): Observable<Poop[]> {
     const url = `${environment.mainApiUrl}/poop/list-all`;
     const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': 'https://jonahtoch.com',
+        },
+        )
     };
     return this.http.get<Poop[]>(url, httpOptions)
       .pipe(map(res => {
@@ -105,7 +109,8 @@ export class PoopService {
   checkOnline() {
     const url = `${environment.mainApiUrl}/poop/list-all`;
     const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+      headers: new HttpHeaders({'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': 'https://jonahtoch.com'})
     };
     return this.http.get(url, httpOptions).pipe(
       catchError(this.handleError<boolean>('isOnline', false)))

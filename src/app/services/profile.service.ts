@@ -21,6 +21,22 @@ export class ProfileService {
   ) {
   }
 
+  getAllUsers(userId: string | undefined, authToken: string | undefined): Observable<any> {
+    const url = 'https://dev-mn6falogt3c14mat.us.auth0.com/api/v2/users?q=email%3A%22jane%40exampleco.com%22&search_engine=v3'
+    console.log(userId, authToken);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Authorization": "Bearer " + authToken,
+        "Access-Control-Allow-Origin": "*",
+      })
+    }
+
+    return this.http.get<Observable<any>>(url, httpOptions);
+    // console.log('after');
+  }
+
+
   getProfile(userId: string | undefined, authToken: string | undefined): Observable<any> {
     const url = 'https://dev-mn6falogt3c14mat.us.auth0.com/api/v2/users/' + userId
     console.log(userId, authToken);

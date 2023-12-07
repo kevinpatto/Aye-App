@@ -2,16 +2,17 @@
 
   <mat-card appearance="outlined" style="width: 95%;margin-top: 5px;">
     <div style="display: flex;justify-content: center; align-items: center;font-size: 36px;margin-top: 25px;">
-      <i>Let us know.</i>
+      <i>{{helpText}}</i>
     </div>
     <div>
 
       <form style="width: 100%" [formGroup]="formData">
-        <div style="display: flex;justify-content: center; align-items: center;margin-top: 50px;">
+        <div style="display: flex;justify-content: center; align-items: center;margin-top: 30px;">
           <mat-label style="color: dimgray; margin-bottom: 2px;"><i>Your Rating</i></mat-label>
         </div>
         <star-rating-control formControlName="rating" id="rating" required [starType]="'svg'" [size]="$any('large')"
-                             speed="slow"></star-rating-control>
+                             speed="slow">
+        </star-rating-control>
         <br>
         <mat-form-field style="width: 100%;">
           <mat-label>What's your name?</mat-label>
@@ -26,7 +27,7 @@
         <div style="display: flex;justify-content: center; align-items: center;">
 
           <button mat-raised-button (click)="getLocation()"
-                  style="font-family: serif; background-color: forestgreen;width: 55%;  font-size: 14px; color: white">
+                  style="font-family: serif; background-color: forestgreen;width: 80%;  font-size: 14px; color: white">
             <b>📍 Add Your Location</b></button>
 
         </div>

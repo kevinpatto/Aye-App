@@ -5,6 +5,7 @@
   padding-top: 10px;
   padding-bottom: 10px;
   text-shadow: 1px 1px 1px white;
+  elevation: higher;
 }
 
 table {
@@ -149,6 +150,9 @@ mat-radio-label {
   margin-bottom: 5px;
 }
 
+.medal {
+  font-size: 20px;
+}
 
 
 .stat-arrow {

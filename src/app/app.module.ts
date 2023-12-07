@@ -43,6 +43,9 @@ import {MatTableModule} from "@angular/material/table";
 import {CsvModule} from "@ctrl/ngx-csv";
 import { StatExplanationComponent } from './dialogs/stat-explanation/stat-explanation.component';
 import {MatSortModule} from "@angular/material/sort";
+import { LocationExplanationComponent } from './dialogs/location-explanation/location-explanation/location-explanation.component';
+import { UsMapModule } from 'angular-us-map';
+import { UnitedStatesMapComponent } from './united-states-map/united-states-map.component';
 
 
 @NgModule({
@@ -61,7 +64,9 @@ import {MatSortModule} from "@angular/material/sort";
     ProfileComponent,
     TrophyDialogComponent,
     SoftballComponent,
-    StatExplanationComponent
+    StatExplanationComponent,
+    LocationExplanationComponent,
+    UnitedStatesMapComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +96,7 @@ import {MatSortModule} from "@angular/material/sort";
       authorizationParams: {
         redirect_uri: window.location.origin,
         audience: `https://${environment.auth0Domain}/api/v2/`,
-        scope: 'openid profile update:current_user_metadata offline_access read:current_user create:current_user_metadata delete:current_user_metadata create:current_user_device_credentials delete:current_user_device_credentials',
+        scope: 'openid profile update:current_user_metadata offline_access read:current_user create:current_user_metadata delete:current_user_metadata create:current_user_device_credentials delete:current_user_device_credentials read:users',
       },
 
       httpInterceptor: {
@@ -104,7 +109,7 @@ import {MatSortModule} from "@angular/material/sort";
                 audience: `https://${environment.auth0Domain}/api/v2/`,
 
                 // The attached token should have these scopes
-                scope: 'openid profile update:current_user_metadata offline_access read:current_user create:current_user_metadata delete:current_user_metadata create:current_user_device_credentials delete:current_user_device_credentials'
+                scope: 'openid profile update:current_user_metadata offline_access read:current_user create:current_user_metadata delete:current_user_metadata create:current_user_device_credentials delete:current_user_device_credentials read:users'
               }
             }
           }]
@@ -118,6 +123,7 @@ import {MatSortModule} from "@angular/material/sort";
     MatTableModule,
     CsvModule,
     MatSortModule,
+    UsMapModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true},

@@ -7,8 +7,13 @@ import {AyeScore, AyeScoreArr} from "../interfaces/aye-score";
 import {MatTableDataSource} from "@angular/material/table";
 import {SoftballHitter} from "../interfaces/softball";
 import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
+import {MatSort, Sort} from "@angular/material/sort";
 import {formatDate} from "@angular/common";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {StatExplanationComponent} from "../dialogs/stat-explanation/stat-explanation.component";
+import {
+  LocationExplanationComponent
+} from "../dialogs/location-explanation/location-explanation/location-explanation.component";
 
 @Component({
   selector: 'app-leaderboards',
@@ -20,15 +25,80 @@ export class LeaderboardsComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['user','ayeScore','uniqueStates', 'uniqueCities'];
+  displayedColumns: string[] = ['user', 'ayeScore', 'uniqueStates', 'uniqueCities'];
 
-  public listOfPoops$: Observable<any> = new Observable<any>();
-  public dataMap: Map<string, AyeScore>;
-  public sortedMap: [string, AyeScore][];
+  listOfPoops$: Observable<any> = new Observable<any>();
+  dataMap: Map<string, AyeScore>;
+  sortedMap: [string, AyeScore][];
+  showingLeaderboardInReverse = false;
+  fillColor = "red";
+
+  usStates = [
+    {name: 'ALABAMA', abbreviation: 'AL'},
+    {name: 'ALASKA', abbreviation: 'AK'},
+    {name: 'AMERICAN SAMOA', abbreviation: 'AS'},
+    {name: 'ARIZONA', abbreviation: 'AZ'},
+    {name: 'ARKANSAS', abbreviation: 'AR'},
+    {name: 'CALIFORNIA', abbreviation: 'CA'},
+    {name: 'COLORADO', abbreviation: 'CO'},
+    {name: 'CONNECTICUT', abbreviation: 'CT'},
+    {name: 'DELAWARE', abbreviation: 'DE'},
+    {name: 'DISTRICT OF COLUMBIA', abbreviation: 'DC'},
+    {name: 'FEDERATED STATES OF MICRONESIA', abbreviation: 'FM'},
+    {name: 'FLORIDA', abbreviation: 'FL'},
+    {name: 'GEORGIA', abbreviation: 'GA'},
+    {name: 'GUAM', abbreviation: 'GU'},
+    {name: 'HAWAII', abbreviation: 'HI'},
+    {name: 'IDAHO', abbreviation: 'ID'},
+    {name: 'ILLINOIS', abbreviation: 'IL'},
+    {name: 'INDIANA', abbreviation: 'IN'},
+    {name: 'IOWA', abbreviation: 'IA'},
+    {name: 'KANSAS', abbreviation: 'KS'},
+    {name: 'KENTUCKY', abbreviation: 'KY'},
+    {name: 'LOUISIANA', abbreviation: 'LA'},
+    {name: 'MAINE', abbreviation: 'ME'},
+    {name: 'MARSHALL ISLANDS', abbreviation: 'MH'},
+    {name: 'MARYLAND', abbreviation: 'MD'},
+    {name: 'MASSACHUSETTS', abbreviation: 'MA'},
+    {name: 'MICHIGAN', abbreviation: 'MI'},
+    {name: 'MINNESOTA', abbreviation: 'MN'},
+    {name: 'MISSISSIPPI', abbreviation: 'MS'},
+    {name: 'MISSOURI', abbreviation: 'MO'},
+    {name: 'MONTANA', abbreviation: 'MT'},
+    {name: 'NEBRASKA', abbreviation: 'NE'},
+    {name: 'NEVADA', abbreviation: 'NV'},
+    {name: 'NEW HAMPSHIRE', abbreviation: 'NH'},
+    {name: 'NEW JERSEY', abbreviation: 'NJ'},
+    {name: 'NEW MEXICO', abbreviation: 'NM'},
+    {name: 'NEW YORK', abbreviation: 'NY'},
+    {name: 'NORTH CAROLINA', abbreviation: 'NC'},
+    {name: 'NORTH DAKOTA', abbreviation: 'ND'},
+    {name: 'NORTHERN MARIANA ISLANDS', abbreviation: 'MP'},
+    {name: 'OHIO', abbreviation: 'OH'},
+    {name: 'OKLAHOMA', abbreviation: 'OK'},
+    {name: 'OREGON', abbreviation: 'OR'},
+    {name: 'PALAU', abbreviation: 'PW'},
+    {name: 'PENNSYLVANIA', abbreviation: 'PA'},
+    {name: 'PUERTO RICO', abbreviation: 'PR'},
+    {name: 'RHODE ISLAND', abbreviation: 'RI'},
+    {name: 'SOUTH CAROLINA', abbreviation: 'SC'},
+    {name: 'SOUTH DAKOTA', abbreviation: 'SD'},
+    {name: 'TENNESSEE', abbreviation: 'TN'},
+    {name: 'TEXAS', abbreviation: 'TX'},
+    {name: 'UTAH', abbreviation: 'UT'},
+    {name: 'VERMONT', abbreviation: 'VT'},
+    {name: 'VIRGIN ISLANDS', abbreviation: 'VI'},
+    {name: 'VIRGINIA', abbreviation: 'VA'},
+    {name: 'WASHINGTON', abbreviation: 'WA'},
+    {name: 'WEST VIRGINIA', abbreviation: 'WV'},
+    {name: 'WISCONSIN', abbreviation: 'WI'},
+    {name: 'WYOMING', abbreviation: 'WY'}
+  ]
 
   constructor(
     private http: HttpClient,
     private poopService: PoopService,
+    public dialog: MatDialog,
   ) {
     this.dataMap = new Map<string, AyeScore>();
     this.sortedMap = [];
@@ -37,6 +107,7 @@ export class LeaderboardsComponent implements AfterViewInit {
     // this.dataSource.paginator = this.paginator;
     this.sort = new MatSort();
   }
+
 
   ngAfterViewInit() {
     this.poopService.poopListObs$.pipe(
@@ -113,15 +184,16 @@ export class LeaderboardsComponent implements AfterViewInit {
               });
             }
             let ayeMap = this.dataMap.get(poop.name.toUpperCase());
-            // if (poop.name.toUpperCase() === "JONAH") {
-            //   console.log(ayeMap);
-            // }
+
             if (ayeMap) {
               ayeMap.ayeScore += ayePoints;
               if (poop.city && !ayeMap.cities.includes(poop.city)) {
                 ayeMap.cities.push(poop.city);
               }
-              if (poop.longState && !ayeMap.states.includes(poop.longState)) {
+              // if (poop.name.toUpperCase() === "JONAH") {
+              //   console.log(poop);
+              // }
+              if (poop.longState && !ayeMap.states.includes(poop.longState) && this.isUSState(poop.longState)) {
                 ayeMap.states.push(poop.longState);
               }
               this.dataMap.set(poop.name.toUpperCase(), ayeMap!);
@@ -144,6 +216,134 @@ export class LeaderboardsComponent implements AfterViewInit {
       })).subscribe();
   }
 
+  isUSState(state: string) {
+    for (let i = 0; i < this.usStates.length; i++) {
+      if (this.usStates[i].name.toUpperCase() === state.toUpperCase()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  sortPoopData(sortState: Sort) {
+    this.showingLeaderboardInReverse = false;
+    let originalData = this.dataSource.data;
+
+    let sortedData: AyeScoreArr[] = [];
+
+    if (sortState.active === "ayeScore") {
+      sortedData = this.sortByAyeScore(originalData);
+      if (sortState.direction === "asc") {
+        sortedData.reverse();
+      } else {
+        this.showingLeaderboardInReverse = true;
+      }
+      this.dataSource.data = sortedData;
+    } else if (sortState.active === "uniqueStates") {
+      sortedData = this.sortByUniqueStates(originalData);
+      if (sortState.direction === "desc") {
+        sortedData.reverse();
+      } else {
+        this.showingLeaderboardInReverse = true;
+      }
+      this.dataSource.data = sortedData;
+    } else if (sortState.active === "uniqueCities") {
+      sortedData = this.sortByUniqueCities(originalData);
+      if (sortState.direction === "desc") {
+        sortedData.reverse();
+      } else {
+        this.showingLeaderboardInReverse = true;
+      }
+      this.dataSource.data = sortedData;
+    }
+    console.log(this.showingLeaderboardInReverse);
+
+  }
+
+  sortByAyeScore(originalData: AyeScoreArr[]) {
+    let newData: AyeScoreArr[] = [];
+
+    for (let i = 0; i < originalData.length; i++) {
+      let score = originalData[i].ayeScore;
+      if (i === 0) {
+        newData.push(originalData[i]);
+        continue;
+      }
+      for (let j = 0; j < newData.length; j++) {
+        if (j === newData.length - 1) {
+          if (score >= newData[j].ayeScore) {
+            newData.push(originalData[i]);
+          } else {
+            newData.unshift(originalData[i]);
+          }
+          break;
+        }
+        if (score > newData[j].ayeScore &&
+          score <= newData[j + 1].ayeScore) {
+          newData.splice(j + 1, 0, originalData[i]);
+          break;
+        }
+      }
+    }
+    return newData;
+  }
+
+  sortByUniqueStates(originalData: AyeScoreArr[]) {
+    let newData: AyeScoreArr[] = [];
+
+    for (let i = 0; i < originalData.length; i++) {
+      let score = originalData[i].states.length;
+      if (i === 0) {
+        newData.push(originalData[i]);
+        continue;
+      }
+      for (let j = 0; j < newData.length; j++) {
+        if (j === newData.length - 1) {
+          if (score >= newData[j].states.length) {
+            newData.push(originalData[i]);
+          } else {
+            newData.unshift(originalData[i]);
+          }
+          break;
+        }
+        if (score > newData[j].states.length &&
+          score <= newData[j + 1].states.length) {
+          newData.splice(j + 1, 0, originalData[i]);
+          break;
+        }
+      }
+    }
+    return newData;
+  }
+
+  sortByUniqueCities(originalData: AyeScoreArr[]) {
+    let newData: AyeScoreArr[] = [];
+
+    for (let i = 0; i < originalData.length; i++) {
+      let score = originalData[i].cities.length;
+      if (i === 0) {
+        newData.push(originalData[i]);
+        continue;
+      }
+      for (let j = 0; j < newData.length; j++) {
+        if (j === newData.length - 1) {
+          if (score >= newData[j].cities.length) {
+            newData.push(originalData[i]);
+          } else {
+            newData.unshift(originalData[i]);
+          }
+          break;
+        }
+        if (score > newData[j].cities.length &&
+          score <= newData[j + 1].cities.length) {
+          newData.splice(j + 1, 0, originalData[i]);
+          break;
+        }
+      }
+    }
+    return newData;
+  }
+
   ayeScoreToArr(arr: [string, AyeScore][]) {
     let newArr: AyeScoreArr[] = [];
 
@@ -159,19 +359,54 @@ export class LeaderboardsComponent implements AfterViewInit {
 
   }
 
-  getBorder(n: number) {
-    if (n === 0) {
+  getBorder(name: string): string {
+    if (this.showingLeaderboardInReverse) {
+      return 'camper';
+    }
+    if (name === this.dataSource.data[0].user.toLowerCase()) {
       return 'golden';
     }
-    if (n === 1) {
+    if (name === this.dataSource.data[1].user.toLowerCase()) {
       return 'silver';
     }
-    if (n === 2) {
+    if (name === this.dataSource.data[2].user.toLowerCase()) {
       return 'bronze';
     }
     return 'camper';
-
   }
+
+
+  openExplanation(locations: string[], personsName: string, type: string) {
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      title: type,
+      personsName: personsName,
+      locations: locations,
+    }
+
+    dialogConfig.restoreFocus = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.maxWidth = "1050px";
+    dialogConfig.width = "98%"
+
+    this.dialog.open(LocationExplanationComponent, dialogConfig);
+  }
+
+  qualifyForMedal(name: string): boolean {
+    if (this.showingLeaderboardInReverse) {
+      return false;
+    }
+    if (name === this.dataSource.data[0].user.toLowerCase()) {
+      return true;
+    } else if (name === this.dataSource.data[1].user.toLowerCase()) {
+      return true;
+    } else if (name === this.dataSource.data[2].user.toLowerCase()) {
+      return true;
+    }
+    return false;
+  }
+
   getCurrDate() {
     return formatDate(new Date(), 'MM-dd-yy', 'en');
   }
