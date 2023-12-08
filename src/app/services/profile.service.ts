@@ -55,7 +55,7 @@ export class ProfileService {
   // TODO: refactor to make it so we can have one function that updates all user metadata. Takes array of parameters
 
 
-  updateProfilePicture(userId: string | undefined, authToken: string | undefined, ayeUsername: string | undefined): void {
+  updateProfileUsername(userId: string | undefined, authToken: string | undefined, ayeUsername: string | undefined): void {
     const url = 'https://dev-mn6falogt3c14mat.us.auth0.com/api/v2/users/' + userId
     console.log(userId, authToken);
     const body = {
@@ -82,7 +82,6 @@ export class ProfileService {
         console.log(error);
       }
     );
-    console.log('after');
   }
 
   updateProfileBio(userId: string | undefined, authToken: string | undefined, bio: string | undefined): void {
@@ -112,7 +111,35 @@ export class ProfileService {
         console.log(error);
       }
     );
-    console.log('after');
+  }
+
+  updateProfilePic(userId: string | undefined, authToken: string | undefined, profilePicUrl: string | undefined): void {
+    const url = 'https://dev-mn6falogt3c14mat.us.auth0.com/api/v2/users/' + userId
+    console.log(userId, authToken);
+    const body = {
+      user_metadata: {
+        "profilePicUrl": profilePicUrl,
+        // "profilePicUrl": 'https://i.insider.com/59ca65fefca6e427008b4776?width=1750&format=jpeg&auto=webp',
+      }
+    }
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Authorization": "Bearer " + authToken,
+        "Access-Control-Allow-Origin": "*",
+      })
+    }
+
+    this.http.patch<any>(url, body, httpOptions).subscribe(
+      (value) => {
+        console.log('succeed');
+        console.log(value);
+      },
+      (error) => {
+        console.log('error');
+        console.log(error);
+      }
+    );
   }
 
 

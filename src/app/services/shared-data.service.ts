@@ -47,6 +47,9 @@ export class SharedDataService {
   }
 
   getUser(username: string, managementAuthToken: string): Observable<any> {
+    if (this.ayeUser_) {
+      return this.ayeUser$;
+    }
     const url: string = `${environment.mainApiUrl}/users?type=isUsernameUnique&username=` + username + `&token=` + managementAuthToken;
     return this.http.get(url).pipe((res) => {
       res.subscribe((res: any) => {
@@ -56,5 +59,12 @@ export class SharedDataService {
     })
   }
 
+  setUser(ayeUser: AyeUser) {
+    this.ayeUser_.next(ayeUser);
+  }
+
+  isLoggedInUserData() {
+    return !!this.ayeUser_;
+  }
 
 }

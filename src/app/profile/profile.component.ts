@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MatDialog} from "@angular/material/dialog";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {TrophyDialogComponent} from "../dialogs/trophy-dialog/trophy-dialog.component";
 import {MatTooltip} from "@angular/material/tooltip";
 import {Router} from "@angular/router";
@@ -9,6 +9,12 @@ import {BehaviorSubject, concatMap, map, Observable, of, tap} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {AyeUser} from "../interfaces/aye-user";
 import {SharedDataService} from "../services/shared-data.service";
+import {DateService} from "../services/date.service";
+import {QRCodeModule} from "angularx-qrcode";
+import {QrCodeComponent} from "../dialogs/qr-code/qr-code/qr-code.component";
+import {
+  LocationExplanationComponent
+} from "../dialogs/location-explanation/location-explanation/location-explanation.component";
 
 @Component({
   selector: 'app-profile',
@@ -20,12 +26,13 @@ export class ProfileComponent implements OnInit {
   userNotFound: boolean = false;
   loading: boolean = false;
   profileUsername: string = '';
+  newProfilePicUrl: string = '';
 
   fullProfileUrl: string;
-  editingUsername: boolean = false;
   editingBio: boolean = false;
   profileChangesMade: boolean = false;
-  metadata: AyeUser | undefined;
+  ayeUser: AyeUser | undefined;
+  invalidImageError: boolean = false;
 
   private profileList_: BehaviorSubject<any> = new BehaviorSubject(null);
   profileList$: Observable<any> = this.profileList_.asObservable();
@@ -37,35 +44,61 @@ export class ProfileComponent implements OnInit {
               private http: HttpClient,
               private router: Router,
               private sharedDataService: SharedDataService,
+              private dateService: DateService,
   ) {
+    this.loading = true;
     this.fullProfileUrl = window.location.href;
+    this.auth.isAuthenticated$.subscribe(
+      (res) => {
+        if (res) {
+          this.sharedDataService.ayeUser$.subscribe(
+            (res) => {
+              if (res) {
+                this.ayeUser = res;
+                this.loading = false;
+              } else {
+                this.auth.user$
+                  .pipe(
+                    concatMap((user: any) =>
+                      this.http.get(
+                        // @ts-ignore
+                        encodeURI(`https://dev-mn6falogt3c14mat.us.auth0.com/api/v2/users/${user.sub}`)
+                      )
+                    ),
+                    tap((ayeUser: any) => {
+                        this.setAyeUser(ayeUser);
+                        console.log(ayeUser)
+                      }
+                    )
+                  )
+                  .subscribe();
+              }
+            },
+            (error) => {
+              console.log(error);
+            },
+          )
+        }
+      }
+    )
   }
 
 
   ngOnInit(): void {
-    this.loading = true;
     if (this.router.url.substring(0, 2) !== '/@') {
       this.router.navigate(['/']).then();
     }
     this.profileUsername = this.router.url.substring(2, this.router.url.length);
-    this.getManagementAuthToken();
-    // this.auth.user$
-    //   .pipe(
-    //     concatMap((user: any) =>
-    //       this.http.get(
-    //         encodeURI(`https://dev-mn6falogt3c14mat.us.auth0.com/api/v2/users/${user!.sub}`)
-    //       )
-    //     ),
-    //     tap((meta: any): void => {
-    //         console.log(meta);
-    //         (this.metadata = meta);
-    //         if (!this.metadata?.user_metadata.ayeUsername) {
-    //           this.router.navigate(['/']).then();
-    //         }
-    //       }
-    //     )
-    //   )
-    //   .subscribe();
+    // this.getManagementAuthToken();
+  }
+
+  setAyeUser(ayeUser: AyeUser) {
+    this.sharedDataService.setUser(ayeUser)
+  }
+
+  handleImageError() {
+    this.invalidImageError = true;
+    this.ayeUser!.user_metadata.profilePicUrl = '/assets/images/goblin-silhouette.png';
   }
 
   getManagementAuthToken() {
@@ -79,7 +112,7 @@ export class ProfileComponent implements OnInit {
               this.userNotFound = true;
             } else {
               console.log(res[0]);
-              this.metadata = res[0];
+              this.ayeUser = res[0];
             }
           },
           (error): void => {
@@ -94,23 +127,32 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  changeUsername(event: any) {
-    // console.log(event.originalTarget.value);
-    // console.log(event.target.value);
-    this.metadata!.user_metadata!.ayeUsername = event.target.value;
+
+  changeBio(event: any) {
+    this.ayeUser!.user_metadata!.bio = event.target.value;
     this.profileChangesMade = true;
   }
 
-  changeBio(event: any) {
-    // console.log(event.originalTarget.value);
-    // console.log(event.target.value);
-    this.metadata!.user_metadata!.bio = event.target.value;
+  changeProfilePic(event: any) {
+    this.invalidImageError = false;
+    this.newProfilePicUrl = event.target.value;
     this.profileChangesMade = true;
   }
 
 
   openTrophyDialog() {
     this.dialog.open(TrophyDialogComponent);
+  }
+
+  openQRCodeDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.restoreFocus = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.maxWidth = "550px";
+    dialogConfig.width = "95%"
+
+    this.dialog.open(QrCodeComponent, dialogConfig);
   }
 
   getProfile(userId: string | undefined, authToken: string | undefined) {
@@ -120,27 +162,29 @@ export class ProfileComponent implements OnInit {
   }
 
   updateProfile(userId: string | undefined, authToken: string | undefined) {
-    if (this.metadata!.user_metadata!.ayeUsername) {
-      this.profileService.updateProfilePicture(userId, authToken, this.metadata!.user_metadata!.ayeUsername);
+    if (this.ayeUser!.user_metadata!.ayeUsername) {
+      this.profileService.updateProfileUsername(userId, authToken, this.ayeUser!.user_metadata!.ayeUsername);
       this.profileChangesMade = false;
-      this.editingUsername = false;
     }
-    if (this.metadata!.user_metadata!.bio) {
-      this.profileService.updateProfileBio(userId, authToken, this.metadata!.user_metadata!.bio);
+    if (this.ayeUser!.user_metadata!.bio) {
+      this.profileService.updateProfileBio(userId, authToken, this.ayeUser!.user_metadata!.bio);
+      this.profileChangesMade = false;
+      this.editingBio = false;
+    }
+    if (this.newProfilePicUrl) {
+      this.ayeUser!.user_metadata!.profilePicUrl = this.newProfilePicUrl;
+      this.profileService.updateProfilePic(userId, authToken, this.ayeUser!.user_metadata!.profilePicUrl);
       this.profileChangesMade = false;
       this.editingBio = false;
     }
   }
 
-
-  getAllUsers(userId: string | undefined, authToken: string | undefined) {
-    this.profileService.getAllUsers(userId, authToken).subscribe((res) => {
-      console.log(res);
-    })
-  }
-
   redirectToHome() {
     this.router.navigate(['/']).then();
+  }
+
+  toStandardDate(date: Date): string {
+    return this.dateService.toStandardDate(date);
   }
 
 }
