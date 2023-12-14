@@ -1,0 +1,56 @@
+<div style="justify-content: center; display: flex;">
+  <h1 mat-dialog-title style="font-size: 26px;">Share this profile!🧙</h1>
+</div>
+
+
+<div style="justify-content: center; display: flex;">
+  <mat-divider style="width: 90%;">
+  </mat-divider>
+</div>
+
+
+<div style="justify-content: center; display: flex">
+
+  <qrcode [qrdata]="getAyeUserQRUrl()" [width]="330" [errorCorrectionLevel]="'H'"
+          imageSrc="/assets/logos/ayeapp.png" [imageWidth]="150" style="margin-left: 0; margin-right: 0;"
+          ariaLabel="AyeApp QR Code" alt="AyeApp QR Code">
+  </qrcode>
+</div>
+
+
+<div mat-dialog-content style="font-size: 26px; margin-top: 0; padding-top: 0;">
+  <div style="justify-content: center; display: flex">
+    <b>{{getAyeUserUsername()}}</b>
+  </div>
+
+</div>
+
+
+
+
+<a target="_blank"
+   aria-label="Copy link to the event to clipboard" tabindex=0 matTooltip="Copied to clipboard!"
+   #tooltip="matTooltip"
+   matTooltipPosition="below"
+   (mouseenter)="$event.stopImmediatePropagation()"
+   (mouseleave)="$event.stopImmediatePropagation()"
+   (click)="tooltip.show()"
+   style=" width: 100%;"
+   [cdkCopyToClipboard]="getAyeUserQRUrl()">
+
+  <div style="justify-content: center; display: flex">
+
+    <button mat-button
+            style="background-color: mediumpurple; width: 96%; justify-content: center; display: flex"
+            #tooltip="matTooltip"
+            matTooltip="Tap to copy to your clipboard"
+            aria-label="Show tooltip on the button at the end of this section">Copy Link🔗
+    </button>
+  </div>
+
+</a>
+
+
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close style="width: 100%; background-color: black; color: white">Close</button>
+</div>

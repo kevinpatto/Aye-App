@@ -16,7 +16,7 @@ import {Observable, of} from "rxjs";
 export class AppComponent implements OnDestroy {
   mobileQuery: MediaQueryList;
   version: string = '';
-  username$: Observable<AyeUser | undefined>;
+  ayeUser$: Observable<AyeUser | undefined>;
 
   private readonly _mobileQueryListener: () => void;
   public innerWidth?: number;
@@ -31,7 +31,7 @@ export class AppComponent implements OnDestroy {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
-    this.username$ = this.sharedDataService.ayeUser$;
+    this.ayeUser$ = this.sharedDataService.ayeUser$;
   }
 
   ngOnInit() {

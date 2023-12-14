@@ -46,6 +46,8 @@ import {MatSortModule} from "@angular/material/sort";
 import { LocationExplanationComponent } from './dialogs/location-explanation/location-explanation/location-explanation.component';
 import { UsMapModule } from 'angular-us-map';
 import { UnitedStatesMapComponent } from './united-states-map/united-states-map.component';
+import {QRCodeModule} from "angularx-qrcode";
+import { QrCodeComponent } from './dialogs/qr-code/qr-code/qr-code.component';
 
 
 @NgModule({
@@ -66,7 +68,8 @@ import { UnitedStatesMapComponent } from './united-states-map/united-states-map.
     SoftballComponent,
     StatExplanationComponent,
     LocationExplanationComponent,
-    UnitedStatesMapComponent
+    UnitedStatesMapComponent,
+    QrCodeComponent
   ],
   imports: [
     BrowserModule,
@@ -88,6 +91,7 @@ import { UnitedStatesMapComponent } from './united-states-map/united-states-map.
     CdkVirtualScrollViewport,
     CdkFixedSizeVirtualScroll,
     ScrollingModule,
+    QRCodeModule,
     AuthModule.forRoot({
       domain: environment.auth0Domain,
       clientId: environment.auth0ClientId,

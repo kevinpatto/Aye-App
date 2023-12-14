@@ -1,95 +1,61 @@
-<ng-container *ngIf="metadata; else loading">
-  <div style="display: flex; justify-content: center;margin:0;padding: 0;">
-    <mat-card style="max-width: 850px;margin:0;padding: 0;width: 100%;">
-      <mat-card-header style="width: 100%; padding: 0; margin-top: 8px;">
-        <div style="justify-content: center; display: flex; width: 100%;">
-          <mat-card-title style="width: 80%; max-width: 350px;justify-content: center; display: flex;">
-            <ng-container *ngIf="editingUsername;">
-              <mat-form-field style="width: 100%;">
-                <mat-label>Username</mat-label>
-                <input matInput [ngModel]="metadata.user_metadata.ayeUsername"
-                       (input)="changeUsername($event)">
-
-                  <button *ngIf="metadata.user_metadata.ayeUsername" matSuffix mat-icon-button aria-label="Clear"
-                          (click)="this.editingUsername = !this.editingUsername;">
-                    <mat-icon>close</mat-icon>
-                  </button>
-
-                </mat-form-field>
-                <!--              <mat-error>test</mat-error>-->
-              </ng-container>
-
-              <ng-container *ngIf="!editingUsername;">
-                <i><b style="font-size: 30px;overflow-wrap: anywhere">@{{metadata.user_metadata.ayeUsername}}
+<ng-container *ngIf="loading">
+  <div style="display: flex; justify-content: center; margin-top: 10%;">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-container>
 
 
-                  <span style="margin-left: 8px; border: 2px solid black;padding: 5px; border-radius: 10px;
-                background-color: rebeccapurple; font-size: 17px"
-                        (click)="this.editingUsername = !this.editingUsername;">✏️</span></b></i>
+<ng-container *ngIf="!loading">
+  <ng-container *ngIf="ayeUser; else noUserFound">
+    <div style="display: flex; justify-content: center;margin:0;padding: 0;">
+      <mat-card style="max-width: 850px;margin:0;padding: 0;width: 100%;">
+        <mat-card-header style="width: 100%; padding: 0; margin-top: 8px;">
+          <div style="justify-content: center; display: flex; width: 100%;">
+            <mat-card-title style="width: 80%; max-width: 350px;justify-content: center; display: flex;">
 
-              </ng-container>
+              <i><b style="font-size: 30px;overflow-wrap: anywhere">@{{ayeUser.user_metadata.ayeUsername}}</b></i>
 
             </mat-card-title>
           </div>
           <br>
         </mat-card-header>
-        <!--      <button mat-stroked-button-->
-        <!--              (click)="this.inEditMode = !this.inEditMode"-->
-        <!--              style=" width: 65%;"-->
-        <!--              #tooltip="matTooltip"-->
-        <!--              matTooltip="Tap to save your changes"-->
-        <!--              aria-label="Show tooltip on the button at the end of this section">Edit Profile-->
-        <!--      </button>-->
-        <mat-card-header style="margin-bottom: 5px;">
 
 
-          <div style="width: 100%;">
-            <div style="justify-content: center; display: flex; margin-top: 3px;">
-              <b style="font-size: 18px;">Aye Score</b>
-            </div>
-
-
-            <br>
-            <div style="justify-content: center; display: flex;">
-          <span
-            style="font-size: 30px;margin-top: 7px; font-family: 'Courier New',serif; color: #3366ff"><b>8032</b></span>
-          </div>
-        </div>
-            </div>
-          </div>
-
-
-          <div style="width:100%;">
-            <div style="justify-content: center; display: flex;font-size: 35px;margin-top: 11px;">
-              🏆
-            </div>
-            <br>
-            <div style="justify-content: center; display: flex;">
-              <span style="font-size: 30px;font-family: 'Courier New',serif; color: #3366ff"><b>2</b></span>
-            </div>
-          </div>
-        </mat-card-header>
+        <br>
+        <ng-container *ngIf="ayeUser.user_metadata.profilePicUrl; else defaultImage">
+          <img mat-card-image src="{{ayeUser.user_metadata.profilePicUrl}}"
+               (error)="handleImageError()"
+               alt="Profile picture"
+               style="border-radius: 5px; width: 95%; max-width: 750px; margin: 10px;">
+        </ng-container>
+        <ng-template #defaultImage>
+          <img mat-card-image src="/assets/images/goblin-silhouette.png"
+               alt="Profile picture"
+               style="border-radius: 5px; width: 95%; margin: 10px;">
+        </ng-template>
         <br>
 
-        <img mat-card-image src="{{metadata.user_metadata.profilePicUrl}}"
-             alt="Profile picture"
-             style="border-radius: 5px; width: 95%; max-width: 750px; margin: 10px;">
+        <mat-error *ngIf="invalidImageError"
+                   style="margin-left: 15px; margin-right: 15px; margin-bottom: 5px;">
+          Your profile picture is not a valid image. Try a different one.
+        </mat-error>
 
-        <!--      <ng-template #defaultImage>-->
-        <!--        <img mat-card-image src="https://i.insider.com/59ca65fefca6e427008b4776?width=1750&format=jpeg&auto=webp"-->
-        <!--             alt="Profile picture"-->
-        <!--             style="border-radius: 5px; width: 95%; margin: 10px;">-->
-        <!--      </ng-template>-->
-        <br>
         <mat-card-content>
           <ng-container *ngIf="editingBio; else showBio">
+
+
+            <mat-form-field style="width: 100%;">
+              <mat-label>New Profile Picture: Enter in a URL to an image</mat-label>
+              <input matInput id="newProfilePicUrl" [ngModel]="newProfilePicUrl" (input)="changeProfilePic($event)">
+            </mat-form-field>
+
             <mat-form-field style="width: 100%;">
               <mat-label>Your Bio</mat-label>
               <textarea matInput rows="2" id="bio" style="font-family: 'Cascadia Code',serif; font-size: 16px;"
-                        [ngModel]="metadata.user_metadata.bio" (input)="changeBio($event)">
+                        [ngModel]="ayeUser.user_metadata.bio" (input)="changeBio($event)">
 
               </textarea>
-              <button *ngIf="metadata.user_metadata.bio" matSuffix mat-icon-button aria-label="Clear"
+              <button *ngIf="ayeUser.user_metadata.bio" matSuffix mat-icon-button aria-label="Clear"
                       (click)="this.editingBio = !this.editingBio;">
                 <mat-icon>close</mat-icon>
               </button>
@@ -98,7 +64,7 @@
 
           <ng-template #showBio>
         <span style="font-size: 16px;font-family: 'Cascadia Code',serif">
-        {{metadata.user_metadata.bio}}<span
+        {{ayeUser.user_metadata.bio}}<span
           style="margin-left: 25px; border: 2px solid black;padding: 5px; border-radius: 10px;
                 background-color: rebeccapurple; font-size: 14px"
           (click)="this.editingBio = !this.editingBio;">✏️</span>
@@ -106,62 +72,23 @@
           </ng-template>
         </mat-card-content>
 
-
         <mat-divider style="margin-top: 18px;"></mat-divider>
-
-        <mat-card-header style="margin-left: 8px; margin-top: 8px; padding: 0">
-          <b style="font-size: 18px;">Trophy Case</b>
-
-        </mat-card-header>
-        <br>
-        <mat-card-subtitle style="padding-left: 8px; margin-bottom: 10px;">
-          Tap a trophy to see how it is earned
-        </mat-card-subtitle>
-
-        <span style="padding: 8px; margin-bottom: 10px; font-size: 30px;">
-
-          <span style="margin-left: 5px;" (click)="openTrophyDialog()">
-
-       <img
-         src="/assets/trophies/monkeytrophy.png"
-         alt="monkey trophy"/>
-          </span>
-    </span>
-
-
-        <mat-divider></mat-divider>
 
         <mat-card-actions style="display: flex;justify-content: center; align-items: center;">
 
-          <!--<div>-->
-          <a target="_blank"
-             aria-label="Copy link to the event to clipboard" tabindex=0 matTooltip="Copied to clipboard!"
-             #tooltip="matTooltip"
-             matTooltipPosition="below"
-             (mouseenter)="$event.stopImmediatePropagation()"
-             (mouseleave)="$event.stopImmediatePropagation()"
-             (click)="tooltip.show()"
-             style=" width: 100%;"
-             [cdkCopyToClipboard]="this.fullProfileUrl">
-            <button mat-stroked-button
-                    style=" width: 65%;"
 
-                    #tooltip="matTooltip"
-                    matTooltip="Tap to copy to your clipboard"
-                    aria-label="Show tooltip on the button at the end of this section">Share
-            </button>
-          </a>
-          <!--</div>-->
-          <!--        <div>-->
+          <button mat-stroked-button
+                  style=" width: 65%;"
+                  (click)="openQRCodeDialog()"
+                  #tooltip="matTooltip"
+                  matTooltip="Tap to copy to your clipboard"
+                  aria-label="Show tooltip on the button at the end of this section">Share
+          </button>
+
+
           <ng-container *ngIf="auth.user$ | async as user;">
             <ng-container *ngIf="auth.idTokenClaims$ | async as token;">
 
-              <button mat-stroked-button (click)="getAllUsers(user.sub, token.__raw)"
-                      style=" width: 65%;"
-                      #tooltip="matTooltip"
-                      matTooltip="Tap to copy to your clipboard"
-                      aria-label="Show tooltip on the button at the end of this section">Get Users
-              </button>
 
               <button mat-stroked-button
                       (click)="updateProfile(user.sub, token.__raw)"
@@ -174,22 +101,23 @@
 
             </ng-container>
           </ng-container>
-          <!--        </div>-->
-          <!--      <button mat-stroked-button style="margin-left: 10px;">Report</button>-->
-
         </mat-card-actions>
-        <mat-card-subtitle style="margin-left: 8px; margin-top: 5px;">Joined on 02/19/23</mat-card-subtitle>
+        <mat-card-subtitle style="margin-left: 8px; margin-top: 5px;">Joined
+          on {{toStandardDate(this.ayeUser!.created_at)}}</mat-card-subtitle>
       </mat-card>
     </div>
   </ng-container>
 </ng-container>
+
+
+<!-- No user found -->
 
 <ng-template #noUserFound>
   <div
     style="display: flex; justify-content: center; width: 100%; height: 90vh; margin:0; padding: 0; align-items: center">
     <mat-card style="max-width: 1150px; margin: 0; align-items: center; width: 100%; height: 100vh;">
       <div
-        style="margin-top: 15%; margin-bottom: 5%; margin-left: 5%; margin-right: 5%; font-size: 22px; display: flex; justify-content: center">
+        style="margin: 15% 5% 5%;font-size: 22px; display: flex; justify-content: center">
         <b>The user @{{profileUsername}} was not found.</b>
       </div>
 

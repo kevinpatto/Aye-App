@@ -34,9 +34,9 @@
         <!--        {{auth.idTokenClaims$}}-->
         <!--        {{user.preferred_username}}-->
 <!--        <a [routerLink]="['/profile/' + user.profile]">-->
-          <ng-container *ngIf="username$ | async as username">
+          <ng-container *ngIf="ayeUser$ | async as username">
           <button mat-icon-button aria-label="profile" role="button"
-                  matTooltip="Your profile" routerLink="/@{{username.user_metadata?.ayeUsername}}">
+                  matTooltip="Your profile" routerLink="/@{{username.user_metadata.ayeUsername}}">
             <mat-icon>child_care</mat-icon>
           </button>
           </ng-container>

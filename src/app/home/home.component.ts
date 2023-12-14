@@ -7,6 +7,7 @@ import {ProfileService} from "../services/profile.service";
 import {AuthService} from "@auth0/auth0-angular";
 import {HttpClient} from "@angular/common/http";
 import {SharedDataService} from "../services/shared-data.service";
+import {AyeUser} from "../interfaces/aye-user";
 
 @Component({
   selector: 'app-home',
@@ -24,6 +25,35 @@ export class HomeComponent implements OnInit {
     public auth: AuthService,
     private http: HttpClient
   ) {
+    this.auth.isAuthenticated$.subscribe((res) => {
+      if (res) {
+        this.sharedDataService.ayeUser$.subscribe(
+          (res) => {
+            if (res) {
+
+            } else {
+              this.auth.user$
+                .pipe(
+                  concatMap((user: any) =>
+                    this.http.get(
+                      // @ts-ignore
+                      encodeURI(`https://dev-mn6falogt3c14mat.us.auth0.com/api/v2/users/${user.sub}`)
+                    )
+                  ),
+                  tap((ayeUser: any) => {
+                      this.setAyeUser(ayeUser);
+                    }
+                  )
+                )
+                .subscribe();
+            }
+          },
+          (error) => {
+            console.log(error);
+          },
+        )
+      }
+    })
   }
 
   ngOnInit(): void {
@@ -32,52 +62,17 @@ export class HomeComponent implements OnInit {
         this.sharedDataService.isDevMode = 'true';
       }
     })
-    this.poopService.checkOnline().subscribe(res => {
-      if (!res) {
-        console.log('The web server is down!');
-        this.router.navigate(['/maintenance']).then();
-      }
-    });
-    // if (this.auth.isAuthenticated$.subscribe((res: boolean) => {
-    //     if (res) {
+
+    // first we get a management auth token if we are logged in
+    // this.auth.isAuthenticated$.subscribe((res: boolean) => {
+    //   // we are logged in
+    //   if (res) {
     //       this.getManagementAuthToken();
-    //       // this.auth.user$
-    //       //   .pipe(
-    //       //     concatMap((user: any) =>
-    //       //       this.http.get(
-    //       //         // @ts-ignore
-    //       //         encodeURI(`https://dev-mn6falogt3c14mat.us.auth0.com/api/v2/users/${user.sub}`)
-    //       //       )
-    //       //     ),
-    //       //     // @ts-ignore
-    //       //     map((user) => user['app_metadata']),
-    //       //     tap((meta) => (
-    //       //       // this.metadata = meta,
-    //       //       console.log(meta)))
-    //       //   )
-    //       //   .subscribe();
-    //       // this.auth.user$
-    //       //   .pipe(
-    //       //
-    //       //     concatMap((user) =>
-    //       //       // Use HttpClient to make the call
-    //       //       this.http.get(
-    //       //         // @ts-ignore
-    //       //         encodeURI(`https://dev-mn6falogt3c14mat.us.auth0.com/api/v2/userinfo`)
-    //       //       )
-    //       //     ),
-    //       //     // @ts-ignore
-    //       //     map((user) => user['user_metadata']),
-    //       //     tap((meta) => (this.metadata = meta, console.log(meta)))
-    //       //   )
-    //       //   .subscribe();
     //     }
     //   }
-    // ))
+    // )
 
-      this.auth.error$.subscribe(error => {
-        console.log(error);
-      });
+
 
   }
 
@@ -92,7 +87,6 @@ export class HomeComponent implements OnInit {
   getManagementAuthToken() {
     return this.sharedDataService.getManagementAuthToken().subscribe(
       (res) => {
-        // console.log(res);
         this.sharedDataService.getUser('gonah3333', res.access_token).subscribe(
           (res) => {
             console.log(res);
@@ -102,9 +96,19 @@ export class HomeComponent implements OnInit {
     );
   }
 
-
-  updateProfilePicture(userId: string | undefined, authToken: string | undefined): void {
-    // this.profileService.updateProfilePicture(userId, authToken);
+  setAyeUser(ayeUser: AyeUser) {
+    this.sharedDataService.setUser(ayeUser)
   }
+
+
+  checkOnline() {
+    this.poopService.checkOnline().subscribe(res => {
+      if (!res) {
+        console.log('The web server is down!');
+        this.router.navigate(['/maintenance']).then();
+      }
+    });
+  }
+
 
 }
